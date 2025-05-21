@@ -1,6 +1,7 @@
-[gd_scene load_steps=9 format=3 uid="uid://c281hy8xkfmy8"]
+[gd_scene load_steps=10 format=3 uid="uid://c281hy8xkfmy8"]
 
 [ext_resource type="Script" uid="uid://bcf5blxba8qs3" path="res://Player/Player.cs" id="1_3qydi"]
+[ext_resource type="Script" uid="uid://dab71drloq38v" path="res://Player/CameraArm.cs" id="2_q3lat"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_l2ndj"]
 
@@ -47,6 +48,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_xhfnw")
 
 [node name="Camera_Arm" type="Node3D" parent="."]
+script = ExtResource("2_q3lat")
 
 [node name="Camera3D" type="Camera3D" parent="Camera_Arm"]
 transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 15, 11)

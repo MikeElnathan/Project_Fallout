@@ -3,6 +3,20 @@
 [ext_resource type="Texture2D" uid="uid://nswxg70f8khl" path="res://Trial/Prototyping Texture/Green/texture_01.png" id="1_l5x72"]
 [ext_resource type="PackedScene" uid="uid://c281hy8xkfmy8" path="res://Player/Player.tscn" id="2_sr8x4"]
 
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_sr8x4"]
+
+[sub_resource type="Sky" id="Sky_1k5sn"]
+sky_material = SubResource("ProceduralSkyMaterial_sr8x4")
+
+[sub_resource type="Environment" id="Environment_sr8x4"]
+background_mode = 2
+background_energy_multiplier = 3.0
+sky = SubResource("Sky_1k5sn")
+
+[sub_resource type="CameraAttributesPhysical" id="CameraAttributesPhysical_1k5sn"]
+
+[sub_resource type="Compositor" id="Compositor_6h17f"]
+
 [sub_resource type="PlaneMesh" id="PlaneMesh_sr8x4"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1k5sn"]
@@ -12,20 +26,12 @@ uv1_scale = Vector3(100, 100, 100)
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_sr8x4"]
 points = PackedVector3Array(-1, 0, -1, -1, 0, 1, 1, 0, -1, 1, 0, 1)
 
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_sr8x4"]
-
-[sub_resource type="Sky" id="Sky_1k5sn"]
-sky_material = SubResource("ProceduralSkyMaterial_sr8x4")
-
-[sub_resource type="Environment" id="Environment_sr8x4"]
-background_mode = 2
-sky = SubResource("Sky_1k5sn")
-
-[sub_resource type="CameraAttributesPhysical" id="CameraAttributesPhysical_1k5sn"]
-
-[sub_resource type="Compositor" id="Compositor_6h17f"]
-
 [node name="Trial_Level_1" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_sr8x4")
+camera_attributes = SubResource("CameraAttributesPhysical_1k5sn")
+compositor = SubResource("Compositor_6h17f")
 
 [node name="Floor" type="MeshInstance3D" parent="."]
 transform = Transform3D(100, 0, 0, 0, 100, 0, 0, 0, 100, 0, 0, 0)
@@ -36,11 +42,6 @@ surface_material_override/0 = SubResource("StandardMaterial3D_1k5sn")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Floor/StaticBody3D"]
 shape = SubResource("ConvexPolygonShape3D_sr8x4")
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_sr8x4")
-camera_attributes = SubResource("CameraAttributesPhysical_1k5sn")
-compositor = SubResource("Compositor_6h17f")
 
 [node name="CharacterBody3D" parent="." instance=ExtResource("2_sr8x4")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 20.2807, 0)
