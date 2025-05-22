@@ -19,7 +19,12 @@ public partial class CameraArm : Node3D
         {
             if (Input.IsActionPressed("Orbit_Camera"))
             {
-                GD.Print("Mouse moved: ", mouseMotion.Relative);
+                orbit_angle += mouseMotion.Relative.X;
+            }
+
+            if (orbit_angle > 0 || orbit_angle < 0)
+            {
+                RotationDegrees = new Vector3(GlobalRotationDegrees.X, orbit_angle, RotationDegrees.Z);
             }
         }
     }
