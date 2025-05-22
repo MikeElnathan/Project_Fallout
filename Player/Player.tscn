@@ -24,7 +24,7 @@ albedo_color = Color(1.15514e-06, 0.478046, 0.358986, 1)
 script = ExtResource("1_3qydi")
 
 [node name="Mesh" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.773607, 0)
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0.773607, 0)
 
 [node name="Head" type="MeshInstance3D" parent="Mesh"]
 transform = Transform3D(1, 0, 0, 0, 0.914197, 0, 0, 0, 0.844724, 0, 1.67289, 0)
@@ -33,13 +33,13 @@ skeleton = NodePath("../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_l2ndj")
 
 [node name="Body" type="MeshInstance3D" parent="Mesh"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.226393, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.237555, 0)
 mesh = SubResource("CapsuleMesh_0rwas")
 skeleton = NodePath("../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_3qydi")
 
 [node name="Nose" type="MeshInstance3D" parent="Mesh"]
-transform = Transform3D(0.638063, 0, 0, 0, 0.242213, 0, 0, 0, 0.690875, 0, 1.74398, 0.207644)
+transform = Transform3D(0.638063, 0, 0, 0, 0.242213, 0, 0, 0, 0.690875, 0, 1.74398, 0.246831)
 mesh = SubResource("BoxMesh_l2ndj")
 surface_material_override/0 = SubResource("StandardMaterial3D_q3lat")
 

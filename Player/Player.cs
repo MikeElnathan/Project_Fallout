@@ -1,12 +1,13 @@
 using Godot;
 using System;
+using System.Numerics;
 
 public partial class Player : CharacterBody3D
 {
     private float speed = 10.0f;
     private float MESH_OFFSET = 0.0f;
 
-    private Vector3 _velocity;
+    private Godot.Vector3 _velocity;
     private float jump_gravity;
     private float jump_velocity;
     private float fall_gravity;
@@ -16,10 +17,14 @@ public partial class Player : CharacterBody3D
     private float time_to_fall = 0.5f;
 
     private Node3D visual_mesh;
+    private Camera3D camera;
 
     public override void _Ready()
     {
         MotionMode = CharacterBody3D.MotionModeEnum.Grounded;
+
+        camera = GetNode<Camera3D>("Camera_Arm/Camera3D");
+
         visual_mesh = GetNode<Node3D>("Mesh");
 
         jump_velocity = (2.0f * jump_height) / time_to_peak;
@@ -40,7 +45,7 @@ public partial class Player : CharacterBody3D
     private void Keyboard_move()
     {
         var input_dir = Input.GetVector("Left", "Right", "Forward", "Backward");
-        Vector3 dir = (Transform.Basis * new Vector3(input_dir.X, 0, input_dir.Y)).Normalized();
+        var dir = (Transform.Basis * new Godot.Vector3(input_dir.X, 0, input_dir.Y));
         if (IsOnFloor())
         {
             _velocity = dir;
@@ -49,21 +54,25 @@ public partial class Player : CharacterBody3D
 
     private void Turn_player()
     {
-        if (Velocity.Length() > 0.1)
-        {
-            Vector3 move_dir = Velocity;
-            move_dir.Y = 0.0f;
-            if (move_dir.Length() > 0.1)
-            {
-                float target_angle = (float)Math.Atan2(move_dir.X, move_dir.Z) + MESH_OFFSET;
-                visual_mesh.Rotation = new Vector3(visual_mesh.Rotation.X, Mathf.LerpAngle(visual_mesh.Rotation.Y, target_angle, 0.3f), visual_mesh.Rotation.Z);
-            }
-        }
+        Godot.Vector3 camera_forward = camera.GlobalTransform.Basis.Z;
+        camera_forward.Y = 0.0f;
+        camera_forward = camera_forward.Normalized();
+
+        Godot.Vector3 target_position = GlobalTransform.Origin - camera_forward;
+        GD.Print("target_position: ", target_position, ", camera_forward: ", camera_forward);
+
+        LookAt(target_position, Godot.Vector3.Up);
     }
 
     public override void _Input(InputEvent @event)
     {
-
+        if (@event is InputEventKey)
+        {
+            if (Input.IsActionPressed("Forward") || Input.IsActionPressed("Backward") || Input.IsActionPressed("Left") || Input.IsActionPressed("Right"))
+            {
+                Turn_player();
+            }
+        }
     }
 
     private void Handle_jump(double delta)
@@ -81,9 +90,8 @@ public partial class Player : CharacterBody3D
         Keyboard_move();
         Handle_jump(delta);
 
-        Velocity = new Vector3(_velocity.X * speed, _velocity.Y, _velocity.Z * speed);
+        Velocity = new Godot.Vector3(_velocity.X * speed, _velocity.Y, _velocity.Z * speed);
 
-        Turn_player();
         MoveAndSlide();
     }
 
