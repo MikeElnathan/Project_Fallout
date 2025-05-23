@@ -5,7 +5,7 @@ using System.Numerics;
 public partial class Player : CharacterBody3D
 {
     private float speed = 10.0f;
-    private float MESH_OFFSET = 90.0f;
+    private float MESH_OFFSET = 0.0f;
 
     private Godot.Vector3 _velocity;
     private float jump_gravity;
@@ -70,22 +70,6 @@ public partial class Player : CharacterBody3D
         else
         {
             _velocity = Godot.Vector3.Zero;
-        }
-
-        Turn_player_relative_to_key();
-    }
-
-    private void Turn_player_relative_to_key()
-    {
-        if (Velocity.Length() > 0)
-        {
-            Godot.Vector3 move_dir = Velocity;
-            move_dir.Y = 0.0f;
-            if (move_dir.Length() > 0.1)
-            {
-                float target_angle = Mathf.Atan2(move_dir.X, move_dir.Z) + MESH_OFFSET;
-                visual_mesh.Rotation = new Godot.Vector3(Rotation.X, Mathf.LerpAngle(Rotation.Y, target_angle, 0.15f), Rotation.Z);
-            }
         }
     }
 
