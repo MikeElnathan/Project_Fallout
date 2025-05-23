@@ -21,34 +21,37 @@ albedo_color = Color(1.15514e-06, 0.478046, 0.358986, 1)
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_xhfnw"]
 
 [node name="Player" type="CharacterBody3D"]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, 0)
 script = ExtResource("1_3qydi")
 
-[node name="Mesh" type="Node3D" parent="."]
-transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0.773607, 0)
+[node name="CameraAndMesh" type="Node3D" parent="."]
 
-[node name="Head" type="MeshInstance3D" parent="Mesh"]
+[node name="Mesh" type="Node3D" parent="CameraAndMesh"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.767051, 0)
+
+[node name="Head" type="MeshInstance3D" parent="CameraAndMesh/Mesh"]
 transform = Transform3D(1, 0, 0, 0, 0.914197, 0, 0, 0, 0.844724, 0, 1.67289, 0)
 mesh = SubResource("SphereMesh_l2ndj")
-skeleton = NodePath("../..")
+skeleton = NodePath("../../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_l2ndj")
 
-[node name="Body" type="MeshInstance3D" parent="Mesh"]
+[node name="Body" type="MeshInstance3D" parent="CameraAndMesh/Mesh"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.237555, 0)
 mesh = SubResource("CapsuleMesh_0rwas")
-skeleton = NodePath("../..")
+skeleton = NodePath("../../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_3qydi")
 
-[node name="Nose" type="MeshInstance3D" parent="Mesh"]
+[node name="Nose" type="MeshInstance3D" parent="CameraAndMesh/Mesh"]
 transform = Transform3D(0.638063, 0, 0, 0, 0.242213, 0, 0, 0, 0.690875, 0, 1.74398, 0.246831)
 mesh = SubResource("BoxMesh_l2ndj")
 surface_material_override/0 = SubResource("StandardMaterial3D_q3lat")
 
+[node name="Camera_Arm" type="Node3D" parent="CameraAndMesh"]
+script = ExtResource("2_q3lat")
+
+[node name="Camera3D" type="Camera3D" parent="CameraAndMesh/Camera_Arm"]
+transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 15, 11)
+
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_xhfnw")
-
-[node name="Camera_Arm" type="Node3D" parent="."]
-script = ExtResource("2_q3lat")
-
-[node name="Camera3D" type="Camera3D" parent="Camera_Arm"]
-transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 15, 11)
