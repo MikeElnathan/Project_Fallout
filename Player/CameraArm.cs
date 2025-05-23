@@ -11,12 +11,16 @@ public partial class CameraArm : Node3D
     private float deadzone = 0.5f;
 
     private float zoom = 0.0f;
+    private float zoom_value = 2.0f;
     private float zoom_min = 30.0f;
-    private float zoom_max = 75.0f; 
+    private float zoom_max = 75.0f;
+
+    private Camera3D camera;
 
     public override void _Ready()
     {
         current_yaw = RotationDegrees.Y;
+        camera = GetChild<Camera3D>(0);
     }
 
     public override void _Input(InputEvent @event)
@@ -31,19 +35,21 @@ public partial class CameraArm : Node3D
                 }
             }
         }
-        if (@event is InputEventMouseButton)
+        if (@event is InputEventMouseButton mouseButton)
         {
-            if (Input.IsMouseButtonPressed(MouseButton.WheelUp))
+            if (mouseButton.ButtonIndex == MouseButton.WheelUp)
             {
-
+                zoom -= zoom_value;
+                GD.Print("wheel up");
             }
-            if (Input.IsMouseButtonPressed(MouseButton.WheelDown))
+            if (mouseButton.ButtonIndex == MouseButton.WheelDown)
             {
-
+                zoom += zoom_value;
+                GD.Print("wheel down");
             }
+            zoom = Mathf.Clamp(zoom, zoom_min, zoom_max);
+            camera.Fov = Mathf.Lerp(camera.Fov, zoom, 1.0f);
         }
-
-
     }
 
     public override void _PhysicsProcess(double delta)

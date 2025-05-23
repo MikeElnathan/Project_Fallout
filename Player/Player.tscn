@@ -51,6 +51,7 @@ script = ExtResource("2_q3lat")
 
 [node name="Camera3D" type="Camera3D" parent="CameraAndMesh/Camera_Arm"]
 transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 15, 11)
+size = 14.513
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.983849, 0)
