@@ -58,3 +58,11 @@ size = 14.513
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.983849, 0)
 shape = SubResource("CapsuleShape3D_xhfnw")
+
+[node name="StateMachine" type="Node3D" parent="."]
+
+[node name="Walk" type="Node3D" parent="StateMachine"]
+
+[node name="Jump" type="Node3D" parent="StateMachine"]
+
+[node name="Run" type="Node3D" parent="StateMachine"]
