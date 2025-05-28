@@ -7,13 +7,22 @@ public partial class StateMachine : Node3D
     private State currentState;
     private Dictionary<string, State> states = new();
 
-    public void addState(string name, State state)
+    public override void _Ready()
     {
-        if (!states.ContainsKey(name))
+        base._Ready();
+    }
+
+    private void GetAllStates()
+    {
+        foreach (Node child in GetChildren())
         {
-            states.Add(name, state);
+            if (child is State)
+            {
+                //add children
+            }
         }
     }
+
     public void changeState(string name)
     {
         if (!states.ContainsKey(name)) { return; }
