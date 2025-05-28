@@ -7,8 +7,10 @@ public partial class CameraArm : Node3D
     private float orbit_sensitivity = 6.5f;
 
     private float orbit_velocity = 0.0f;
+    private float vertical_velocity = 0.0f;
     private float current_yaw = 0.0f;
-    private float deadzone = 0.5f;
+    private float current_pitch = 0.0f;
+    private float deadzone = 1.5f;
 
     private float zoom = 45.0f;
     private float zoom_value = 2.0f;
@@ -35,6 +37,10 @@ public partial class CameraArm : Node3D
                 {
                     orbit_velocity -= mouseMotion.Relative.X * orbit_sensitivity;
                 }
+                if (Math.Abs(mouseMotion.Relative.Y) > deadzone)
+                {
+                    vertical_velocity -= mouseMotion.Relative.Y * orbit_sensitivity;
+                }
             }
         }
         if (@event is InputEventMouseButton mouseButton)
@@ -42,12 +48,10 @@ public partial class CameraArm : Node3D
             if (mouseButton.ButtonIndex == MouseButton.WheelUp)
             {
                 zoom -= zoom_value;
-                GD.Print("wheel up");
             }
             if (mouseButton.ButtonIndex == MouseButton.WheelDown)
             {
                 zoom += zoom_value;
-                GD.Print("wheel down");
             }
             zoom = Mathf.Clamp(zoom, zoom_min, zoom_max);
         }
@@ -58,9 +62,14 @@ public partial class CameraArm : Node3D
         // orbit camera
         current_yaw += orbit_velocity * (float)delta;
 
-        RotationDegrees = new Godot.Vector3(RotationDegrees.X, current_yaw, RotationDegrees.Z);
+
+        current_pitch += vertical_velocity * (float)delta;
+        current_pitch = Mathf.Clamp(current_pitch, 0.0f, 45.0f);
+
+        RotationDegrees = new Godot.Vector3(current_pitch, current_yaw, RotationDegrees.Z);
 
         orbit_velocity *= 0.55f;
+        vertical_velocity *= 0.55f;
         //
         // Zoom camera
         target_zoom = Mathf.Lerp(zoom, target_zoom, 0.85f);

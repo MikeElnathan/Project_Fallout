@@ -49,12 +49,10 @@ public partial class Player : CharacterBody3D
             if (keyEvent.Pressed && Input.IsActionJustPressed("Run"))
             {
                 speed = run_speed;
-                GD.Print("run_speed");
             }
             else if (!keyEvent.Pressed && Input.IsActionJustReleased("Run"))
             {
                 speed = walk_speed;
-                GD.Print("walk_speed");
             }
 
         }
