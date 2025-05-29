@@ -1,14 +1,9 @@
 using Godot;
 
-public abstract class State
+public abstract partial class State: Node3D
 {
-    protected Node owner;
-
-    public State(Node owner)
-    {
-        this.owner = owner;
-    }
-
+    public StateMachine _stateMachine;
+    public State() { }
     public virtual void Enter() { }
     public virtual void Exit() { }
     public virtual void Update(double delta) { }

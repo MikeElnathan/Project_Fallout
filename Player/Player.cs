@@ -35,7 +35,6 @@ public partial class Player : CharacterBody3D
 
         Jump_Physics();
     }
-
     private void Jump_Physics()
     {
         jump_velocity = (2.0f * jump_height) / time_to_peak;
@@ -57,12 +56,10 @@ public partial class Player : CharacterBody3D
 
         }
     }
-
     private float return_gravity()
     {
         return Velocity.Y > 0.0f ? jump_gravity : fall_gravity;
     }
-
     private void jump()
     {
         Velocity = new Godot.Vector3(Velocity.X, jump_velocity, Velocity.Z);

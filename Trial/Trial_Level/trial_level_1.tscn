@@ -1,6 +1,7 @@
-[gd_scene load_steps=19 format=3 uid="uid://b6pm128jm2v3p"]
+[gd_scene load_steps=20 format=3 uid="uid://b6pm128jm2v3p"]
 
 [ext_resource type="Texture2D" uid="uid://c0pv7v10vbq4i" path="res://Trial/Prototyping Texture/Dark/texture_01.png" id="1_sr8x4"]
+[ext_resource type="Script" uid="uid://shf2yw2tehth" path="res://Trial/Trial_Level/FPS_Counter.cs" id="1_w8ukd"]
 [ext_resource type="Texture2D" uid="uid://dcv73mlqf3pau" path="res://Trial/Prototyping Texture/Orange/texture_10.png" id="2_1k5sn"]
 [ext_resource type="PackedScene" uid="uid://c281hy8xkfmy8" path="res://Player/Player.tscn" id="2_sr8x4"]
 [ext_resource type="Texture2D" uid="uid://doyx15g3qdj70" path="res://Trial/Prototyping Texture/Red/texture_09.png" id="3_6h17f"]
@@ -47,6 +48,20 @@ uv1_scale = Vector3(10, 30, 10)
 data = PackedVector3Array(-0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, -0.5)
 
 [node name="Trial_Level_1" type="Node3D"]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Label" type="Label" parent="CanvasLayer"]
+anchors_preset = -1
+anchor_left = 0.024
+anchor_top = 0.035
+anchor_right = 0.024
+anchor_bottom = 0.035
+offset_left = -19.08
+offset_top = -11.8
+offset_right = 109.92
+offset_bottom = 34.2
+script = ExtResource("1_w8ukd")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_sr8x4")
