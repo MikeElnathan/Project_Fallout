@@ -3,6 +3,7 @@ using System;
 
 public partial class Player : CharacterBody3D
 {
+    private SignalBus signalBus;
     private float speed;
     private float run_speed = 10.0f;
     private float walk_speed = 6.0f;
@@ -33,7 +34,11 @@ public partial class Player : CharacterBody3D
 
         speed = walk_speed;
 
+        signalBus = SignalBus.Instance;
+        signalBus.EmitPlayerSignal(SignalBus.ActionType.Idle);
+
         Jump_Physics();
+
     }
     private void Jump_Physics()
     {
@@ -53,7 +58,6 @@ public partial class Player : CharacterBody3D
             {
                 speed = walk_speed;
             }
-
         }
     }
     private float return_gravity()

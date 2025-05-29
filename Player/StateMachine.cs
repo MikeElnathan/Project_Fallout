@@ -4,7 +4,7 @@ using System.Collections.Generic;
 public partial class StateMachine : Node3D
 {
     private State currentState;
-    private StateMachine _stateMachine;
+    public StateMachine _stateMachine { get; set; }
     private SignalBus signalBus;
     private Dictionary<string, State> _states = new();
 
@@ -12,11 +12,12 @@ public partial class StateMachine : Node3D
     {
         signalBus = SignalBus.Instance;
         ReadSignal();
+        GetAllStates();
     }
 
     private void GetAllStates()
     {
-        foreach (Node3D child in GetChildren())
+        foreach (Node child in GetChildren())
         {
             if (child is State state)
             {
@@ -26,10 +27,7 @@ public partial class StateMachine : Node3D
             }
         }
 
-        if (_states.Count == 0)
-        {
-            //warning here
-        }
+        GD.Print(_states);
     }
 
     private void changeState(string name)
