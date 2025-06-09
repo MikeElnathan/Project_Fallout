@@ -1,8 +1,11 @@
 using Godot;
-using System;
 
 public partial class Idle : State
 {
+    public override void _Ready()
+    {
+    }
+
     public override void Enter()
     {
         GD.Print("Idle State entered");

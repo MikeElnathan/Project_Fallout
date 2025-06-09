@@ -32,6 +32,8 @@ public partial class StateMachine : Node3D
 
     private void changeState(string name)
     {
+        if (currentState?.Name == name) return;
+
         if (_states.TryGetValue(name, out var newState))
         {
             currentState?.Exit();

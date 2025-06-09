@@ -7,9 +7,11 @@ public partial class Player : CharacterBody3D
     private float speed;
     private float run_speed = 10.0f;
     private float walk_speed = 6.0f;
+    private bool Run = false;
     private Godot.Vector3 move_dir = Godot.Vector3.Zero;
     private Godot.Vector2 input_dir = Godot.Vector2.Zero;
     private Godot.Vector3 target_velocity = Godot.Vector3.Zero;
+    //private Godot.Vector3 horizontal_velocity;
     private float rotation_speed = 8.0f;
     private float move_damping = 25.0f;
 
@@ -53,10 +55,12 @@ public partial class Player : CharacterBody3D
             if (keyEvent.Pressed && Input.IsActionJustPressed("Run"))
             {
                 speed = run_speed;
+                Run = !Run;
             }
             else if (!keyEvent.Pressed && Input.IsActionJustReleased("Run"))
             {
                 speed = walk_speed;
+                Run = !Run;
             }
         }
     }
@@ -133,11 +137,31 @@ public partial class Player : CharacterBody3D
             Velocity = new Godot.Vector3(Velocity.X, 0.0f, Velocity.Z);
         }
     }
+    private void State_Signal_Sender()
+    {
+        if (target_velocity.Length() > 0)
+        {
+            if (Run)
+            {
+                signalBus.EmitPlayerSignal(SignalBus.ActionType.Run);
+            }
+            else
+            {
+                signalBus.EmitPlayerSignal(SignalBus.ActionType.Walk);
+            }
+        }
+        else
+        {
+            signalBus.EmitPlayerSignal(SignalBus.ActionType.Idle);
+        }
+    }
+
     public override void _PhysicsProcess(double delta)
     {
         Keyboard_move();
         Handle_Movement(delta);
         Handle_jump(delta);
+        State_Signal_Sender();
 
         MoveAndSlide();
     }
