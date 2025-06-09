@@ -8,6 +8,7 @@ public partial class Player : CharacterBody3D
     private float run_speed = 10.0f;
     private float walk_speed = 6.0f;
     private bool Run = false;
+    private bool Jump = false;
     private Godot.Vector3 move_dir = Godot.Vector3.Zero;
     private Godot.Vector2 input_dir = Godot.Vector2.Zero;
     private Godot.Vector3 target_velocity = Godot.Vector3.Zero;
@@ -128,12 +129,14 @@ public partial class Player : CharacterBody3D
         if (Input.IsActionJustPressed("Jump") && IsOnFloor())
         {
             jump();
+            Jump = true;
             Godot.Vector3 jump_momentum = move_dir * speed * 0.1f;
             Velocity = new Godot.Vector3(Velocity.X + jump_momentum.X, Velocity.Y, Velocity.Z + jump_momentum.Z);
         }
 
         if (IsOnFloor() && Velocity.Y < 0.0f)
         {
+            Jump = false;
             Velocity = new Godot.Vector3(Velocity.X, 0.0f, Velocity.Z);
         }
     }
@@ -153,6 +156,10 @@ public partial class Player : CharacterBody3D
         else
         {
             signalBus.EmitPlayerSignal(SignalBus.ActionType.Idle);
+        }
+        if (Jump)
+        {
+            signalBus.EmitPlayerSignal(SignalBus.ActionType.Jump);
         }
     }
 
