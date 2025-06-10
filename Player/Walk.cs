@@ -3,9 +3,12 @@ using System;
 
 public partial class Walk : State
 {
+    
+
     public override void Enter()
     {
         GD.Print("Walk State entered");
+        animationPlayer.Play("Walk");
     }
     public override void Exit()
     {

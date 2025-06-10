@@ -3,10 +3,11 @@ using System;
 
 public partial class Jump : State
 {
-    
+
     public override void Enter()
     {
         GD.Print("Jump State entered");
+        animationPlayer.Play("Jumping");
     }
     public override void Exit()
     {

@@ -14,10 +14,13 @@ public partial class SignalBus : Node3D
 
     public override void _Ready()
     {
-        if (_instance == null)
+        //return a single instance of this class unless it's not null
+        if (_instance != null && _instance != this)
         {
-            _instance = this;
+            QueueFree();
+            return;
         }
+        _instance = this;
     }
 
     //Basic Player Movement

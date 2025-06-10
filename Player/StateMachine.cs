@@ -7,6 +7,7 @@ public partial class StateMachine : Node3D
     public StateMachine _stateMachine { get; set; }
     private SignalBus signalBus;
     private Dictionary<string, State> _states = new();
+    private AnimationPlayer animationPlayer;
 
     public override void _Ready()
     {
@@ -17,6 +18,8 @@ public partial class StateMachine : Node3D
 
     private void GetAllStates()
     {
+        animationPlayer = PlayerAnimation.Anim_Instance;
+
         foreach (Node child in GetChildren())
         {
             if (child is State state)
@@ -24,10 +27,9 @@ public partial class StateMachine : Node3D
                 _states[child.Name] = state;
                 state.Owner = GetParent();
                 state._stateMachine = this;
+                state.InjectDependencies(animationPlayer);
             }
         }
-
-        GD.Print(_states);
     }
 
     private void changeState(string name)

@@ -3,10 +3,11 @@ using System;
 
 public partial class Run : State
 {
-    
+
     public override void Enter()
     {
         GD.Print("Run State entered");
+        animationPlayer.Play("Run");
     }
     public override void Exit()
     {

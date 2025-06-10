@@ -157,6 +157,7 @@ public partial class Player : CharacterBody3D
         {
             signalBus.EmitPlayerSignal(SignalBus.ActionType.Idle);
         }
+        
         if (Jump)
         {
             signalBus.EmitPlayerSignal(SignalBus.ActionType.Jump);
