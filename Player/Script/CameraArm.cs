@@ -10,6 +10,8 @@ public partial class CameraArm : Node3D
     private float vertical_velocity = 0.0f;
     private float current_yaw = 0.0f;
     private float current_pitch = 0.0f;
+    private float min_pitch = 0.0f;
+    private float max_pitch = 25.0f;
     private float deadzone = 1.5f;
 
     private float zoom = 45.0f;
@@ -64,7 +66,7 @@ public partial class CameraArm : Node3D
 
 
         current_pitch += vertical_velocity * (float)delta;
-        current_pitch = Mathf.Clamp(current_pitch, 0.0f, 15.0f);
+        current_pitch = Mathf.Clamp(current_pitch, min_pitch, max_pitch);
 
         RotationDegrees = new Godot.Vector3(current_pitch, current_yaw, RotationDegrees.Z);
 

@@ -12,7 +12,6 @@ public partial class Player : CharacterBody3D
     private Godot.Vector3 move_dir = Godot.Vector3.Zero;
     private Godot.Vector2 input_dir = Godot.Vector2.Zero;
     private Godot.Vector3 target_velocity = Godot.Vector3.Zero;
-    //private Godot.Vector3 horizontal_velocity;
     private float rotation_speed = 8.0f;
     private float move_damping = 25.0f;
 
@@ -26,6 +25,9 @@ public partial class Player : CharacterBody3D
 
     private Node3D visual_mesh;
     private Camera3D camera;
+
+    private SignalBus.ActionType current_action;
+    private SignalBus.ActionType new_action;
 
     public override void _Ready()
     {
@@ -41,7 +43,6 @@ public partial class Player : CharacterBody3D
         signalBus.EmitPlayerSignal(SignalBus.ActionType.Idle);
 
         Jump_Physics();
-
     }
     private void Jump_Physics()
     {
@@ -119,7 +120,6 @@ public partial class Player : CharacterBody3D
         {
             horizontal_velocity = horizontal_velocity.MoveToward(Godot.Vector3.Zero, move_damping * (float)delta);
         }
-
         Velocity = new Godot.Vector3(horizontal_velocity.X, Velocity.Y, horizontal_velocity.Z);
     }
     private void Handle_jump(double delta)
@@ -144,26 +144,24 @@ public partial class Player : CharacterBody3D
     {
         if (target_velocity.Length() > 0)
         {
-            if (Run)
-            {
-                signalBus.EmitPlayerSignal(SignalBus.ActionType.Run);
-            }
-            else
-            {
-                signalBus.EmitPlayerSignal(SignalBus.ActionType.Walk);
-            }
+            new_action = Run ? SignalBus.ActionType.Run : SignalBus.ActionType.Walk;
         }
         else
         {
-            signalBus.EmitPlayerSignal(SignalBus.ActionType.Idle);
+            new_action = SignalBus.ActionType.Idle;
         }
-        
+
         if (Jump)
         {
-            signalBus.EmitPlayerSignal(SignalBus.ActionType.Jump);
+            new_action = SignalBus.ActionType.Jump;
+        }
+
+        if (new_action != current_action)
+        {
+            signalBus.EmitPlayerSignal(new_action);
+            current_action = new_action;
         }
     }
-
     public override void _PhysicsProcess(double delta)
     {
         Keyboard_move();
