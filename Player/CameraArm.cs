@@ -64,7 +64,7 @@ public partial class CameraArm : Node3D
 
 
         current_pitch += vertical_velocity * (float)delta;
-        current_pitch = Mathf.Clamp(current_pitch, 0.0f, 45.0f);
+        current_pitch = Mathf.Clamp(current_pitch, 0.0f, 15.0f);
 
         RotationDegrees = new Godot.Vector3(current_pitch, current_yaw, RotationDegrees.Z);
 

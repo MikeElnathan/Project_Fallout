@@ -11,7 +11,7 @@ public partial class Idle : State
     public override void Enter()
     {
         GD.Print("Idle State entered");
-        animationPlayer.Play("Idle");
+        animationPlayer.Play("Idle", customBlend: 0.2f);
     }
     public override void Exit()
     {

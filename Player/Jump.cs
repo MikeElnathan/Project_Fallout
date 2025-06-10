@@ -7,7 +7,7 @@ public partial class Jump : State
     public override void Enter()
     {
         GD.Print("Jump State entered");
-        animationPlayer.Play("Jumping");
+        animationPlayer.Play("Jumping", customBlend: 0.2f);
     }
     public override void Exit()
     {
