@@ -41,7 +41,6 @@ public partial class Noel : CharacterBody3D
     {
         PlayerPosition = Player.GlobalPosition;
         DistanceToPlayer = GlobalPosition.DistanceTo(PlayerPosition);
-        GD.Print("Distance to player: ", DistanceToPlayer);
         CheckDistance();
 
         if (followPlayer)
