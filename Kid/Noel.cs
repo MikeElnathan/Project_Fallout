@@ -8,25 +8,30 @@ public partial class Noel : CharacterBody3D
     private float DistanceToPlayer;
     private float MaxDistance;
     private float Speed;
+    private bool followPlayer;
 
     public override void _Ready()
     {
         Player = GetTree().GetFirstNodeInGroup("Player") as CharacterBody3D;
         //Temporary value assignment. Later, to be manipulated by behavior tree
-        MaxDistance = 5.0f;
-        Speed = 100.0f;
+        MaxDistance = 3.0f;
+        Speed = 200.0f;
     }
-    private void FollowPlayer(double _delta)
+    private void CheckDistance()
     {
         if (DistanceToPlayer > MaxDistance)
         {
-            Vector3 Direction = (PlayerPosition - GlobalPosition).Normalized();
-            Velocity = Direction * Speed * (float)_delta;
+            followPlayer = true;
         }
-        else
+        if (DistanceToPlayer < 2.0f)
         {
-            Velocity = Vector3.Zero;
+            followPlayer = false;
         }
+    }
+    private void FollowPlayer(double _delta)
+    {
+        Vector3 Direction = (PlayerPosition - GlobalPosition).Normalized();
+        Velocity = Direction * Speed * (float)_delta;
     }
     public override void _Process(double delta)
     {
@@ -37,8 +42,17 @@ public partial class Noel : CharacterBody3D
         PlayerPosition = Player.GlobalPosition;
         DistanceToPlayer = GlobalPosition.DistanceTo(PlayerPosition);
         GD.Print("Distance to player: ", DistanceToPlayer);
+        CheckDistance();
 
-        FollowPlayer(delta);
+        if (followPlayer)
+        {
+            FollowPlayer(delta);
+        }
+        else
+        {
+            Velocity = Vector3.Zero;
+        }
+
         MoveAndSlide();
     }
 
