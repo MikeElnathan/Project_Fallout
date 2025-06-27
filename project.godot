@@ -11,13 +11,9 @@ config_version=5
 [application]
 
 config/name="Project_Fallout"
-run/main_scene="uid://b6pm128jm2v3p"
+run/main_scene="uid://osrdiegg4l4k"
 config/features=PackedStringArray("4.4", "C#", "Forward Plus")
 config/icon="res://icon.svg"
-
-[autoload]
-
-BlackBoardPlayer="*res://Blackboard/Player/BlackBoard_Player.cs"
 
 [display]
 

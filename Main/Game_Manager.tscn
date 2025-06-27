@@ -1,5 +1,12 @@
-[gd_scene format=3 uid="uid://osrdiegg4l4k"]
+[gd_scene load_steps=3 format=3 uid="uid://osrdiegg4l4k"]
+
+[ext_resource type="Script" uid="uid://cloxkveqcd0lw" path="res://Main/GameManager.cs" id="1_5akj2"]
+[ext_resource type="Script" uid="uid://xlocdf2fwjlb" path="res://Blackboard/Player/BlackBoard_Player.cs" id="1_bbwkg"]
 
 [node name="Game_Manager" type="Node3D"]
+script = ExtResource("1_5akj2")
 
 [node name="BlackBoard" type="Node3D" parent="."]
+
+[node name="Player_BlackBoard" type="Node3D" parent="BlackBoard"]
+script = ExtResource("1_bbwkg")

@@ -3,8 +3,6 @@ using System;
 
 public partial class Walk : State
 {
-    
-
     public override void Enter()
     {
         GD.Print("Walk State entered");
