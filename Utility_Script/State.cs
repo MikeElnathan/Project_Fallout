@@ -2,7 +2,7 @@ using Godot;
 
 public abstract partial class State: Node3D
 {
-    public StateMachine _stateMachine;
+    public BaseStateMachine _stateMachine;
     protected AnimationPlayer animationPlayer;
     public State() { }
     public void InjectDependencies(AnimationPlayer animationPlayer)
