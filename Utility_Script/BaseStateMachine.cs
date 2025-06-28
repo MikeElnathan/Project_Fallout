@@ -31,6 +31,7 @@ public partial class BaseStateMachine : Node
                 state._stateMachine = this;
                 state.InjectDependencies(animationPlayer);
             }
+        GD.Print("States: ", child.Name);
         }
     }
 

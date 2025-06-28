@@ -27,6 +27,7 @@ project/assembly_name="Project_Fallout"
 [global_group]
 
 Player=""
+Noel=""
 
 [input]
 

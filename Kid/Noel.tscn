@@ -9,7 +9,7 @@
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_lw4hn"]
 
-[node name="Noel" type="CharacterBody3D"]
+[node name="Noel" type="CharacterBody3D" groups=["Noel"]]
 script = ExtResource("1_lw4hn")
 
 [node name="SignalBus_Noel" type="Node3D" parent="."]
