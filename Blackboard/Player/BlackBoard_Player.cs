@@ -7,7 +7,7 @@ public partial class BlackBoard_Player : Node
     public Vector3 playerPosition;
     public override void _Ready()
     {
-       _= GetPlayer();
+        _ = GetPlayer();
     }
     private async Task GetPlayer()
     {
@@ -18,7 +18,6 @@ public partial class BlackBoard_Player : Node
         }
         GD.Print("Player: ", Player);
     }
-
     public override void _Process(double delta)
     {
         if (Player != null)
@@ -26,7 +25,6 @@ public partial class BlackBoard_Player : Node
             playerPosition = Player.GlobalPosition;
         }
     }
-
     public Vector3 GetPlayerPosition()
     {
         return playerPosition;
