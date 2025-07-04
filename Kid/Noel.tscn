@@ -1,9 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://m6cqe31608bq"]
+[gd_scene load_steps=9 format=3 uid="uid://m6cqe31608bq"]
 
 [ext_resource type="Script" uid="uid://c63tyshfxw6wj" path="res://Kid/Noel.cs" id="1_lw4hn"]
 [ext_resource type="Script" uid="uid://bih5s57vna66s" path="res://Kid/SignalBus_Noel.cs" id="2_0qoxe"]
 [ext_resource type="Script" uid="uid://xbdw87jbkwca" path="res://Kid/FollowPlayer.cs" id="3_8j10j"]
 [ext_resource type="Script" uid="uid://cknoads4s6sap" path="res://Kid/StateMachineNoel.cs" id="3_855m6"]
+[ext_resource type="Script" uid="uid://b7g2grdess7vv" path="res://Kid/Sleep_Noel.cs" id="5_ybxco"]
+[ext_resource type="Script" uid="uid://d4jb0hped4t3c" path="res://Kid/Sneak_Noel.cs" id="6_fv4gk"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_w8s0q"]
 
@@ -30,5 +32,7 @@ script = ExtResource("3_855m6")
 script = ExtResource("3_8j10j")
 
 [node name="Sleep" type="Node3D" parent="StateMachine_Noel"]
+script = ExtResource("5_ybxco")
 
 [node name="Sneak" type="Node3D" parent="StateMachine_Noel"]
+script = ExtResource("6_fv4gk")
