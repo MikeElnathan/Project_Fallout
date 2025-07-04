@@ -4,7 +4,7 @@ public partial class SignalBus : Node3D
 {
     public enum ActionType
     {
-        Idle, Walk, Run, Jump
+        Idle, Walk, Run, Jump, Sleep, Sneak
     }
     //Sigleton instance
     private static SignalBus _instance;
@@ -26,6 +26,8 @@ public partial class SignalBus : Node3D
     [Signal] public delegate void RunEventHandler();
     [Signal] public delegate void IdleEventHandler();
     [Signal] public delegate void JumpEventHandler();
+    [Signal] public delegate void SleepEventHandler();
+    [Signal] public delegate void SneakEventHandler();
 
     //Interaction
 
@@ -44,6 +46,12 @@ public partial class SignalBus : Node3D
                 break;
             case ActionType.Jump:
                 EmitSignal(SignalName.Jump);
+                break;
+            case ActionType.Sleep:
+                EmitSignal(SignalName.Sleep);
+                break;
+            case ActionType.Sneak:
+                EmitSignal(SignalName.Sneak);
                 break;
             default:
                 GD.PrintErr("Unknown action type: ", action.ToString());

@@ -3,7 +3,6 @@ using System;
 
 public partial class FollowPlayer : State
 {
-    private CharacterBody3D noel;
     public override void _Ready()
     {
         base._Ready();
@@ -11,12 +10,12 @@ public partial class FollowPlayer : State
 
     public override void Enter()
     {
-        noel = GetTree().GetFirstNodeInGroup("Noel") as CharacterBody3D;
-        GD.Print("I found Noel: ", noel.GlobalPosition);    
+        GD.Print("Follow player state");
         base.Enter();
     }
     public override void Exit()
     {
+        GD.Print("Follow player exited");
         base.Exit();
     }
     public override void Update(double delta)

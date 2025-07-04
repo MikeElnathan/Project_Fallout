@@ -28,3 +28,7 @@ script = ExtResource("3_855m6")
 
 [node name="FollowPlayer" type="Node3D" parent="StateMachine_Noel"]
 script = ExtResource("3_8j10j")
+
+[node name="Sleep" type="Node3D" parent="StateMachine_Noel"]
+
+[node name="Sneak" type="Node3D" parent="StateMachine_Noel"]
