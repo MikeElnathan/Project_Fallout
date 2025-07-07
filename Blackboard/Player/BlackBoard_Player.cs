@@ -16,7 +16,6 @@ public partial class BlackBoard_Player : Node
             Player = GetTree().GetFirstNodeInGroup("Player") as CharacterBody3D;
             await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
         }
-        GD.Print("Player: ", Player);
     }
     public override void _Process(double delta)
     {

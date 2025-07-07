@@ -10,12 +10,12 @@ public partial class FollowPlayer : State
 
     public override void Enter()
     {
-        GD.Print("Follow player state");
+        GD.Print("Noel: Follow player state");
         base.Enter();
     }
     public override void Exit()
     {
-        GD.Print("Follow player exited");
+        GD.Print("Noel: Follow player exited");
         base.Exit();
     }
     public override void Update(double delta)

@@ -7,10 +7,12 @@ public partial class BaseStateMachine : Node
     protected State currentState;
     public BaseStateMachine _stateMachine { get; set; }
     protected Dictionary<string, State> _states = new();
+    public CharacterBody3D _owner { get; private set; }
     protected AnimationPlayer animationPlayer;
 
     public override void _Ready()
     {
+        _owner = GetParent<CharacterBody3D>();
         ReadSignal();
         GetAllStates();
     }

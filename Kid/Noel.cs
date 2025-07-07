@@ -29,7 +29,6 @@ public partial class Noel : CharacterBody3D
     }
     public override void _PhysicsProcess(double delta)
     {
-        base._PhysicsProcess(delta);
         if (_navigationAgent.IsNavigationFinished())
         {
             return;

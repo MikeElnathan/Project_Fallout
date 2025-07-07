@@ -8,21 +8,20 @@ public partial class GameManager : Node3D
     public override void _Ready()
     {
         //do something
-        LoadTrial();
+        LoadScene();
     }
 
-    private void LoadTrial()
+    private void LoadScene()
     {
         LoadScene("res://Trial/Trial_Level/trial_level_1.tscn", ref TrialLevel);
         if (TrialLevel != null)
         {
             Node3D trialLevel = TrialLevel.Instantiate<Node3D>();
             AddChild(trialLevel);
-            GD.Print("it....work?");
         }
         else
         {
-            GD.Print("This doesn't work");
+            throw new Exception("empty level warning");
         }
 
     }
