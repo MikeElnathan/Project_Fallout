@@ -119,6 +119,8 @@ surface_material_override/0 = SubResource("StandardMaterial3D_6h17f")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="MeshCollection/Box3/StaticBody3D"]
 shape = SubResource("ConcavePolygonShape3D_w8ukd")
 
+[node name="NavigationObstacle3D" type="NavigationObstacle3D" parent="MeshCollection/Box3"]
+
 [node name="Box4" type="MeshInstance3D" parent="MeshCollection"]
 transform = Transform3D(-1.33825e-06, 0, 1.24949, 0, 5, 0, -30.6156, 0, -5.4617e-08, 14.2314, 2.55632, -36.5439)
 mesh = SubResource("BoxMesh_sr8x4")

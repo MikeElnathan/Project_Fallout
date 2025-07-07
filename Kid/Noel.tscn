@@ -38,3 +38,4 @@ script = ExtResource("5_ybxco")
 script = ExtResource("6_fv4gk")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+target_desired_distance = 2.0
