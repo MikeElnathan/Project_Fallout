@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://b6pm128jm2v3p"]
+[gd_scene load_steps=22 format=3 uid="uid://b6pm128jm2v3p"]
 
 [ext_resource type="Texture2D" uid="uid://c0pv7v10vbq4i" path="res://Trial/Prototyping Texture/Dark/texture_01.png" id="1_sr8x4"]
 [ext_resource type="Script" uid="uid://shf2yw2tehth" path="res://Trial/Trial_Level/FPS_Counter.cs" id="1_w8ukd"]
@@ -20,6 +20,10 @@ sky = SubResource("Sky_1k5sn")
 [sub_resource type="CameraAttributesPhysical" id="CameraAttributesPhysical_1k5sn"]
 
 [sub_resource type="Compositor" id="Compositor_6h17f"]
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_kgng8"]
+vertices = PackedVector3Array(-99.5, 0.5, -99.5, -99.5, 0.5, 99.5, 99.5, 0.5, 99.5, 99.5, 0.5, -99.5)
+polygons = [PackedInt32Array(3, 2, 0), PackedInt32Array(0, 2, 1)]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_sr8x4"]
 
@@ -69,18 +73,21 @@ environment = SubResource("Environment_sr8x4")
 camera_attributes = SubResource("CameraAttributesPhysical_1k5sn")
 compositor = SubResource("Compositor_6h17f")
 
-[node name="MeshCollection" type="Node3D" parent="."]
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
+navigation_mesh = SubResource("NavigationMesh_kgng8")
 
-[node name="Floor" type="MeshInstance3D" parent="MeshCollection"]
+[node name="Floor" type="MeshInstance3D" parent="NavigationRegion3D"]
 transform = Transform3D(100, 0, 0, 0, 100, 0, 0, 0, 100, 0, 0, 0)
 mesh = SubResource("PlaneMesh_sr8x4")
 skeleton = NodePath("../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_1k5sn")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="MeshCollection/Floor"]
+[node name="StaticBody3D" type="StaticBody3D" parent="NavigationRegion3D/Floor"]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshCollection/Floor/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/Floor/StaticBody3D"]
 shape = SubResource("ConvexPolygonShape3D_sr8x4")
+
+[node name="MeshCollection" type="Node3D" parent="."]
 
 [node name="Box" type="MeshInstance3D" parent="MeshCollection"]
 transform = Transform3D(2.69366, 0, 0, 0, 1.00272, 0, 0, 0, 2.73333, 10.6747, 2.11758, 19.2843)
@@ -197,4 +204,4 @@ shape = SubResource("ConcavePolygonShape3D_6h17f")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0685462, 0)
 
 [node name="Noel" parent="." instance=ExtResource("6_kgng8")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.9899, 0, -1.81694)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.50575, 0, -49.7903)

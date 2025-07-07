@@ -5,8 +5,8 @@ public partial class Player : CharacterBody3D
 {
     private SignalBus signalBus;
     private float speed;
-    private float run_speed = 10.0f;
-    private float walk_speed = 6.0f;
+    private float run_speed = 8.0f;
+    private float walk_speed = 2.0f;
     private bool Run = false;
     private bool Jump = false;
     private Godot.Vector3 move_dir = Godot.Vector3.Zero;

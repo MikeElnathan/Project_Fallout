@@ -36,3 +36,5 @@ script = ExtResource("5_ybxco")
 
 [node name="Sneak" type="Node3D" parent="StateMachine_Noel"]
 script = ExtResource("6_fv4gk")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
