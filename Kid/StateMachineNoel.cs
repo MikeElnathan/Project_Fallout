@@ -3,7 +3,6 @@ using System;
 
 public partial class StateMachineNoel : BaseStateMachine
 {
-    public static CharacterBody3D Noel;
     private SignalBus signalBus;
     private SignalBus_Noel signalBus_Noel;
 

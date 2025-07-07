@@ -6,6 +6,7 @@ public abstract partial class State: Node3D
     public BaseStateMachine _stateMachine;
     protected AnimationPlayer animationPlayer;
     protected CharacterBody3D Actor;
+    protected Node _parent;
     public State() { }
     public override void _Ready()
     {

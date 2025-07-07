@@ -6,6 +6,7 @@ public partial class Run : State
 
     public override void Enter()
     {
+        GD.Print("Player: Run State");
         animationPlayer.Play("Run", customBlend: 0.3f);
     }
     public override void Exit()
