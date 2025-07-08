@@ -37,14 +37,11 @@ public partial class FollowPlayer : State
     {
         //check distance
         float distance = noel.GlobalPosition.DistanceTo(player.GlobalPosition);
+        bool shouldFollow = distance > disTreshold;
 
-        if (distance > disTreshold)
+        if (noel.followPlayer != shouldFollow)
         {
-            noel.followPlayer = true;
-        }
-        else
-        {
-            noel.followPlayer = false;
+            noel.followPlayer = shouldFollow;
         }
     }
 }
