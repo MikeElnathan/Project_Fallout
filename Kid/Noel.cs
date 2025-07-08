@@ -3,11 +3,13 @@ using System;
 
 public partial class Noel : CharacterBody3D
 {
+    private Vector3 _velocity;
+    private float gravity;
     private NavigationAgent3D _navigationAgent;
     private float movementSpeed = 5.0f;
     private Vector3 movementsTargetPosition;
-    public bool followPlayer { get; set; }
     private CharacterBody3D player;
+    public bool followPlayer { get; set; }
     public Vector3 MovementTarget
     {
         get { return _navigationAgent.TargetPosition; }
@@ -18,6 +20,7 @@ public partial class Noel : CharacterBody3D
     {
         base._Ready();
         player = GetTree().GetFirstNodeInGroup("Player") as CharacterBody3D; //change this to access player character from a blackboard later on
+        gravity = ProjectSettings.GetSetting("physics/3d/default_gravity").AsSingle();
         InitializeAgent();
     }
     public override void _Process(double delta)
@@ -34,8 +37,20 @@ public partial class Noel : CharacterBody3D
         }
         else
         {
-            Velocity = Vector3.Zero;
+            _velocity.X = 0f;
+            _velocity.Z = 0f;
         }
+
+        if (!IsOnFloor())
+        {
+            _velocity.Y -= gravity * (float)delta;
+        }
+        else
+        {
+            _velocity.Y = 0.01f;
+        }
+
+        Velocity = _velocity;
         MoveAndSlide();
     }
     private void InitializeAgent()
@@ -47,6 +62,7 @@ public partial class Noel : CharacterBody3D
     }
     private void AgentMove()
     {
+        Vector3 direction;
         if (_navigationAgent.IsNavigationFinished())
         {
             return;
@@ -54,7 +70,9 @@ public partial class Noel : CharacterBody3D
         Vector3 currentAgentPosition = GlobalTransform.Origin;
         Vector3 nextPathPosition = _navigationAgent.GetNextPathPosition();
 
-        Velocity = currentAgentPosition.DirectionTo(nextPathPosition) * movementSpeed;
+        direction = currentAgentPosition.DirectionTo(nextPathPosition) * movementSpeed;
+        _velocity.X = direction.X;
+        _velocity.Z = direction.Z;
     }
     private async void ActorSetup()
     {
