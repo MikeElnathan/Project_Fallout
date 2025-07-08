@@ -42,6 +42,11 @@ public partial class FollowPlayer : State
         if (noel.followPlayer != shouldFollow)
         {
             noel.followPlayer = shouldFollow;
+            noel.ReactionSpeed = 1.0f;
+        }
+        else
+        {
+            noel.ReactionSpeed = 0.1f;
         }
     }
 }

@@ -4,9 +4,9 @@ using System.Threading.Tasks;
 
 public partial class Noel : CharacterBody3D
 {
-    private float ReactionSpeed = 1.0f;
     private float moveSmoothing = 0.5f;
     private float movementSpeed = 5.0f;
+    public float ReactionSpeed { get; set; }
     private Vector3 _velocity;
     private Vector3 movementsTargetPosition;
     public Vector3 MovementTarget
