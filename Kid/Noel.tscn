@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://m6cqe31608bq"]
+[gd_scene load_steps=11 format=3 uid="uid://m6cqe31608bq"]
 
 [ext_resource type="Script" uid="uid://c63tyshfxw6wj" path="res://Kid/Noel.cs" id="1_lw4hn"]
 [ext_resource type="Script" uid="uid://bih5s57vna66s" path="res://Kid/SignalBus_Noel.cs" id="2_0qoxe"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://b7g2grdess7vv" path="res://Kid/Sleep_Noel.cs" id="5_ybxco"]
 [ext_resource type="Script" uid="uid://d4jb0hped4t3c" path="res://Kid/Sneak_Noel.cs" id="6_fv4gk"]
 [ext_resource type="Script" uid="uid://dhn7tr7ateu0p" path="res://Kid/Wander.cs" id="7_fv4gk"]
+[ext_resource type="Script" uid="uid://2piy5oy1ki7x" path="res://Kid/IdleNoel.cs" id="8_xkcw6"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_w8s0q"]
 
@@ -40,5 +41,8 @@ script = ExtResource("6_fv4gk")
 
 [node name="Wander" type="Node3D" parent="StateMachine_Noel"]
 script = ExtResource("7_fv4gk")
+
+[node name="idleNoel" type="Node3D" parent="StateMachine_Noel"]
+script = ExtResource("8_xkcw6")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]

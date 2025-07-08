@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Threading.Tasks;
 
 public partial class FollowPlayer : State
 {
@@ -12,9 +13,10 @@ public partial class FollowPlayer : State
         noel = GetTree().GetFirstNodeInGroup("Noel") as Noel;
         player = GetTree().GetFirstNodeInGroup("Player") as CharacterBody3D;
     }
-    public override void Enter()
+    public override async void Enter()
     {
         GD.Print("Noel: Follow player state");
+        await ResetNavAgent();
         followPlayer();
         base.Enter();
     }
@@ -35,22 +37,20 @@ public partial class FollowPlayer : State
         base.PhysicUpdate(delta);
     }
 
-    private async void followPlayer()
+    private void followPlayer()
     {
         noel.movementsTargetPosition = player.GlobalPosition;
         //check distance
-        float distance = noel.GlobalPosition.DistanceTo(player.GlobalPosition);
-        bool shouldFollow = distance > disTreshold;
+        noel.move = true;
+    }
+    private async Task ResetNavAgent()
+    {
+        //is this necessary?
+        var navAgent = noel.GetNode<NavigationAgent3D>("NavigationAgent3D");
 
-        if (noel.move != shouldFollow)
-        {
-            noel.ReactionSpeed = 0.5f;
-            await noel.DelayReaction(noel.ReactionSpeed);
-            noel.move = shouldFollow;
-        }
-        else
-        {
-            noel.ReactionSpeed = 0.1f;
-        }
+        navAgent.TargetPosition = noel.GlobalPosition;
+
+        await ToSignal(GetTree(), SceneTree.SignalName.PhysicsFrame);
+        await ToSignal(GetTree(), SceneTree.SignalName.PhysicsFrame);
     }
 }

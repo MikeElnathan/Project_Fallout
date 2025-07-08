@@ -6,6 +6,7 @@ public partial class Noel : CharacterBody3D
 {
     private float moveSmoothing = 0.5f;
     private float movementSpeed = 2.0f;
+    private float stoppingDistance = 2.0f;
     public float ReactionSpeed { get; set; }
     private Vector3 _velocity;
     public Vector3 movementsTargetPosition { get; set; }
@@ -26,13 +27,16 @@ public partial class Noel : CharacterBody3D
         gravity = ProjectSettings.GetSetting("physics/3d/default_gravity").AsSingle();//change this latter for a much more flexible approach
         InitializeAgent();
     }
-    public override  void _Process(double delta)
+    public override void _Process(double delta)
     {
-        //TODO
+
     }
     public override void _PhysicsProcess(double delta)
     {
-        if (move)
+        Vector3 playerPosition = player.GlobalPosition;
+        float distance = GlobalPosition.DistanceTo(playerPosition);
+
+        if (move && distance > stoppingDistance)
         {
             MovementTarget = movementsTargetPosition;
             AgentMove();
@@ -59,20 +63,24 @@ public partial class Noel : CharacterBody3D
     {
         _navigationAgent = GetNode<NavigationAgent3D>("NavigationAgent3D");
         _navigationAgent.PathDesiredDistance = 0.5f;
-        _navigationAgent.TargetDesiredDistance = 0.5f;
+        _navigationAgent.TargetDesiredDistance = stoppingDistance;
         Callable.From(ActorSetup).CallDeferred();
     }
     private void AgentMove()
     {
-        Vector3 direction;
+        Vector3 direction = Vector3.Zero;
+
         if (_navigationAgent.IsNavigationFinished())
         {
             return;
         }
-        Vector3 currentAgentPosition = GlobalTransform.Origin;
+        Vector3 currentAgentPosition = GlobalPosition;
         Vector3 nextPathPosition = _navigationAgent.GetNextPathPosition();
+        Vector3 playerPosition = player.GlobalPosition;
+        GD.Print("nextPathPosition",nextPathPosition);
 
         direction = currentAgentPosition.DirectionTo(nextPathPosition) * movementSpeed;
+
         _velocity.X = Mathf.Lerp(_velocity.X, direction.X, moveSmoothing);
         _velocity.Z = Mathf.Lerp(_velocity.Z, direction.Z, moveSmoothing);
     }
