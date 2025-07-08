@@ -5,7 +5,7 @@ public partial class FollowPlayer : State
 {
     private Noel noel;
     private CharacterBody3D player;
-    private float disTreshold = 5.0f;
+    private float disTreshold = 4.0f;
     public override void _Ready()
     {
         base._Ready();
