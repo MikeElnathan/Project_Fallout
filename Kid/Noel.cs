@@ -77,7 +77,6 @@ public partial class Noel : CharacterBody3D
         Vector3 currentAgentPosition = GlobalPosition;
         Vector3 nextPathPosition = _navigationAgent.GetNextPathPosition();
         Vector3 playerPosition = player.GlobalPosition;
-        GD.Print("nextPathPosition",nextPathPosition);
 
         direction = currentAgentPosition.DirectionTo(nextPathPosition) * movementSpeed;
 
