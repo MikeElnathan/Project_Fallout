@@ -5,17 +5,17 @@ using System.Threading.Tasks;
 public partial class Noel : CharacterBody3D
 {
     private float moveSmoothing = 0.5f;
-    private float movementSpeed = 5.0f;
+    private float movementSpeed = 2.0f;
     public float ReactionSpeed { get; set; }
     private Vector3 _velocity;
-    private Vector3 movementsTargetPosition;
+    public Vector3 movementsTargetPosition { get; set; }
     public Vector3 MovementTarget
     {
         get { return _navigationAgent.TargetPosition; }
         set { _navigationAgent.TargetPosition = value; }
     }
     private float gravity;
-    public bool followPlayer { get; set; }
+    public bool move { get; set; }
     private NavigationAgent3D _navigationAgent;
     private CharacterBody3D player;
 
@@ -30,13 +30,11 @@ public partial class Noel : CharacterBody3D
     {
         //TODO
     }
-    public override async void _PhysicsProcess(double delta)
+    public override void _PhysicsProcess(double delta)
     {
-        if (followPlayer)
+        if (move)
         {
-            movementsTargetPosition = player.GlobalPosition;
             MovementTarget = movementsTargetPosition;
-            await DelayReaction(ReactionSpeed);
             AgentMove();
         }
         else
@@ -82,8 +80,7 @@ public partial class Noel : CharacterBody3D
     {
         await ToSignal(GetTree(), SceneTree.SignalName.PhysicsFrame);
     }
-
-    private async Task DelayReaction(float seconds)
+    public async Task DelayReaction(float seconds)
     {
         Timer timer = new Timer();
         timer.WaitTime = seconds;

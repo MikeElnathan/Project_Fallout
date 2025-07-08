@@ -12,7 +12,6 @@ public partial class FollowPlayer : State
         noel = GetTree().GetFirstNodeInGroup("Noel") as Noel;
         player = GetTree().GetFirstNodeInGroup("Player") as CharacterBody3D;
     }
-
     public override void Enter()
     {
         GD.Print("Noel: Follow player state");
@@ -23,6 +22,9 @@ public partial class FollowPlayer : State
     {
         GD.Print("Noel: Follow player exited");
         base.Exit();
+        //reset noel
+        noel.ReactionSpeed = 0.01f;
+        noel.move = false;
     }
     public override void Update(double delta)
     {
@@ -33,16 +35,18 @@ public partial class FollowPlayer : State
         base.PhysicUpdate(delta);
     }
 
-    private void followPlayer()
+    private async void followPlayer()
     {
+        noel.movementsTargetPosition = player.GlobalPosition;
         //check distance
         float distance = noel.GlobalPosition.DistanceTo(player.GlobalPosition);
         bool shouldFollow = distance > disTreshold;
 
-        if (noel.followPlayer != shouldFollow)
+        if (noel.move != shouldFollow)
         {
-            noel.followPlayer = shouldFollow;
-            noel.ReactionSpeed = 1.0f;
+            noel.ReactionSpeed = 0.5f;
+            await noel.DelayReaction(noel.ReactionSpeed);
+            noel.move = shouldFollow;
         }
         else
         {
