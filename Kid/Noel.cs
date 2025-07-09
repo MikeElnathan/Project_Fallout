@@ -1,16 +1,17 @@
 using Godot;
 using System;
+using System.Dynamic;
 using System.Threading.Tasks;
 
 public partial class Noel : CharacterBody3D
 {
     private float moveSmoothing = 0.5f;
     private float movementSpeed = 2.0f;
-    private float stoppingDistance = 2.0f;
-    public float ReactionSpeed { get; set; }
+    public float stoppingDistance { get; set; } = 2.0f;
+    public float ReactionSpeed { get; set; } = 1.0f;
     private Vector3 _velocity;
     public Vector3 movementsTargetPosition { get; set; }
-    public Vector3 MovementTarget
+    public Vector3 NavTarget
     {
         get { return _navigationAgent.TargetPosition; }
         set { _navigationAgent.TargetPosition = value; }
@@ -36,16 +37,18 @@ public partial class Noel : CharacterBody3D
         Vector3 playerPosition = player.GlobalPosition;
         float distance = GlobalPosition.DistanceTo(playerPosition);
 
+        //how far from player is Noel to trigger followPlayer
         if (move && distance > stoppingDistance)
         {
             if (movementsTargetPosition.LengthSquared() > 0.0001f)
             {
-                MovementTarget = movementsTargetPosition;
+                NavTarget = movementsTargetPosition;
             }
             else
             {
                 GD.Print("movement is zero?");
             }
+
             AgentMove();
         }
         else
@@ -83,7 +86,8 @@ public partial class Noel : CharacterBody3D
         }
         Vector3 currentAgentPosition = GlobalPosition;
         Vector3 nextPathPosition = _navigationAgent.GetNextPathPosition();
-        Vector3 playerPosition = player.GlobalPosition;
+        Vector3 stoppingDistanceVector = new Vector3(1.0f, 0f, 1.0f) * stoppingDistance;
+        Vector3 finalTarget = nextPathPosition - stoppingDistanceVector;
 
         direction = currentAgentPosition.DirectionTo(nextPathPosition) * movementSpeed;
 
