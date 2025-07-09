@@ -5,7 +5,6 @@ public partial class Walk : State
 {
     public override void Enter()
     {
-        GD.Print("Player: walk state");
         animationPlayer.Play("Walk", customBlend: 0.5f);
     }
     public override void Exit()

@@ -6,7 +6,7 @@
 [ext_resource type="Script" uid="uid://cknoads4s6sap" path="res://Kid/StateMachineNoel.cs" id="3_855m6"]
 [ext_resource type="Script" uid="uid://b7g2grdess7vv" path="res://Kid/Sleep_Noel.cs" id="5_ybxco"]
 [ext_resource type="Script" uid="uid://d4jb0hped4t3c" path="res://Kid/Sneak_Noel.cs" id="6_fv4gk"]
-[ext_resource type="Script" uid="uid://dhn7tr7ateu0p" path="res://Kid/Wander.cs" id="7_fv4gk"]
+[ext_resource type="Script" uid="uid://dhn7tr7ateu0p" path="res://Kid/wanderNoel.cs" id="7_fv4gk"]
 [ext_resource type="Script" uid="uid://2piy5oy1ki7x" path="res://Kid/IdleNoel.cs" id="8_xkcw6"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_w8s0q"]
@@ -33,16 +33,19 @@ script = ExtResource("3_855m6")
 [node name="FollowPlayer" type="Node3D" parent="StateMachine_Noel"]
 script = ExtResource("3_8j10j")
 
-[node name="Sleep" type="Node3D" parent="StateMachine_Noel"]
+[node name="sleepNoel" type="Node3D" parent="StateMachine_Noel"]
 script = ExtResource("5_ybxco")
 
-[node name="Sneak" type="Node3D" parent="StateMachine_Noel"]
+[node name="sneakNoel" type="Node3D" parent="StateMachine_Noel"]
 script = ExtResource("6_fv4gk")
 
-[node name="Wander" type="Node3D" parent="StateMachine_Noel"]
+[node name="wanderNoel" type="Node3D" parent="StateMachine_Noel"]
 script = ExtResource("7_fv4gk")
 
 [node name="idleNoel" type="Node3D" parent="StateMachine_Noel"]
 script = ExtResource("8_xkcw6")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+avoidance_enabled = true
+debug_enabled = true
+debug_path_custom_color = Color(0.915147, 0.0366334, 0.0208715, 1)
