@@ -37,13 +37,13 @@ public partial class StateMachineNoel : BaseStateMachine
 
         return distance;
     }
-    private async Task triggerStateChange()
+    private async void triggerStateChange()
     {
         if (shouldFollowConditions())
         {
-            await classNoel.DelayReaction(classNoel.ReactionSpeed);
             changeState("FollowPlayer");
             resetBool();
+            
         }
         else
         {

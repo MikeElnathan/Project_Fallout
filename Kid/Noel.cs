@@ -18,6 +18,7 @@ public partial class Noel : CharacterBody3D
     }
     private float gravity;
     public bool move { get; set; }
+    private bool timerCreation = false;
     private NavigationAgent3D _navigationAgent;
     private CharacterBody3D player;
 
@@ -102,12 +103,14 @@ public partial class Noel : CharacterBody3D
     {
         GD.Print("Timer created");
         //_________________________
-        
-        if (HasNode("delayTimer"))
+
+        if (timerCreation)
         {
             GD.Print("timer exist");
             return;
         }
+
+        timerCreation = true;
 
         Timer timer = new Timer
         {
@@ -120,6 +123,7 @@ public partial class Noel : CharacterBody3D
 
         await ToSignal(timer, Timer.SignalName.Timeout);
         timer.QueueFree();
+        timerCreation = false;
 
         //__________________________
         GD.Print("Timer destroyed");
