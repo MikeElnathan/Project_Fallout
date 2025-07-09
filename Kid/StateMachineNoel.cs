@@ -37,19 +37,24 @@ public partial class StateMachineNoel : BaseStateMachine
 
         return distance;
     }
-    private async void triggerStateChange()
+    private void triggerStateChange()
     {
+        if (classNoel.reactiontimer)
+        {
+            return;
+        }
+
         if (shouldFollowConditions())
-        {
-            changeState("FollowPlayer");
-            resetBool();
-            
-        }
-        else
-        {
-            changeState("idleNoel");
-            resetBool();
-        }
+            {
+                changeState("FollowPlayer");
+                resetBool();
+
+            }
+            else
+            {
+                changeState("idleNoel");
+                resetBool();
+            }
     }
     protected override void ReadSignal()
     {
@@ -61,7 +66,7 @@ public partial class StateMachineNoel : BaseStateMachine
 
     private bool shouldFollowConditions()
     {
-        return distanceToPlayer > distanceTreshold || shouldFollow;
+        return shouldFollow;
     }
 
     private void resetBool()

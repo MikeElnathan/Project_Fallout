@@ -17,8 +17,9 @@ public partial class Noel : CharacterBody3D
         set { _navigationAgent.TargetPosition = value; }
     }
     private float gravity;
-    public bool move { get; set; }
+    public bool move { get; set; } = false;
     private bool timerCreation = false;
+    public bool reactiontimer { get; set; } = false;
     private NavigationAgent3D _navigationAgent;
     private CharacterBody3D player;
 
@@ -35,6 +36,7 @@ public partial class Noel : CharacterBody3D
     }
     public override void _PhysicsProcess(double delta)
     {
+        GD.Print("move: ", move);
         Vector3 playerPosition = player.GlobalPosition;
         float distance = GlobalPosition.DistanceTo(playerPosition);
 
@@ -87,8 +89,8 @@ public partial class Noel : CharacterBody3D
         }
         Vector3 currentAgentPosition = GlobalPosition;
         Vector3 nextPathPosition = _navigationAgent.GetNextPathPosition();
-        Vector3 stoppingDistanceVector = new Vector3(1.0f, 0f, 1.0f) * stoppingDistance;
-        Vector3 finalTarget = nextPathPosition - stoppingDistanceVector;
+        //Vector3 stoppingDistanceVector = new Vector3(1.0f, 0f, 1.0f) * stoppingDistance;
+        //Vector3 finalTarget = nextPathPosition - stoppingDistanceVector;
 
         direction = currentAgentPosition.DirectionTo(nextPathPosition) * movementSpeed;
 

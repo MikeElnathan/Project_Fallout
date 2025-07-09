@@ -13,7 +13,7 @@ public partial class MoodManager : Node
         //player position to be obtained through player blackboard
         player = GetTree().GetFirstNodeInGroup("Player") as CharacterBody3D;
         //temporary. to be manipulated based on mood
-        noel.ReactionSpeed = 1.0f;
+        noel.ReactionSpeed = 4.0f;
         noel.stoppingDistance = 2.0f;
     }
     public override void _Process(double delta)
