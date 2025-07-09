@@ -100,13 +100,28 @@ public partial class Noel : CharacterBody3D
     }
     public async Task DelayReaction(float seconds)
     {
-        Timer timer = new Timer();
-        timer.WaitTime = seconds;
-        timer.OneShot = true;
+        GD.Print("Timer created");
+        //_________________________
+        
+        if (HasNode("delayTimer"))
+        {
+            GD.Print("timer exist");
+            return;
+        }
+
+        Timer timer = new Timer
+        {
+            Name = "delayTimer",
+            WaitTime = seconds,
+            OneShot = true
+        };
         AddChild(timer);
         timer.Start();
 
         await ToSignal(timer, Timer.SignalName.Timeout);
         timer.QueueFree();
+
+        //__________________________
+        GD.Print("Timer destroyed");
     }
 }

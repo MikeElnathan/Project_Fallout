@@ -16,6 +16,7 @@ public partial class FollowPlayer : State
     public override async void Enter()
     {
         GD.Print("Noel: Follow player state");
+        //reset nav agent
         await ResetNavAgent();
         followPlayer();
         base.Enter();

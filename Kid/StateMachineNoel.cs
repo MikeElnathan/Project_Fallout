@@ -1,10 +1,12 @@
 using Godot;
 using System;
+using System.Threading.Tasks;
 
 public partial class StateMachineNoel : BaseStateMachine
 {
     private CharacterBody3D player;
     private CharacterBody3D noel;
+    private Noel classNoel;
     private Vector3 playerPosition;
     private float distanceToPlayer;
     private float distanceTreshold = 4.5f;
@@ -20,6 +22,7 @@ public partial class StateMachineNoel : BaseStateMachine
         base._Ready();
         player = GetTree().GetFirstNodeInGroup("Player") as CharacterBody3D;
         noel = GetTree().GetFirstNodeInGroup("Noel") as CharacterBody3D;
+        classNoel = GetTree().GetFirstNodeInGroup("Noel") as Noel;
     }
     public override void _Process(double delta)
     {
@@ -34,15 +37,18 @@ public partial class StateMachineNoel : BaseStateMachine
 
         return distance;
     }
-    private void triggerStateChange()
+    private async Task triggerStateChange()
     {
         if (shouldFollowConditions())
         {
+            await classNoel.DelayReaction(classNoel.ReactionSpeed);
             changeState("FollowPlayer");
+            resetBool();
         }
         else
         {
             changeState("idleNoel");
+            resetBool();
         }
     }
     protected override void ReadSignal()
@@ -56,5 +62,12 @@ public partial class StateMachineNoel : BaseStateMachine
     private bool shouldFollowConditions()
     {
         return distanceToPlayer > distanceTreshold || shouldFollow;
+    }
+
+    private void resetBool()
+    {
+        shouldFollow = false;
+        sleep = false;
+        sneak = false;
     }
 }

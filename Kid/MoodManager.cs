@@ -10,6 +10,7 @@ public partial class MoodManager : Node
     public override void _Ready()
     {
         noel = GetTree().GetFirstNodeInGroup("Noel") as Noel;
+        //player position to be obtained through player blackboard
         player = GetTree().GetFirstNodeInGroup("Player") as CharacterBody3D;
         //temporary. to be manipulated based on mood
         noel.ReactionSpeed = 1.0f;
