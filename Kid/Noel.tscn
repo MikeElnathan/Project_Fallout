@@ -1,7 +1,8 @@
-[gd_scene load_steps=11 format=3 uid="uid://m6cqe31608bq"]
+[gd_scene load_steps=12 format=3 uid="uid://m6cqe31608bq"]
 
 [ext_resource type="Script" uid="uid://c63tyshfxw6wj" path="res://Kid/Noel.cs" id="1_lw4hn"]
 [ext_resource type="Script" uid="uid://bih5s57vna66s" path="res://Kid/SignalBus_Noel.cs" id="2_0qoxe"]
+[ext_resource type="Script" uid="uid://dlov62ruqwq0a" path="res://Kid/MoodManager.cs" id="2_q457y"]
 [ext_resource type="Script" uid="uid://xbdw87jbkwca" path="res://Kid/FollowPlayer.cs" id="3_8j10j"]
 [ext_resource type="Script" uid="uid://cknoads4s6sap" path="res://Kid/StateMachineNoel.cs" id="3_855m6"]
 [ext_resource type="Script" uid="uid://b7g2grdess7vv" path="res://Kid/Sleep_Noel.cs" id="5_ybxco"]
@@ -15,6 +16,14 @@
 
 [node name="Noel" type="CharacterBody3D" groups=["Noel"]]
 script = ExtResource("1_lw4hn")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+avoidance_enabled = true
+debug_enabled = true
+debug_path_custom_color = Color(0.915147, 0.0366334, 0.0208715, 1)
+
+[node name="MoodManager" type="Node" parent="."]
+script = ExtResource("2_q457y")
 
 [node name="SignalBus_Noel" type="Node3D" parent="."]
 script = ExtResource("2_0qoxe")
@@ -44,8 +53,3 @@ script = ExtResource("7_fv4gk")
 
 [node name="idleNoel" type="Node3D" parent="StateMachine_Noel"]
 script = ExtResource("8_xkcw6")
-
-[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
-avoidance_enabled = true
-debug_enabled = true
-debug_path_custom_color = Color(0.915147, 0.0366334, 0.0208715, 1)

@@ -12,6 +12,7 @@ public partial class Blackboard_Noel : Node
     }
     private async Task GetNoel()
     {
+        //make sure to get the node when it's loaded
         while (Noel == null || Noel.IsInsideTree())
         {
             Noel = GetTree().GetFirstNodeInGroup("Noel") as CharacterBody3D;
@@ -26,7 +27,6 @@ public partial class Blackboard_Noel : Node
             noelPosition = Noel.GlobalPosition;
         }
     }
-
     public Vector3 GetNoelPosition()
     {
         return noelPosition;

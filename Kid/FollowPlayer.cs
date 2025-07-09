@@ -36,11 +36,10 @@ public partial class FollowPlayer : State
     {
         base.PhysicUpdate(delta);
     }
-
     private void followPlayer()
     {
-        noel.movementsTargetPosition = player.GlobalPosition;
         //check distance
+        //currently target position in movementTargetPosition is empty. A different script will handle it, in MoodManager
         noel.move = true;
     }
     private async Task ResetNavAgent()

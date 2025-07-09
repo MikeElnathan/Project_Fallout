@@ -38,7 +38,14 @@ public partial class Noel : CharacterBody3D
 
         if (move && distance > stoppingDistance)
         {
-            MovementTarget = movementsTargetPosition;
+            if (movementsTargetPosition.LengthSquared() > 0.0001f)
+            {
+                MovementTarget = movementsTargetPosition;
+            }
+            else
+            {
+                GD.Print("movement is zero?");
+            }
             AgentMove();
         }
         else

@@ -8,10 +8,9 @@ public partial class GameManager : Node3D
     public override void _Ready()
     {
         //do something
-        LoadScene();
+        LoadTrial();
     }
-
-    private void LoadScene()
+    private void LoadTrial()
     {
         LoadScene("res://Trial/Trial_Level/trial_level_1.tscn", ref TrialLevel);
         if (TrialLevel != null)
@@ -25,7 +24,6 @@ public partial class GameManager : Node3D
         }
 
     }
-
     private void LoadScene(String pathName, ref PackedScene sceneName)
     {
         sceneName = GD.Load<PackedScene>(pathName);
