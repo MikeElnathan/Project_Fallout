@@ -7,8 +7,8 @@ public partial class Noel : CharacterBody3D
 {
     private float moveSmoothing = 0.5f;
     private float movementSpeed = 2.0f;
-    public float stoppingDistance { get; set; } = 2.0f;
-    public float ReactionSpeed { get; set; } = 1.0f;
+    public float stoppingDistance { get; set; } = 2.0f;//default value
+    public float ReactionSpeed { get; set; } = 1.0f;//default value
     private Vector3 _velocity;
     public Vector3 movementsTargetPosition { get; set; }
     public Vector3 NavTarget
@@ -20,13 +20,16 @@ public partial class Noel : CharacterBody3D
     public bool move { get; set; } = false; //set Noel to move, to be manipulated by state machnine
     private bool timerCreation = false;
     private NavigationAgent3D _navigationAgent;
-    private CharacterBody3D player;
+    private BlackBoard_Player playerBlackboard;
 
     public override void _Ready()
     {
         base._Ready();
-        player = GetTree().GetFirstNodeInGroup("Player") as CharacterBody3D; //change this to access player character from a blackboard later on
-        gravity = ProjectSettings.GetSetting("physics/3d/default_gravity").AsSingle();//change this latter for a much more flexible approach
+        playerBlackboard = GetTree().GetFirstNodeInGroup("Player_Blackboard") as BlackBoard_Player;
+
+        //change this latter for a much more flexible approach
+        gravity = ProjectSettings.GetSetting("physics/3d/default_gravity").AsSingle();
+
         InitializeAgent();
     }
     public override void _Process(double delta)
@@ -35,7 +38,14 @@ public partial class Noel : CharacterBody3D
     }
     public override void _PhysicsProcess(double delta)
     {
-        Vector3 playerPosition = player.GlobalPosition;
+        moveNoel(delta);
+
+        Velocity = _velocity;
+        MoveAndSlide();
+    }
+    private void moveNoel(double delta)
+    {
+        Vector3 playerPosition = playerBlackboard.GetPlayerPosition();
         float distance = GlobalPosition.DistanceTo(playerPosition);
 
         //how far from player is Noel to trigger followPlayer
@@ -61,9 +71,6 @@ public partial class Noel : CharacterBody3D
         {
             _velocity.Y = 0.01f;
         }
-
-        Velocity = _velocity;
-        MoveAndSlide();
     }
     private void InitializeAgent()
     {
@@ -72,7 +79,11 @@ public partial class Noel : CharacterBody3D
         _navigationAgent.TargetDesiredDistance = stoppingDistance;
         Callable.From(ActorSetup).CallDeferred();
     }
-    private async void AgentMove()
+    private async void ActorSetup()
+    {
+        await ToSignal(GetTree(), SceneTree.SignalName.PhysicsFrame);
+    }
+    private void AgentMove()
     {
         Vector3 direction = Vector3.Zero;
 
@@ -82,17 +93,11 @@ public partial class Noel : CharacterBody3D
         }
         Vector3 currentAgentPosition = GlobalPosition;
         Vector3 nextPathPosition = _navigationAgent.GetNextPathPosition();
-        //Vector3 stoppingDistanceVector = new Vector3(1.0f, 0f, 1.0f) * stoppingDistance;
-        //Vector3 finalTarget = nextPathPosition - stoppingDistanceVector;
 
         direction = currentAgentPosition.DirectionTo(nextPathPosition) * movementSpeed;
 
         _velocity.X = Mathf.Lerp(_velocity.X, direction.X, moveSmoothing);
         _velocity.Z = Mathf.Lerp(_velocity.Z, direction.Z, moveSmoothing);
-    }
-    private async void ActorSetup()
-    {
-        await ToSignal(GetTree(), SceneTree.SignalName.PhysicsFrame);
     }
     public async Task DelayReaction(float seconds)
     {
@@ -101,10 +106,9 @@ public partial class Noel : CharacterBody3D
 
         if (timerCreation)
         {
-            GD.Print("timer exist");
             return;
         }
-        GD.Print("timer creation");
+        
         timerCreation = true;
 
         Timer timer = new Timer

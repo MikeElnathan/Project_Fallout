@@ -8,5 +8,5 @@ script = ExtResource("1_5akj2")
 
 [node name="BlackBoard" type="Node3D" parent="."]
 
-[node name="Player_BlackBoard" type="Node3D" parent="BlackBoard"]
+[node name="Player_BlackBoard" type="Node3D" parent="BlackBoard" groups=["Player_Blackboard"]]
 script = ExtResource("1_bbwkg")

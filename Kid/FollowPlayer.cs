@@ -41,14 +41,4 @@ public partial class FollowPlayer : State
         noel.move = true;
         //GD.Print("FollowPlayer set move to: ", noel.move);
     }
-    private async Task ResetNavAgent()
-    {
-        //is this necessary?
-        var navAgent = noel.GetNode<NavigationAgent3D>("NavigationAgent3D");
-
-        navAgent.TargetPosition = noel.GlobalPosition;
-
-        await ToSignal(GetTree(), SceneTree.SignalName.PhysicsFrame);
-        await ToSignal(GetTree(), SceneTree.SignalName.PhysicsFrame);
-    }
 }

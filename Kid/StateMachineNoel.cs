@@ -4,12 +4,10 @@ using System.Threading.Tasks;
 
 public partial class StateMachineNoel : BaseStateMachine
 {
-    private CharacterBody3D player;
+    private BlackBoard_Player playerBlackboard;
     private CharacterBody3D noel;
     private Noel classNoel;
     private Vector3 playerPosition;
-    private float distanceToPlayer;
-    private float distanceTreshold = 4.5f;
     private SignalBus signalBus;
     private SignalBus_Noel signalBus_Noel;
     public bool shouldFollow { get; set; }
@@ -20,14 +18,13 @@ public partial class StateMachineNoel : BaseStateMachine
     {
         signalBus = SignalBus.Instance;
         base._Ready();
-        player = GetTree().GetFirstNodeInGroup("Player") as CharacterBody3D;
+        playerBlackboard = GetTree().GetFirstNodeInGroup("Player_Blackboard") as BlackBoard_Player; 
         noel = GetTree().GetFirstNodeInGroup("Noel") as CharacterBody3D;
         classNoel = GetTree().GetFirstNodeInGroup("Noel") as Noel; //to access method inside Noel
     }
     public override void _Process(double delta)
     {
         base._Process(delta);
-        distanceToPlayer = calculateDistance();
         triggerStateChange();
     }
     private void triggerStateChange()
@@ -45,8 +42,9 @@ public partial class StateMachineNoel : BaseStateMachine
     }
     private float calculateDistance()
     {
+        playerPosition = playerBlackboard.GetPlayerPosition();
         //change this later to get player info from a blackboard
-        float distance = player.GlobalPosition.DistanceTo(noel.GlobalPosition);
+        float distance = playerPosition.DistanceTo(noel.GlobalPosition);
 
         return distance;
     }
