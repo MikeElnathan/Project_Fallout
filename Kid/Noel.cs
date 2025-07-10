@@ -17,7 +17,7 @@ public partial class Noel : CharacterBody3D
         set { _navigationAgent.TargetPosition = value; }
     }
     private float gravity;
-    public bool move { get; set; } = false;
+    public bool move { get; set; } = false; //set Noel to move, to be manipulated by state machnine
     private bool timerCreation = false;
     private NavigationAgent3D _navigationAgent;
     private CharacterBody3D player;
@@ -45,7 +45,6 @@ public partial class Noel : CharacterBody3D
             {
                 NavTarget = movementsTargetPosition;
             }
-
             AgentMove();
         }
         else
@@ -73,7 +72,7 @@ public partial class Noel : CharacterBody3D
         _navigationAgent.TargetDesiredDistance = stoppingDistance;
         Callable.From(ActorSetup).CallDeferred();
     }
-    private void AgentMove()
+    private async void AgentMove()
     {
         Vector3 direction = Vector3.Zero;
 
@@ -97,7 +96,7 @@ public partial class Noel : CharacterBody3D
     }
     public async Task DelayReaction(float seconds)
     {
-        GD.Print("Timer created");
+        //GD.Print("Timer created");
         //_________________________
 
         if (timerCreation)
@@ -105,7 +104,7 @@ public partial class Noel : CharacterBody3D
             GD.Print("timer exist");
             return;
         }
-
+        GD.Print("timer creation");
         timerCreation = true;
 
         Timer timer = new Timer
@@ -122,6 +121,6 @@ public partial class Noel : CharacterBody3D
         timerCreation = false;
 
         //__________________________
-        GD.Print("Timer destroyed");
+        //GD.Print("Timer destroyed");
     }
 }

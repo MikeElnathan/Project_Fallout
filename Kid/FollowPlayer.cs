@@ -15,18 +15,16 @@ public partial class FollowPlayer : State
     }
     public override async void Enter()
     {
-        GD.Print("Noel: Follow player state");
-        //reset nav agent
-        await ResetNavAgent();
+        //GD.Print("Noel: Follow player state");
+        noel.move = false;
+        await noel.DelayReaction(noel.ReactionSpeed);
         followPlayer();
         base.Enter();
     }
     public override void Exit()
     {
-        GD.Print("Noel: Follow player exited");
+        //GD.Print("Noel: Follow player exited");
         base.Exit();
-        //reset noel
-        noel.ReactionSpeed = 0.01f;
     }
     public override void Update(double delta)
     {
@@ -41,7 +39,7 @@ public partial class FollowPlayer : State
         //check distance
         //currently target position in movementTargetPosition is empty. A different script will handle it, in MoodManager
         noel.move = true;
-        GD.Print("FollowPlayer set move to: ", noel.move);
+        //GD.Print("FollowPlayer set move to: ", noel.move);
     }
     private async Task ResetNavAgent()
     {

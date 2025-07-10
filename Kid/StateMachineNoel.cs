@@ -22,13 +22,26 @@ public partial class StateMachineNoel : BaseStateMachine
         base._Ready();
         player = GetTree().GetFirstNodeInGroup("Player") as CharacterBody3D;
         noel = GetTree().GetFirstNodeInGroup("Noel") as CharacterBody3D;
-        classNoel = GetTree().GetFirstNodeInGroup("Noel") as Noel;
+        classNoel = GetTree().GetFirstNodeInGroup("Noel") as Noel; //to access method inside Noel
     }
     public override void _Process(double delta)
     {
         base._Process(delta);
         distanceToPlayer = calculateDistance();
         triggerStateChange();
+    }
+    private void triggerStateChange()
+    {
+        if (shouldFollowConditions())
+            {
+                changeState("FollowPlayer");
+                resetBool();
+            }
+        else
+            {
+                changeState("idleNoel");
+                resetBool();
+            }
     }
     private float calculateDistance()
     {
@@ -37,33 +50,19 @@ public partial class StateMachineNoel : BaseStateMachine
 
         return distance;
     }
-    private void triggerStateChange()
-    {
-        if (shouldFollowConditions())
-            {
-                changeState("FollowPlayer");
-                resetBool();
-
-            }
-            else
-            {
-                changeState("idleNoel");
-                resetBool();
-            }
-    }
     protected override void ReadSignal()
     {
         //to improve. several condition should trigger a state change
+        //this is signal received from player. To be combined with other conditions inside different method before triggering a state change.
         signalBus.Walk += () => shouldFollow = true;
         signalBus.Sleep += () => sleep = true;
         signalBus.Sneak += () => sneak = true;
     }
-
     private bool shouldFollowConditions()
     {
+        //add some other conditions here
         return shouldFollow;
     }
-
     private void resetBool()
     {
         shouldFollow = false;
