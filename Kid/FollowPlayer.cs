@@ -17,11 +17,7 @@ public partial class FollowPlayer : State
     {
         GD.Print("Noel: Follow player state");
         //reset nav agent
-        //await ResetNavAgent();
-        //simulate delayed reaction
-        noel.reactiontimer = true;
-        await noel.DelayReaction(noel.ReactionSpeed);
-        noel.reactiontimer = false;
+        await ResetNavAgent();
         followPlayer();
         base.Enter();
     }

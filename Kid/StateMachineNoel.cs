@@ -39,11 +39,6 @@ public partial class StateMachineNoel : BaseStateMachine
     }
     private void triggerStateChange()
     {
-        if (classNoel.reactiontimer)
-        {
-            return;
-        }
-
         if (shouldFollowConditions())
             {
                 changeState("FollowPlayer");
