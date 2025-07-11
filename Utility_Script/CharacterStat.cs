@@ -1,9 +1,14 @@
 using Godot;
 using System;
+using System.Collections;
 
 public partial class CharacterStat : Node
 {
-     public enum ActionType
+    public enum AffectStamina
+    {
+        Rest, Nap, Sleep, Walk, Run
+    }
+    public enum ActionType
     {
         Attacked, Heal
     }
@@ -11,8 +16,12 @@ public partial class CharacterStat : Node
     {
         Add, Substract, Multiply
     }
+    //For each class inherit this class, set a default value
     public float MaxHealth { get; private set; }
     public float CurrentHealth { get; private set; }
+    public float Stamina { get; private set; }
+    public float MaxStamina { get; private set; }
+
 
     public override void _Ready()
     {
@@ -21,6 +30,7 @@ public partial class CharacterStat : Node
     private void LoadSave(string saveDataName)
     {
         //load from save file the stat here
+        //Create a new dictionary, save to it
     }
     public void ModHealth(float modifier, ActionType action)
     {
@@ -61,8 +71,6 @@ public partial class CharacterStat : Node
             GD.Print("Noel perished");
         }
     }
-    private void resetHealth()
-    {
-        CurrentHealth = MaxHealth;
-    }
+    private void resetHealth() => CurrentHealth = MaxHealth;
+    private void resetStamina() => Stamina = MaxStamina;
 }
