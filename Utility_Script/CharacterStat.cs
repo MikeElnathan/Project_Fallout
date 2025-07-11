@@ -23,15 +23,16 @@ public partial class CharacterStat : Node
     //For each class inherit this class, set a default value
     public float MaxHealth { get; private set; }
     public float CurrentHealth { get; private set; }
-    public float Stamina { get; private set; }
     public float MaxStamina { get; private set; }
-
+    public float CurrentStamina { get; private set; }
+    public float MaxMood { get; private set; }
+    public float CurrentMood { get; private set; }
 
     public override void _Ready()
     {
         base._Ready();
     }
-    private void LoadSave(string saveDataName)
+    protected virtual void LoadSave(string saveDataName)
     {
         //load from save file the stat here
         //Create a new dictionary, save to it
@@ -51,19 +52,19 @@ public partial class CharacterStat : Node
         CurrentHealth = Mathf.Clamp(CurrentHealth, 0f, MaxHealth);
         checkDeath();
     }
-    public void ModMaxStat(float modifier, Operation operation, )
+    public void ModMaxStat(float modifier, Operation operation, StatVar var)
     {
-        //this is to increase max possible health, which is achieved via items, level upgrade, etc.
-        switch (operation)
+        //this is to increase max possible health/stamina/mood, which is achieved via items, level upgrade, etc.
+        switch (var)
         {
-            case Operation.Multiply:
-                MaxHealth *= modifier;
+            case StatVar.Health:
+                MaxHealth = Mathf.Max(1f, performOperation(modifier, operation, MaxHealth));
                 break;
-            case Operation.Add:
-                MaxHealth += modifier;
+            case StatVar.Stamina:
+                MaxStamina =  Mathf.Max(1f, performOperation(modifier, operation, MaxStamina));
                 break;
-            case Operation.Substract:
-                MaxHealth -= modifier;
+            case StatVar.Mood:
+                MaxMood =  Mathf.Max(1f, performOperation(modifier, operation, MaxMood));
                 break;
         }
     }
@@ -72,9 +73,38 @@ public partial class CharacterStat : Node
         if (CurrentHealth <= 0f)
         {
             //trigger change of state
-            GD.Print("Noel perished");
+            GD.Print("Perished");
         }
     }
-    private void resetHealth() => CurrentHealth = MaxHealth;
-    private void resetStamina() => Stamina = MaxStamina;
+    public void ResetStat(StatVar var)
+    {
+        switch (var)
+        {
+            case StatVar.Health:
+                CurrentHealth = MaxHealth;
+                break;
+            case StatVar.Stamina:
+                CurrentStamina = MaxStamina;
+                break;
+            case StatVar.Mood:
+                CurrentMood = MaxMood;
+                break;
+        }
+    }
+    private float performOperation(float modifier, Operation operation, float var)
+    {
+        switch (operation)
+        {
+            case Operation.Multiply:
+                var *= modifier;
+                break;
+            case Operation.Add:
+                var += modifier;
+                break;
+            case Operation.Substract:
+                var -= modifier;
+                break;
+        }
+        return var;
+    }
 }
