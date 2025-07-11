@@ -40,9 +40,11 @@ public partial class SignalBus : Node3D
                 break;
             case ActionType.Walk:
                 EmitSignal(SignalName.Walk);
+                GD.Print("Walk emitted");
                 break;
             case ActionType.Run:
                 EmitSignal(SignalName.Run);
+                GD.Print("Run emitted");
                 break;
             case ActionType.Jump:
                 EmitSignal(SignalName.Jump);

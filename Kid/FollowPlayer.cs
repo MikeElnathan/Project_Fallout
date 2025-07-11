@@ -19,6 +19,7 @@ public partial class FollowPlayer : State
         noel.move = false;
         await noel.DelayReaction(noel.ReactionSpeed);
         followPlayer();
+        GD.Print("follow player");
         base.Enter();
     }
     public override void Exit()
@@ -26,19 +27,9 @@ public partial class FollowPlayer : State
         //GD.Print("Noel: Follow player exited");
         base.Exit();
     }
-    public override void Update(double delta)
-    {
-
-    }
-    public override void PhysicUpdate(double delta)
-    {
-        base.PhysicUpdate(delta);
-    }
     private void followPlayer()
     {
-        //check distance
         //currently target position in movementTargetPosition is empty. A different script will handle it, in MoodManager
         noel.move = true;
-        //GD.Print("FollowPlayer set move to: ", noel.move);
     }
 }

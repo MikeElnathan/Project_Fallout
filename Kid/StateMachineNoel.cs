@@ -1,6 +1,4 @@
 using Godot;
-using System;
-using System.Threading.Tasks;
 
 public partial class StateMachineNoel : BaseStateMachine
 {
@@ -11,6 +9,7 @@ public partial class StateMachineNoel : BaseStateMachine
     private SignalBus signalBus;
     private SignalBus_Noel signalBus_Noel;
     public bool shouldFollow { get; set; }
+    public bool noelIdle { get; set; }
     public bool sleep { get; set; }
     public bool sneak { get; set; }
 
@@ -29,16 +28,15 @@ public partial class StateMachineNoel : BaseStateMachine
     }
     private void triggerStateChange()
     {
-        if (shouldFollowConditions())
-            {
-                changeState("FollowPlayer");
-                resetBool();
-            }
-        else
-            {
-                changeState("idleNoel");
-                resetBool();
-            }
+        if (shouldFollow && !noelIdle)
+        {
+            changeState("FollowPlayer");
+        }
+        else if (noelIdle)
+        {
+            changeState("idleNoel");
+        }
+        GD.Print("idleNoel: ", noelIdle, ", shouldFollow: ", shouldFollow);
     }
     private float calculateDistance()
     {
@@ -52,7 +50,9 @@ public partial class StateMachineNoel : BaseStateMachine
     {
         //to improve. several condition should trigger a state change
         //this is signal received from player. To be combined with other conditions inside different method before triggering a state change.
-        signalBus.Walk += () => shouldFollow = true;
+        //memory leak from not unsubscribing to signals?
+        signalBus.Walk += () => { shouldFollow = true; noelIdle = false; };
+        signalBus.Idle += () => { noelIdle = true; shouldFollow = false; };
         signalBus.Sleep += () => sleep = true;
         signalBus.Sneak += () => sneak = true;
     }
@@ -63,6 +63,7 @@ public partial class StateMachineNoel : BaseStateMachine
     }
     private void resetBool()
     {
+        GD.Print("Resetting flag");
         shouldFollow = false;
         sleep = false;
         sneak = false;

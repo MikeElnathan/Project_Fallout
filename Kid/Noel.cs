@@ -5,8 +5,9 @@ using System.Threading.Tasks;
 
 public partial class Noel : CharacterBody3D
 {
+    public bool moveFlag = false;
     private float moveSmoothing = 0.5f;
-    private float movementSpeed = 2.0f;
+    private float movementSpeed = 2.0f;//to retrieve from character stat
     public float stoppingDistance { get; set; } = 2.0f;//default value
     public float ReactionSpeed { get; set; } = 1.0f;//default value
     private Vector3 _velocity;
@@ -61,6 +62,7 @@ public partial class Noel : CharacterBody3D
         {
             _velocity.X = 0f;
             _velocity.Z = 0f;
+            StopPathing();
         }
 
         if (!IsOnFloor())
@@ -87,10 +89,6 @@ public partial class Noel : CharacterBody3D
     {
         Vector3 direction = Vector3.Zero;
 
-        if (_navigationAgent.IsNavigationFinished())
-        {
-            return;
-        }
         Vector3 currentAgentPosition = GlobalPosition;
         Vector3 nextPathPosition = _navigationAgent.GetNextPathPosition();
 
@@ -98,6 +96,14 @@ public partial class Noel : CharacterBody3D
 
         _velocity.X = Mathf.Lerp(_velocity.X, direction.X, moveSmoothing);
         _velocity.Z = Mathf.Lerp(_velocity.Z, direction.Z, moveSmoothing);
+    }
+    public void StopPathing()
+    {
+        //first, check if move command have been issued
+        if (!move)
+        {
+            _navigationAgent.TargetPosition = GlobalPosition;
+        }
     }
     public async Task DelayReaction(float seconds)
     {
@@ -108,7 +114,7 @@ public partial class Noel : CharacterBody3D
         {
             return;
         }
-        
+
         timerCreation = true;
 
         Timer timer = new Timer

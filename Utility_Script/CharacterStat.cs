@@ -27,6 +27,8 @@ public partial class CharacterStat : Node
     public float CurrentStamina { get; private set; }
     public float MaxMood { get; private set; }
     public float CurrentMood { get; private set; }
+    public float RunSpeed { get; private set; }
+    public float WalkSpeed { get; private set; }
 
     public override void _Ready()
     {
