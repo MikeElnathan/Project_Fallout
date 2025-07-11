@@ -8,6 +8,10 @@ public partial class CharacterStat : Node
     {
         Rest, Nap, Sleep, Walk, Run
     }
+    public enum StatVar
+    {
+        Health, Mood, Stamina
+    }
     public enum ActionType
     {
         Attacked, Heal
@@ -47,7 +51,7 @@ public partial class CharacterStat : Node
         CurrentHealth = Mathf.Clamp(CurrentHealth, 0f, MaxHealth);
         checkDeath();
     }
-    public void ModMaxHealth(float modifier, Operation operation)
+    public void ModMaxStat(float modifier, Operation operation, )
     {
         //this is to increase max possible health, which is achieved via items, level upgrade, etc.
         switch (operation)
