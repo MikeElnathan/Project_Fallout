@@ -49,17 +49,6 @@ public partial class StateMachineNoel : BaseStateMachine
     }
     protected override void ReadSignal()
     {
-        //to improve. several condition should trigger a state change
-        //this is signal received from player. To be combined with other conditions inside different method before triggering a state change.
-        //memory leak from not unsubscribing to signals?
-        if (signalsConnected) return;
-
-        signalBus.Walk += () => { shouldFollow = true; noelIdle = false; };
-        signalBus.Idle += () => { noelIdle = true; shouldFollow = false; };
-        signalBus.Sleep += () => sleep = true;
-        signalBus.Sneak += () => sneak = true;
-
-        signalsConnected = true;
     }
     private bool shouldFollowConditions()
     {

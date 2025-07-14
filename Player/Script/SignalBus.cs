@@ -9,6 +9,7 @@ public partial class SignalBus : Node3D
     //Sigleton instance
     private static SignalBus _instance;
     public static SignalBus Instance => _instance;
+    private PlayerStateMachine playerStateMachine;
 
     public override void _Ready()
     {
@@ -20,7 +21,11 @@ public partial class SignalBus : Node3D
         }
         _instance = this;
     }
-
+    private void initPlayerStateMachine()
+    {
+        playerStateMachine = GetTree().GetFirstNodeInGroup("PlayerStateMachine") as PlayerStateMachine;
+        GD.Print("PlayerStateMachine: ", playerStateMachine);
+    }
     //Basic Player Movement
     [Signal] public delegate void WalkEventHandler();
     [Signal] public delegate void RunEventHandler();
