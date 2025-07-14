@@ -49,7 +49,7 @@ public partial class Noel : CharacterBody3D
         Vector3 playerPosition = playerBlackboard.GetPlayerPosition();
         float distance = GlobalPosition.DistanceTo(playerPosition);
 
-        //how far from player is Noel to trigger followPlayer
+        //how far from player is Noel stopping distance from the player
         if (move && distance > stoppingDistance)
         {
             if (movementsTargetPosition.LengthSquared() > 0.0001f)

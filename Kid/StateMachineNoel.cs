@@ -12,12 +12,13 @@ public partial class StateMachineNoel : BaseStateMachine
     public bool noelIdle { get; set; }
     public bool sleep { get; set; }
     public bool sneak { get; set; }
+    private bool signalsConnected = false;
 
     public override void _Ready()
     {
         signalBus = SignalBus.Instance;
         base._Ready();
-        playerBlackboard = GetTree().GetFirstNodeInGroup("Player_Blackboard") as BlackBoard_Player; 
+        playerBlackboard = GetTree().GetFirstNodeInGroup("Player_Blackboard") as BlackBoard_Player;
         noel = GetTree().GetFirstNodeInGroup("Noel") as CharacterBody3D;
         classNoel = GetTree().GetFirstNodeInGroup("Noel") as Noel; //to access method inside Noel
     }
@@ -36,7 +37,7 @@ public partial class StateMachineNoel : BaseStateMachine
         {
             changeState("idleNoel");
         }
-        GD.Print("idleNoel: ", noelIdle, ", shouldFollow: ", shouldFollow);
+        //GD.Print("idleNoel: ", noelIdle, ", shouldFollow: ", shouldFollow);
     }
     private float calculateDistance()
     {
@@ -51,10 +52,14 @@ public partial class StateMachineNoel : BaseStateMachine
         //to improve. several condition should trigger a state change
         //this is signal received from player. To be combined with other conditions inside different method before triggering a state change.
         //memory leak from not unsubscribing to signals?
+        if (signalsConnected) return;
+
         signalBus.Walk += () => { shouldFollow = true; noelIdle = false; };
         signalBus.Idle += () => { noelIdle = true; shouldFollow = false; };
         signalBus.Sleep += () => sleep = true;
         signalBus.Sneak += () => sneak = true;
+
+        signalsConnected = true;
     }
     private bool shouldFollowConditions()
     {
