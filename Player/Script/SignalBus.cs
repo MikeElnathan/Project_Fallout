@@ -10,6 +10,7 @@ public partial class SignalBus : Node3D
     private static SignalBus _instance;
     public static SignalBus Instance => _instance;
     private PlayerStateMachine playerStateMachine;
+    private BlackBoard_Player playerBlackboard;
 
     public override void _Ready()
     {
@@ -20,11 +21,8 @@ public partial class SignalBus : Node3D
             return;
         }
         _instance = this;
-    }
-    private void initPlayerStateMachine()
-    {
-        playerStateMachine = GetTree().GetFirstNodeInGroup("PlayerStateMachine") as PlayerStateMachine;
-        GD.Print("PlayerStateMachine: ", playerStateMachine);
+
+        playerBlackboard = GetTree().GetFirstNodeInGroup("Player_Blackboard") as BlackBoard_Player;
     }
     //Basic Player Movement
     [Signal] public delegate void WalkEventHandler();
@@ -42,23 +40,27 @@ public partial class SignalBus : Node3D
         {
             case ActionType.Idle:
                 EmitSignal(SignalName.Idle);
+                playerBlackboard.SetStateInPlayerBlackboard(BlackBoard_Player.PlayerState.Idle);
                 break;
             case ActionType.Walk:
                 EmitSignal(SignalName.Walk);
-                GD.Print("Walk emitted");
+                playerBlackboard.SetStateInPlayerBlackboard(BlackBoard_Player.PlayerState.Walk);
                 break;
             case ActionType.Run:
                 EmitSignal(SignalName.Run);
-                GD.Print("Run emitted");
+                playerBlackboard.SetStateInPlayerBlackboard(BlackBoard_Player.PlayerState.Run);
                 break;
             case ActionType.Jump:
                 EmitSignal(SignalName.Jump);
+                playerBlackboard.SetStateInPlayerBlackboard(BlackBoard_Player.PlayerState.Jump);
                 break;
             case ActionType.Sleep:
                 EmitSignal(SignalName.Sleep);
+                playerBlackboard.SetStateInPlayerBlackboard(BlackBoard_Player.PlayerState.Sleep);
                 break;
             case ActionType.Sneak:
                 EmitSignal(SignalName.Sneak);
+                playerBlackboard.SetStateInPlayerBlackboard(BlackBoard_Player.PlayerState.Sneak);
                 break;
             default:
                 GD.PrintErr("Unknown action type: ", action.ToString());

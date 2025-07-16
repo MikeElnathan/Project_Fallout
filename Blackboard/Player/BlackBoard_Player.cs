@@ -24,13 +24,23 @@ public partial class BlackBoard_Player : Node
     }
     public Vector3 GetPlayerPosition()
     {
-        return Player.GlobalPosition;
+        if (Player != null)
+        {
+            playerPosition = Player.GlobalPosition;
+        }
+        else
+        {
+            playerPosition = Vector3.Zero;
+        }
+
+        return playerPosition;
     }
     public void SetStateInPlayerBlackboard(PlayerState state)
     {
         if (currentState != state)
         {
             currentState = state;
+            GD.Print("Current state is: ", currentState);
         }
         else return;
     }
