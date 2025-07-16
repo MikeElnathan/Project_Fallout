@@ -6,17 +6,10 @@ public partial class StateMachineNoel : BaseStateMachine
     private CharacterBody3D noel;
     private Noel classNoel;
     private Vector3 playerPosition;
-    private SignalBus signalBus;
     private SignalBus_Noel signalBus_Noel;
-    public bool shouldFollow { get; set; }
-    public bool noelIdle { get; set; }
-    public bool sleep { get; set; }
-    public bool sneak { get; set; }
-    private bool signalsConnected = false;
 
     public override void _Ready()
     {
-        signalBus = SignalBus.Instance;
         base._Ready();
         playerBlackboard = GetTree().GetFirstNodeInGroup("Player_Blackboard") as BlackBoard_Player;
         noel = GetTree().GetFirstNodeInGroup("Noel") as CharacterBody3D;
@@ -25,41 +18,8 @@ public partial class StateMachineNoel : BaseStateMachine
     public override void _Process(double delta)
     {
         base._Process(delta);
-        triggerStateChange();
-    }
-    private void triggerStateChange()
-    {
-        if (shouldFollow && !noelIdle)
-        {
-            changeState("FollowPlayer");
-        }
-        else if (noelIdle)
-        {
-            changeState("idleNoel");
-        }
-        //GD.Print("idleNoel: ", noelIdle, ", shouldFollow: ", shouldFollow);
-    }
-    private float calculateDistance()
-    {
-        playerPosition = playerBlackboard.GetPlayerPosition();
-        //change this later to get player info from a blackboard
-        float distance = playerPosition.DistanceTo(noel.GlobalPosition);
-
-        return distance;
     }
     protected override void ReadSignal()
     {
-    }
-    private bool shouldFollowConditions()
-    {
-        //add some other conditions here
-        return shouldFollow;
-    }
-    private void resetBool()
-    {
-        GD.Print("Resetting flag");
-        shouldFollow = false;
-        sleep = false;
-        sneak = false;
     }
 }

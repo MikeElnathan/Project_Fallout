@@ -1,13 +1,9 @@
 using Godot;
-using System.Collections.Generic;
 
 public partial class PlayerStateMachine : BaseStateMachine
 {
-    public enum State_Signal_Sender
-    {
-        Idle, Walk, Jump, Run, Sleep, Sneak
-    }
     private SignalBus signalBus;
+    protected BlackBoard_Player playerBlackboard;
 
     public override void _Ready()
     {

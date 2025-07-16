@@ -2,7 +2,6 @@ using Godot;
 
 public partial class Idle : State
 {
-    
     public override void _Ready()
     {
         

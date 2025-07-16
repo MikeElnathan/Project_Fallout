@@ -3,8 +3,13 @@ using System.Threading.Tasks;
 
 public partial class BlackBoard_Player : Node
 {
+    public enum PlayerState
+    {
+        Idle, Walk, Jump, Run, Sneak, Sleep
+    }
     private CharacterBody3D Player;
     public Vector3 playerPosition;
+    public PlayerState currentState { get; private set; }
     public override void _Ready()
     {
         _ = GetPlayer();
@@ -17,15 +22,16 @@ public partial class BlackBoard_Player : Node
             await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
         }
     }
-    public override void _Process(double delta)
-    {
-        if (Player != null)
-        {
-            playerPosition = Player.GlobalPosition;
-        }
-    }
     public Vector3 GetPlayerPosition()
     {
-        return playerPosition;
+        return Player.GlobalPosition;
+    }
+    public void SetStateInPlayerBlackboard(PlayerState state)
+    {
+        if (currentState != state)
+        {
+            currentState = state;
+        }
+        else return;
     }
 }
