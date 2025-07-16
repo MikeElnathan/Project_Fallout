@@ -40,27 +40,27 @@ public partial class SignalBus : Node3D
         {
             case ActionType.Idle:
                 EmitSignal(SignalName.Idle);
-                playerBlackboard.SetStateInPlayerBlackboard(BlackBoard_Player.PlayerState.Idle);
+                playerBlackboard.SetStateInPlayerBlackboard(ActionType.Idle);
                 break;
             case ActionType.Walk:
                 EmitSignal(SignalName.Walk);
-                playerBlackboard.SetStateInPlayerBlackboard(BlackBoard_Player.PlayerState.Walk);
+                playerBlackboard.SetStateInPlayerBlackboard(ActionType.Walk);
                 break;
             case ActionType.Run:
                 EmitSignal(SignalName.Run);
-                playerBlackboard.SetStateInPlayerBlackboard(BlackBoard_Player.PlayerState.Run);
+                playerBlackboard.SetStateInPlayerBlackboard(ActionType.Run);
                 break;
             case ActionType.Jump:
                 EmitSignal(SignalName.Jump);
-                playerBlackboard.SetStateInPlayerBlackboard(BlackBoard_Player.PlayerState.Jump);
+                playerBlackboard.SetStateInPlayerBlackboard(ActionType.Jump);
                 break;
             case ActionType.Sleep:
                 EmitSignal(SignalName.Sleep);
-                playerBlackboard.SetStateInPlayerBlackboard(BlackBoard_Player.PlayerState.Sleep);
+                playerBlackboard.SetStateInPlayerBlackboard(ActionType.Sleep);
                 break;
             case ActionType.Sneak:
                 EmitSignal(SignalName.Sneak);
-                playerBlackboard.SetStateInPlayerBlackboard(BlackBoard_Player.PlayerState.Sneak);
+                playerBlackboard.SetStateInPlayerBlackboard(ActionType.Sneak);
                 break;
             default:
                 GD.PrintErr("Unknown action type: ", action.ToString());

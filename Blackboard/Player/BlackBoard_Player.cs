@@ -3,13 +3,11 @@ using System.Threading.Tasks;
 
 public partial class BlackBoard_Player : Node
 {
-    public enum PlayerState
-    {
-        Idle, Walk, Jump, Run, Sneak, Sleep
-    }
     private CharacterBody3D Player;
     public Vector3 playerPosition;
-    public PlayerState currentState { get; private set; }
+    private SignalBus playerSignaBus;
+    public SignalBus.ActionType currentState { get; private set; }
+    [Signal]public delegate void PlayerStateChangedEventHandler();
     public override void _Ready()
     {
         _ = GetPlayer();
@@ -35,13 +33,14 @@ public partial class BlackBoard_Player : Node
 
         return playerPosition;
     }
-    public void SetStateInPlayerBlackboard(PlayerState state)
+    public void SetStateInPlayerBlackboard(SignalBus.ActionType state)
     {
         if (currentState != state)
         {
             currentState = state;
-            GD.Print("Current state is: ", currentState);
+            EmitSignal(SignalName.PlayerStateChanged);
         }
         else return;
     }
+
 }

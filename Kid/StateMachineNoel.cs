@@ -19,7 +19,4 @@ public partial class StateMachineNoel : BaseStateMachine
     {
         base._Process(delta);
     }
-    protected override void ReadSignal()
-    {
-    }
 }

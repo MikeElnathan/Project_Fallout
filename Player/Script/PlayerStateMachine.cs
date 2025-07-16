@@ -3,7 +3,6 @@ using Godot;
 public partial class PlayerStateMachine : BaseStateMachine
 {
     private SignalBus signalBus;
-    protected BlackBoard_Player playerBlackboard;
 
     public override void _Ready()
     {

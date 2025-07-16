@@ -2,7 +2,7 @@ using Godot;
 using System;
 using System.Threading.Tasks;
 
-public partial class FollowPlayer : State
+public partial class Walk_Noel : State
 {
     private Noel noel;
     private CharacterBody3D player;
