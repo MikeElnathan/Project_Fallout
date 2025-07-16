@@ -22,7 +22,7 @@ public partial class SignalBus : Node3D
         }
         _instance = this;
 
-        playerBlackboard = GetTree().GetFirstNodeInGroup("Player_Blackboard") as BlackBoard_Player;
+        playerBlackboard = BlackBoard_Player.Instance;
     }
     //Basic Player Movement
     [Signal] public delegate void WalkEventHandler();

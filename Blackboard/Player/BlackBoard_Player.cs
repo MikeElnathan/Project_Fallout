@@ -7,9 +7,17 @@ public partial class BlackBoard_Player : Node
     public Vector3 playerPosition;
     private SignalBus playerSignaBus;
     public SignalBus.ActionType currentState { get; private set; }
-    [Signal]public delegate void PlayerStateChangedEventHandler();
+    private static BlackBoard_Player _instance;
+    public static BlackBoard_Player Instance => _instance;
+    [Signal] public delegate void PlayerStateChangedEventHandler();
     public override void _Ready()
     {
+        if (_instance != null && _instance != this)
+        {
+            QueueFree();
+            return;
+        }
+        _instance = this;
         _ = GetPlayer();
     }
     private async Task GetPlayer()

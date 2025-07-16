@@ -11,7 +11,8 @@ public partial class StateMachineNoel : BaseStateMachine
     public override void _Ready()
     {
         base._Ready();
-        playerBlackboard = GetTree().GetFirstNodeInGroup("Player_Blackboard") as BlackBoard_Player;
+        playerBlackboard = BlackBoard_Player.Instance;
+        signalBus_Noel = SignalBus_Noel.Instance_noel;
         noel = GetTree().GetFirstNodeInGroup("Noel") as CharacterBody3D;
         classNoel = GetTree().GetFirstNodeInGroup("Noel") as Noel; //to access method inside Noel
     }
