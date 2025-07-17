@@ -7,6 +7,7 @@ public partial class SignalBus_Noel : Node3D
     public static SignalBus_Noel Instance_noel => _instance_noel;
     private BlackBoard_Player playerBlackboard;
     public SignalBus.ActionType curentPlayerState { get; private set; }
+    [Signal]public delegate void PlayerStateSignalEventHandler();
 
     public override void _Ready()
     {
@@ -26,6 +27,8 @@ public partial class SignalBus_Noel : Node3D
     }
     private void setCurrentPlayerState()
     {
+        //comment
         curentPlayerState = playerBlackboard.currentState;
+        EmitSignal(SignalName.PlayerStateSignal);
     }
 }

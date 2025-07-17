@@ -15,11 +15,10 @@ public partial class Walk_Noel : State
     }
     public override async void Enter()
     {
-        //GD.Print("Noel: Follow player state");
         noel.move = false;
         await noel.DelayReaction(noel.ReactionSpeed);
         followPlayer();
-        GD.Print("follow player");
+        GD.Print("walk");
         base.Enter();
     }
     public override void Exit()
