@@ -13,7 +13,10 @@ public partial class IdleNoel : State
     public override void Enter()
     {
         GD.Print("Noel: Idle entered");
-        noel.move = false;
+        if (noel.move)
+        {
+            noel.move = false;
+        }
         base.Enter();
     }
     public override void Exit()

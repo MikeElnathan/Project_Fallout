@@ -23,6 +23,7 @@ public partial class Walk_Noel : State
     }
     public override void Exit()
     {
+        noel.move = false;
         //GD.Print("Noel: Follow player exited");
         base.Exit();
     }

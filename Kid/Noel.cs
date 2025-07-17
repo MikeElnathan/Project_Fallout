@@ -46,11 +46,12 @@ public partial class Noel : CharacterBody3D
     }
     private void moveNoel(double delta)
     {
+        float buffer = 0.05f;
         Vector3 playerPosition = playerBlackboard.GetPlayerPosition();
         float distance = GlobalPosition.DistanceTo(playerPosition);
 
         //how far from player is Noel stopping distance from the player
-        if (move && distance > stoppingDistance)
+        if (move && distance > stoppingDistance + buffer)
         {
             if (movementsTargetPosition.LengthSquared() > 0.0001f)
             {
@@ -60,6 +61,7 @@ public partial class Noel : CharacterBody3D
         }
         else
         {
+            //GD.Print("move: ", move, ", _velocity: ", _velocity, ", Velocity: ", Velocity); use to troubleshoot move flag
             _velocity.X = 0f;
             _velocity.Z = 0f;
             StopPathing();
