@@ -38,6 +38,8 @@ public partial class StateMachineNoel : BaseStateMachine
         {
             case SignalBus.ActionType.Idle:
                 changeState("idleNoel");
+                GD.Print("Idle triggered");
+                classNoel.movementSpeed = 2.0f;
                 break;
             case SignalBus.ActionType.Walk:
                 changeState("walkNoel");
@@ -47,7 +49,8 @@ public partial class StateMachineNoel : BaseStateMachine
                 break;
             case SignalBus.ActionType.Run:
                 //test only
-                changeState("idleNoel");
+                changeState("walkNoel");
+                classNoel.movementSpeed = 5.0f;
                 GD.Print("Run is triggered in SM");
                 break;
         } 

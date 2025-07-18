@@ -7,7 +7,7 @@ public partial class Noel : CharacterBody3D
 {
     public bool moveFlag = false;
     private float moveSmoothing = 0.5f;
-    private float movementSpeed { get; set; } = 2.0f;//to retrieve from character stat
+    public float movementSpeed { get; set; } = 2.0f;//to retrieve from character stat
     public float stoppingDistance { get; set; } = 2.0f;//default value
     public float ReactionSpeed { get; set; } = 1.0f;//default value
     private Vector3 _velocity;

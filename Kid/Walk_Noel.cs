@@ -17,19 +17,13 @@ public partial class Walk_Noel : State
     {
         noel.move = false;
         await noel.DelayReaction(noel.ReactionSpeed);
-        followPlayer();
-        GD.Print("walk");
+        GD.Print("Noel: walk state");
+        noel.move = true;
         base.Enter();
     }
     public override void Exit()
     {
-        noel.move = false;
         //GD.Print("Noel: Follow player exited");
         base.Exit();
-    }
-    private void followPlayer()
-    {
-        //currently target position in movementTargetPosition is empty. A different script will handle it, in MoodManager
-        noel.move = true;
     }
 }
