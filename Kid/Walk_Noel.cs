@@ -13,13 +13,17 @@ public partial class Walk_Noel : State
         noel = GetTree().GetFirstNodeInGroup("Noel") as Noel;
         player = GetTree().GetFirstNodeInGroup("Player") as CharacterBody3D;
     }
-    public override async void Enter()
+    public override void Enter()
+    {
+        GD.Print("Noel: walk state");
+        _ = EnterAsync();
+        base.Enter();
+    }
+    private async Task EnterAsync()
     {
         noel.move = false;
         await noel.DelayReaction(noel.ReactionSpeed);
-        GD.Print("Noel: walk state");
         noel.move = true;
-        base.Enter();
     }
     public override void Exit()
     {
