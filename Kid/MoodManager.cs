@@ -9,7 +9,7 @@ public partial class MoodManager : Node
         Sad,
         Angry,
         Afraid,
-        Excited 
+        Excited
     }
     private Noel noel;
     private CharacterBody3D player;
@@ -29,5 +29,9 @@ public partial class MoodManager : Node
     {
         //to vary based on noel's mood
         noel.movementsTargetPosition = playerBlackboard.GetPlayerPosition();
+    }
+    private void shouldMove()
+    {
+        noel.move = true;   
     }
 }
