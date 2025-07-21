@@ -9,8 +9,8 @@ script = ExtResource("1_5akj2")
 
 [node name="BlackBoard" type="Node3D" parent="."]
 
-[node name="Player_BlackBoard" type="Node" parent="BlackBoard" groups=["Player_Blackboard"]]
+[node name="PlayerBlackBoard" type="Node" parent="BlackBoard" groups=["Player_Blackboard"]]
 script = ExtResource("1_bbwkg")
 
-[node name="Node" type="Node" parent="BlackBoard" groups=["Noel_Blackboard"]]
+[node name="NoelBlackboard" type="Node" parent="BlackBoard" groups=["Noel_Blackboard"]]
 script = ExtResource("3_mawo6")

@@ -5,14 +5,21 @@ public partial class Blackboard_Noel : Node
 {
     private CharacterBody3D Noel;
     public Vector3 noelPosition { get; private set; }
+    public Vector3 noelVelocity { get; private set; }
     private SignalBus_Noel noelSignalBus;
     //Noel mood here
     private static Blackboard_Noel _instance;
     public static Blackboard_Noel Instance_noel => _instance;
-    
+
 
     public override void _Ready()
     {
+        if (_instance != null && _instance != this)
+        {
+            QueueFree();
+            return;
+        }
+        _instance = this;
         _ = GetNoel();
     }
     private async Task GetNoel()
@@ -23,17 +30,24 @@ public partial class Blackboard_Noel : Node
             Noel = GetTree().GetFirstNodeInGroup("Noel") as CharacterBody3D;
             await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
         }
-        GD.Print("Noel: ", Noel);
     }
     public override void _Process(double delta)
+    {
+    }
+    public Vector3 GetNoelPosition()
     {
         if (Noel != null)
         {
             noelPosition = Noel.GlobalPosition;
         }
-    }
-    public Vector3 GetNoelPosition()
-    {
         return noelPosition;
+    }
+    public Vector3 GetNoelVelocity()
+    {
+        if (Noel != null)
+        {
+            noelVelocity = Noel.Velocity;
+        }
+        return noelVelocity;
     }
 }

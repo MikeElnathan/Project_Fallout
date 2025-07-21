@@ -17,7 +17,6 @@ public partial class Walk_Noel : State
     {
         GD.Print("Noel: walk state");
         _ = EnterAsync();
-        base.Enter();
     }
     private async Task EnterAsync()
     {
