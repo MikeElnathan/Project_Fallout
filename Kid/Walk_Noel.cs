@@ -15,8 +15,8 @@ public partial class Walk_Noel : State
     }
     public override void Enter()
     {
-        GD.Print("Noel: walk state");
-        _ = EnterAsync();
+        GD.Print("Noel: walk state, velocity: ", noel.Velocity);
+        //_ = EnterAsync();
     }
     private async Task EnterAsync()
     {

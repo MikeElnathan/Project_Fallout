@@ -10,7 +10,7 @@ public partial class IdleNoel : State
     }
     public override void Enter()
     {
-        GD.Print("Noel is idling");
+        GD.Print("Noel is idling, Velocity: ", noel.Velocity);
         base.Enter();
     }
     public override void Exit()

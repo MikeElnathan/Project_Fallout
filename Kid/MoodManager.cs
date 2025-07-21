@@ -24,6 +24,7 @@ public partial class MoodManager : Node
         //temporary. to be manipulated based on mood
         noel.ReactionSpeed = 0.5f;
         noel.stoppingDistance = 2.0f;
+        shouldMove();
     }
     public override void _Process(double delta)
     {
@@ -32,6 +33,6 @@ public partial class MoodManager : Node
     }
     private void shouldMove()
     {
-        noel.move = true;   
+        noel.move = true;
     }
 }

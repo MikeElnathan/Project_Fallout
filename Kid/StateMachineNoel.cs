@@ -40,7 +40,7 @@ public partial class StateMachineNoel : BaseStateMachine
         //switching to Idle state base on horizintal velocity
         float horizontalSpeed = new Vector2(noelVelocity.X, noelVelocity.Z).Length();
 
-        if (horizontalSpeed <= 0.0f)
+        if (horizontalSpeed <= 0.1f)
         {
             changeState("idleNoel");
         }
