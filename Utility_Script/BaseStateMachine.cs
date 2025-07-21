@@ -32,7 +32,7 @@ public partial class BaseStateMachine : Node
                 state._stateMachine = this;
                 state.InjectDependencies(animationPlayer);
             }
-        //GD.Print("States: ", child.Name);
+            //GD.Print("States: ", child.Name);
         }
     }
 
@@ -63,5 +63,9 @@ public partial class BaseStateMachine : Node
     public override void _PhysicsProcess(double delta)
     {
         currentState?.PhysicUpdate(delta);
+    }
+    public State StateCurrent()
+    {
+        return currentState;
     }
 }

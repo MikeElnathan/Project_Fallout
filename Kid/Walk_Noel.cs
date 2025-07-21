@@ -11,12 +11,10 @@ public partial class Walk_Noel : State
     {
         base._Ready();
         noel = GetTree().GetFirstNodeInGroup("Noel") as Noel;
-        player = GetTree().GetFirstNodeInGroup("Player") as CharacterBody3D;
     }
     public override void Enter()
     {
-        GD.Print("Noel: walk state, velocity: ", noel.Velocity);
-        //_ = EnterAsync();
+        _ = EnterAsync();
     }
     private async Task EnterAsync()
     {

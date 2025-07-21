@@ -61,7 +61,6 @@ public partial class Noel : CharacterBody3D
         }
         else
         {
-            //GD.Print("move: ", move, ", _velocity: ", _velocity, ", Velocity: ", Velocity); use to troubleshoot move flag
             _velocity.X = 0f;
             _velocity.Z = 0f;
             StopPathing();

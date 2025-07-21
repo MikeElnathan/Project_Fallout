@@ -15,8 +15,6 @@ public partial class StateMachineNoel : BaseStateMachine
     {
         playerBlackboard = BlackBoard_Player.Instance;
         signalBus_Noel = SignalBus_Noel.Instance_noel;
-        noel = GetTree().GetFirstNodeInGroup("Noel") as CharacterBody3D;
-        classNoel = GetTree().GetFirstNodeInGroup("Noel") as Noel; //to access method inside Noel
         noelBlackboard = Blackboard_Noel.Instance_noel;
         base._Ready();
     }
@@ -42,11 +40,14 @@ public partial class StateMachineNoel : BaseStateMachine
 
         if (horizontalSpeed <= 0.1f)
         {
-            changeState("idleNoel");
-        }
-        else
-        {
             changeState("walkNoel");
+            noelBlackboard.noelCurrentState = SignalBus.ActionType.Walk;
+
+        }
+        else if (horizontalSpeed > 0.1f)
+        {
+            changeState("idleNoel");
+            noelBlackboard.noelCurrentState = SignalBus.ActionType.Idle;
         }
     }
 }
