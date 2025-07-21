@@ -30,6 +30,7 @@ project/assembly_name="Project_Fallout"
 Player=""
 Noel=""
 Player_Blackboard="Player Blackboard"
+Noel_Blackboard=""
 
 [input]
 

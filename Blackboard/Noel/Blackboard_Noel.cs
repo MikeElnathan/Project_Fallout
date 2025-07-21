@@ -4,7 +4,12 @@ using System.Threading.Tasks;
 public partial class Blackboard_Noel : Node
 {
     private CharacterBody3D Noel;
-    public Vector3 noelPosition;
+    public Vector3 noelPosition { get; private set; }
+    private SignalBus_Noel noelSignalBus;
+    //Noel mood here
+    private static Blackboard_Noel _instance;
+    public static Blackboard_Noel Instance_noel => _instance;
+    
 
     public override void _Ready()
     {

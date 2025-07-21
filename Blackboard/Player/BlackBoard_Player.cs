@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 public partial class BlackBoard_Player : Node
 {
     private CharacterBody3D Player;
-    public Vector3 playerPosition;
+    public Vector3 playerPosition { get; private set; }
     private SignalBus playerSignaBus;
     public SignalBus.ActionType currentState { get; private set; }
     private static BlackBoard_Player _instance;

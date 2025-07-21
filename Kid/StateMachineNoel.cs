@@ -33,27 +33,5 @@ public partial class StateMachineNoel : BaseStateMachine
         {
             PlayerState = signalBus_Noel.curentPlayerState;
         }
-
-        switch (PlayerState)
-        {
-            case SignalBus.ActionType.Idle:
-                GD.Print("Idle triggered in SM");
-                changeState("idleNoel");
-                break;
-            case SignalBus.ActionType.Walk:
-                GD.Print("Walk triggered in SM");
-                classNoel.movementSpeed = 2.0f;
-                changeState("walkNoel");
-                break;
-            case SignalBus.ActionType.Sleep:
-                changeState("sleepNoel");
-                break;
-            case SignalBus.ActionType.Run:
-                //test only
-                GD.Print("Run is triggered in SM");
-                changeState("walkNoel");
-                classNoel.movementSpeed = 5.0f;
-                break;
-        } 
     }
 }
