@@ -23,6 +23,7 @@ public partial class Blackboard_Noel : Node
         _instance = this;
         _ = GetNoel();
     }
+
     private async Task GetNoel()
     {
         //make sure to get the node when it's loaded
@@ -39,10 +40,5 @@ public partial class Blackboard_Noel : Node
             noelPosition = Noel.GlobalPosition;
         }
         return noelPosition;
-    }
-    public Vector3 GetNoelVelocity()
-    {
-        noelVelocity = Noel.Velocity;
-        return noelVelocity;
     }
 }

@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 
 public partial class Noel : CharacterBody3D
 {
-    public bool moveFlag = false;
     private float moveSmoothing = 0.5f;
     public float movementSpeed { get; set; } = 2.0f;//to retrieve from character stat
     public float stoppingDistance { get; set; } = 2.0f;//default value
@@ -18,7 +17,7 @@ public partial class Noel : CharacterBody3D
         set { _navigationAgent.TargetPosition = value; }
     }
     private float gravity;
-    public bool move { get; set; } = false; //set Noel to move, to be manipulated by state machnine
+    public bool move { get; set; } = true; //set Noel to move, to be manipulated by state machnine
     private bool timerCreation = false;
     private NavigationAgent3D _navigationAgent;
     private BlackBoard_Player playerBlackboard;
@@ -27,10 +26,11 @@ public partial class Noel : CharacterBody3D
     {
         base._Ready();
         playerBlackboard = GetTree().GetFirstNodeInGroup("Player_Blackboard") as BlackBoard_Player;
+        //set default point of interest
+        movementsTargetPosition = playerBlackboard.GetPlayerPosition();
 
         //change this latter for a much more flexible approach
         gravity = ProjectSettings.GetSetting("physics/3d/default_gravity").AsSingle();
-
         InitializeAgent();
     }
     public override void _Process(double delta)
@@ -47,8 +47,7 @@ public partial class Noel : CharacterBody3D
     private void moveNoel(double delta)
     {
         float buffer = 0.05f;
-        Vector3 playerPosition = playerBlackboard.GetPlayerPosition();
-        float distance = GlobalPosition.DistanceTo(playerPosition);
+        float distance = GlobalPosition.DistanceTo(movementsTargetPosition);
 
         //is moving allowed
         if (move)
