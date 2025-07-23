@@ -24,15 +24,10 @@ public partial class MoodManager : Node
         //temporary. to be manipulated based on mood
         noel.ReactionSpeed = 0.5f;
         noel.stoppingDistance = 2.0f;
-        shouldMove();
     }
     public override void _Process(double delta)
     {
         //to vary based on noel's mood
         noel.movementsTargetPosition = playerBlackboard.GetPlayerPosition();
-    }
-    private void shouldMove()
-    {
-        noel.move = true;
     }
 }

@@ -50,20 +50,28 @@ public partial class Noel : CharacterBody3D
         Vector3 playerPosition = playerBlackboard.GetPlayerPosition();
         float distance = GlobalPosition.DistanceTo(playerPosition);
 
-        //how far from player is Noel stopping distance from the player
-        if (move && distance > stoppingDistance + buffer)
+        //is moving allowed
+        if (move)
         {
-            if (movementsTargetPosition.LengthSquared() > 0.0001f)
+            //check distance as not to get too close to target
+            if (distance > stoppingDistance + buffer)
             {
-                NavTarget = movementsTargetPosition;
+                if (movementsTargetPosition.LengthSquared() > 0.0001f)
+                {
+                    NavTarget = movementsTargetPosition;
+                }
+                AgentMove();
             }
-            AgentMove();
+            else
+            {
+                _velocity.X = 0f;
+                _velocity.Z = 0f;
+            }
         }
         else
         {
             _velocity.X = 0f;
             _velocity.Z = 0f;
-            StopPathing();
         }
 
         if (!IsOnFloor())
@@ -72,7 +80,7 @@ public partial class Noel : CharacterBody3D
         }
         else
         {
-            _velocity.Y = 0.01f;
+            _velocity.Y = 0.0f;
         }
     }
     private void InitializeAgent()
@@ -97,14 +105,6 @@ public partial class Noel : CharacterBody3D
 
         _velocity.X = Mathf.Lerp(_velocity.X, direction.X, moveSmoothing);
         _velocity.Z = Mathf.Lerp(_velocity.Z, direction.Z, moveSmoothing);
-    }
-    public void StopPathing()
-    {
-        //first, check if move command have been issued
-        if (!move)
-        {
-            _navigationAgent.TargetPosition = GlobalPosition;
-        }
     }
     public async Task DelayReaction(float seconds)
     {

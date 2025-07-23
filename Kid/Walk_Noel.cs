@@ -14,17 +14,10 @@ public partial class Walk_Noel : State
     }
     public override void Enter()
     {
-        _ = EnterAsync();
-    }
-    private async Task EnterAsync()
-    {
-        noel.move = false;
-        await noel.DelayReaction(noel.ReactionSpeed);
-        noel.move = true;
+        base.Enter();
     }
     public override void Exit()
     {
-        //GD.Print("Noel: Follow player exited");
         base.Exit();
     }
 }

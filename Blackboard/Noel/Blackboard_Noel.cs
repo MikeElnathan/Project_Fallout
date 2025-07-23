@@ -13,7 +13,6 @@ public partial class Blackboard_Noel : Node
     private static Blackboard_Noel _instance;
     public static Blackboard_Noel Instance_noel => _instance;
 
-
     public override void _Ready()
     {
         if (_instance != null && _instance != this)
@@ -33,9 +32,6 @@ public partial class Blackboard_Noel : Node
             await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
         }
     }
-    public override void _Process(double delta)
-    {
-    }
     public Vector3 GetNoelPosition()
     {
         if (Noel != null)
@@ -46,10 +42,7 @@ public partial class Blackboard_Noel : Node
     }
     public Vector3 GetNoelVelocity()
     {
-        if (Noel != null)
-        {
-            noelVelocity = Noel.Velocity;
-        }
+        noelVelocity = Noel.Velocity;
         return noelVelocity;
     }
 }

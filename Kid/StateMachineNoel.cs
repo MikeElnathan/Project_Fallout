@@ -35,19 +35,7 @@ public partial class StateMachineNoel : BaseStateMachine
         {
             PlayerState = signalBus_Noel.curentPlayerState;
         }
-        //switching to Idle state base on horizintal velocity
-        float horizontalSpeed = new Vector2(noelVelocity.X, noelVelocity.Z).Length();
-
-        if (horizontalSpeed <= 0.1f)
-        {
-            changeState("walkNoel");
-            noelBlackboard.noelCurrentState = SignalBus.ActionType.Walk;
-
-        }
-        else if (horizontalSpeed > 0.1f)
-        {
-            changeState("idleNoel");
-            noelBlackboard.noelCurrentState = SignalBus.ActionType.Idle;
-        }
+        //switching to Idle state base on velocity
+       
     }
 }
