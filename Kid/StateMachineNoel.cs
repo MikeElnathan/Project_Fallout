@@ -17,6 +17,7 @@ public partial class StateMachineNoel : BaseStateMachine
         signalBus_Noel = SignalBus_Noel.Instance_noel;
         noelBlackboard = Blackboard_Noel.Instance_noel;
         noel = GetParent() as CharacterBody3D;
+        classNoel = GetParent() as Noel;
         base._Ready();
     }
     public override void _Process(double delta)
@@ -30,20 +31,22 @@ public partial class StateMachineNoel : BaseStateMachine
     }
     private void StateChangeParameter()
     {
-        noelVelocity = noel.Velocity;
         //set player state
         if (PlayerState != signalBus_Noel.curentPlayerState)
         {
             PlayerState = signalBus_Noel.curentPlayerState;
         }
+
         //switching to Idle state base on velocity
-        if (noelVelocity.LengthSquared() > 0.1f)
+        GD.Print("noelMoving: ", noelBlackboard.noelMoving);
+        if (noelBlackboard.noelMoving)
         {
-            GD.Print("i'm moving and liking it. Velocity: ", noelVelocity.Length());
+            changeState("walkNoel");
         }
         else
         {
-            GD.Print("i ain't moving: ", noelVelocity.Length());
+            changeState("idleNoel");
         }
+
     }
 }

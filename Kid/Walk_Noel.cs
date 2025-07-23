@@ -14,7 +14,7 @@ public partial class Walk_Noel : State
     }
     public override void Enter()
     {
-        base.Enter();
+        GD.Print("moving");
     }
     public override void Exit()
     {

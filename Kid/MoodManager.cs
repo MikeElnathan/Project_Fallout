@@ -25,10 +25,4 @@ public partial class MoodManager : Node
     {
         noelMood = mood;
     }
-    public override void _Process(double delta)
-    {
-        noel.movementsTargetPosition = playerBlackboard.GetPlayerPosition();
-        base._Process(delta);
-    }
-
 }

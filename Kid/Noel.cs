@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 public partial class Noel : CharacterBody3D
 {
     private float moveSmoothing = 0.5f;
-    public float movementSpeed { get; set; } = 2.0f;//to retrieve from character stat
+    public float movementSpeed { get; set; } = 1.5f;//to retrieve from character stat
     public float stoppingDistance { get; set; } = 2.0f;//default value
     public float ReactionSpeed { get; set; } = 1.0f;//default value
     private Vector3 _velocity;
+    public Vector3 getInternalVelocity => _velocity;
     public Vector3 movementsTargetPosition { get; set; }
     public Vector3 NavTarget
     {
@@ -21,11 +22,14 @@ public partial class Noel : CharacterBody3D
     private bool timerCreation = false;
     private NavigationAgent3D _navigationAgent;
     private BlackBoard_Player playerBlackboard;
+    private Blackboard_Noel noelBlackboard;
 
     public override void _Ready()
     {
         base._Ready();
         playerBlackboard = GetTree().GetFirstNodeInGroup("Player_Blackboard") as BlackBoard_Player;
+        noelBlackboard = GetTree().GetFirstNodeInGroup("Noel_Blackboard") as Blackboard_Noel;
+
         //set default point of interest
         movementsTargetPosition = playerBlackboard.GetPlayerPosition();
 
@@ -39,15 +43,26 @@ public partial class Noel : CharacterBody3D
     }
     public override void _PhysicsProcess(double delta)
     {
+        Vector3 oldPosition = GlobalPosition;
+
         moveNoel(delta);
 
         Velocity = _velocity;
         MoveAndSlide();
+
+        Vector3 newPosition = GlobalPosition;
+        Vector3 actualMovement = newPosition - oldPosition;
+
+        noelBlackboard.setnoelMoves(actualMovement.Length() > 0.001f);
     }
     private void moveNoel(double delta)
     {
         float buffer = 0.05f;
         float distance = GlobalPosition.DistanceTo(movementsTargetPosition);
+
+        //debug line. remove later
+        // bool shouldMove = distance > stoppingDistance + buffer;
+        // GD.Print($"Distance: {distance:F2}, StoppingDistance+Buffer: {(stoppingDistance + buffer):F2}, ShouldMove: {shouldMove}");
 
         //is moving allowed
         if (move)
@@ -55,6 +70,9 @@ public partial class Noel : CharacterBody3D
             //check distance as not to get too close to target
             if (distance > stoppingDistance + buffer)
             {
+                //debug line. remove later
+                // GD.Print("MOVING - AgentMove called");
+
                 if (movementsTargetPosition.LengthSquared() > 0.0001f)
                 {
                     NavTarget = movementsTargetPosition;
@@ -63,12 +81,16 @@ public partial class Noel : CharacterBody3D
             }
             else
             {
+                //debug line. remove later
+                // GD.Print("STOPPING - Within stopping distance");
                 _velocity.X = 0f;
                 _velocity.Z = 0f;
             }
         }
         else
         {
+            // GD.Print("Move not allowed - setting velocity to zero");
+
             _velocity.X = 0f;
             _velocity.Z = 0f;
         }
@@ -81,6 +103,7 @@ public partial class Noel : CharacterBody3D
         {
             _velocity.Y = 0.0f;
         }
+        // GD.Print($"Final velocity magnitude: {new Vector2(_velocity.X, _velocity.Z).Length():F3}");
     }
     private void InitializeAgent()
     {
@@ -96,9 +119,10 @@ public partial class Noel : CharacterBody3D
     private void AgentMove()
     {
         Vector3 direction = Vector3.Zero;
-
         Vector3 currentAgentPosition = GlobalPosition;
         Vector3 nextPathPosition = _navigationAgent.GetNextPathPosition();
+        currentAgentPosition.Y = 0f;
+        nextPathPosition.Y = 0f;
 
         direction = currentAgentPosition.DirectionTo(nextPathPosition) * movementSpeed;
 

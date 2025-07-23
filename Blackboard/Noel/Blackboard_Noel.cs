@@ -4,6 +4,8 @@ using System.Threading.Tasks;
 public partial class Blackboard_Noel : Node
 {
     private CharacterBody3D Noel;
+    private Noel noel;
+    public bool noelMoving { get; private set; }
     public SignalBus.ActionType noelCurrentState { get; set; }
     public Vector3 noelPosition { get; private set; }
     public Vector3 noelVelocity { get; private set; }
@@ -27,9 +29,10 @@ public partial class Blackboard_Noel : Node
     private async Task GetNoel()
     {
         //make sure to get the node when it's loaded
-        while (Noel == null || Noel.IsInsideTree())
+        while (Noel == null || !Noel.IsInsideTree())
         {
             Noel = GetTree().GetFirstNodeInGroup("Noel") as CharacterBody3D;
+            noel = GetTree().GetFirstNodeInGroup("Noel") as Noel;
             await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
         }
     }
@@ -40,5 +43,9 @@ public partial class Blackboard_Noel : Node
             noelPosition = Noel.GlobalPosition;
         }
         return noelPosition;
+    }
+    public void setnoelMoves(bool move)
+    {
+        noelMoving = !move;
     }
 }
