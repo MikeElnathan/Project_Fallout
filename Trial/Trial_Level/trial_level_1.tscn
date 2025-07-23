@@ -209,7 +209,7 @@ surface_material_override/0 = SubResource("StandardMaterial3D_kgng8")
 shape = SubResource("ConcavePolygonShape3D_6h17f")
 
 [node name="CharacterBody3D" parent="." instance=ExtResource("2_sr8x4")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.27102, 0.0685462, 13.2177)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.27102, 0.0685462, 6.79577)
 
 [node name="Noel" parent="." instance=ExtResource("6_kgng8")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.41772, 0, 10.0786)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0001, 1.11152)

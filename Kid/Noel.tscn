@@ -23,19 +23,17 @@ avoidance_enabled = true
 debug_enabled = true
 debug_path_custom_color = Color(0.915147, 0.0366334, 0.0208715, 1)
 
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("CapsuleMesh_w8s0q")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_lw4hn")
+
 [node name="MoodManager" type="Node" parent="."]
 script = ExtResource("2_q457y")
 
 [node name="SignalBus_Noel" type="Node3D" parent="."]
 script = ExtResource("2_0qoxe")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-mesh = SubResource("CapsuleMesh_w8s0q")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-shape = SubResource("CapsuleShape3D_lw4hn")
 
 [node name="StateMachine_Noel" type="Node3D" parent="."]
 script = ExtResource("3_855m6")
