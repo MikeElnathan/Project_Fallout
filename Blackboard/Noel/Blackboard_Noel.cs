@@ -46,6 +46,7 @@ public partial class Blackboard_Noel : Node
     }
     public void setnoelMoves(bool move)
     {
+        //i have to flip this. otherwise its...well.. flipped.
         noelMoving = !move;
     }
 }

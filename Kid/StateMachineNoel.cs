@@ -42,10 +42,12 @@ public partial class StateMachineNoel : BaseStateMachine
         if (noelBlackboard.noelMoving)
         {
             changeState("walkNoel");
+            noelBlackboard.noelCurrentState = SignalBus.ActionType.Walk;
         }
         else
         {
             changeState("idleNoel");
+            noelBlackboard.noelCurrentState = SignalBus.ActionType.Idle;
         }
 
     }

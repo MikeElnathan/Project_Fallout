@@ -32,7 +32,6 @@ public partial class Noel : CharacterBody3D
         //change this latter for a much more flexible approach
         gravity = ProjectSettings.GetSetting("physics/3d/default_gravity").AsSingle();
         InitializeAgent();
-        _navigationAgent.SetNavigationMap(GetWorld3D().NavigationMap);
     }
     public override void _PhysicsProcess(double delta)
     {
@@ -49,8 +48,11 @@ public partial class Noel : CharacterBody3D
         Vector3 newPosition = GlobalPosition;
         Vector3 actualMovement = newPosition - oldPosition;
 
-        noelBlackboard.setnoelMoves(actualMovement.Length() > 0.001f);
-        GD.Print("NavTarget: ", NavTarget, ", Player/target position: ", movementsTargetPosition);
+        noelBlackboard.setnoelMoves(actualMovement.Length() > 0.02f);
+        if (actualMovement.Length() > 0.02f)
+        {
+            GD.Print("moving, length: ", actualMovement.Length());
+        }
     }
     private void moveNoel(double delta)
     {
@@ -63,7 +65,6 @@ public partial class Noel : CharacterBody3D
                 if (movementsTargetPosition.LengthSquared() > 0.0001f)
                 {
                     NavTarget = movementsTargetPosition;
-                    GD.Print("NavTarget: ", NavTarget);
                 }
                 AgentMove();
             }
@@ -94,7 +95,6 @@ public partial class Noel : CharacterBody3D
         _navigationAgent.PathDesiredDistance = 0.5f;
         _navigationAgent.TargetDesiredDistance = stoppingDistance;
         Callable.From(ActorSetup).CallDeferred();
-        GD.Print("Initialized");
     }
     private async void ActorSetup()
     {
@@ -105,15 +105,11 @@ public partial class Noel : CharacterBody3D
         Vector3 direction = Vector3.Zero;
         Vector3 currentAgentPosition = GlobalPosition;
         Vector3 nextPathPosition = _navigationAgent.GetNextPathPosition();
-        currentAgentPosition.Y = 0f;
-        nextPathPosition.Y = 0f;
 
         direction = currentAgentPosition.DirectionTo(nextPathPosition) * movementSpeed;
-        GD.Print("direction given: ", direction, ", NavPos: ", nextPathPosition, ", Global Position: ", GlobalPosition, ", movement speed: ", movementSpeed);
 
         _velocity.X = Mathf.Lerp(_velocity.X, direction.X, moveSmoothing);
         _velocity.Z = Mathf.Lerp(_velocity.Z, direction.Z, moveSmoothing);
-        GD.Print("velocity assigned by agent: ", _velocity);
     }
     public async Task DelayReaction(float seconds)
     {
