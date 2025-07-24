@@ -49,9 +49,10 @@ public partial class Noel : CharacterBody3D
         Vector3 actualMovement = newPosition - oldPosition;
 
         noelBlackboard.setnoelMoves(actualMovement.Length() > 0.02f);
+
         if (actualMovement.Length() > 0.02f)
         {
-            GD.Print("moving, length: ", actualMovement.Length());
+            //GD.Print("moving, length: ", actualMovement.Length());
         }
     }
     private void moveNoel(double delta)

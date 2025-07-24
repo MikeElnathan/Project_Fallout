@@ -38,16 +38,15 @@ public partial class StateMachineNoel : BaseStateMachine
         }
 
         //switching to Idle state base on velocity
-        GD.Print("noelMoving: ", noelBlackboard.noelMoving);
         if (noelBlackboard.noelMoving)
         {
-            changeState("walkNoel");
             noelBlackboard.noelCurrentState = SignalBus.ActionType.Walk;
+            changeState("walkNoel");
         }
         else
         {
-            changeState("idleNoel");
             noelBlackboard.noelCurrentState = SignalBus.ActionType.Idle;
+            changeState("idleNoel");
         }
 
     }

@@ -213,5 +213,5 @@ shape = SubResource("ConcavePolygonShape3D_6h17f")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.27102, 0.0685462, 6.79577)
 
 [node name="Noel" parent="." instance=ExtResource("6_kgng8")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.00980949, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.00980949, 3.47553)
 floor_stop_on_slope = false

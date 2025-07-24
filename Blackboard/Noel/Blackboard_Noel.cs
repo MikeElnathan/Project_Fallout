@@ -47,6 +47,11 @@ public partial class Blackboard_Noel : Node
     public void setnoelMoves(bool move)
     {
         //i have to flip this. otherwise its...well.. flipped.
-        noelMoving = !move;
+        bool temp = noelMoving;
+        noelMoving = move;
+        if (move != temp)
+        {
+            GD.Print("noelMoving: ", noelMoving, ", move: ", move, ", Noel current state: ", noelCurrentState);
+        }
     }
 }
