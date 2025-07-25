@@ -7,4 +7,8 @@ public partial class GlobalEnum : Node
     {
         Idle, Walk, Run, Jump, Sleep, Sneak
     }
+    public enum Focus
+    {
+        Player, Noel
+    }
 }

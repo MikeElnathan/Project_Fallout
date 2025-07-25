@@ -17,22 +17,29 @@ public partial class Noel : CharacterBody3D
     private float gravity;
     private bool move = true;
     private bool timerCreation = false;
+
     private NavigationAgent3D _navigationAgent;
-    private BlackBoard_Player playerBlackboard;
+    private BlackBoard_Player _playerBlackboard;
+    private GlobalEnum.State _currentPlayerState;
     private Blackboard_Noel noelBlackboard;
     private StateMachineNoel noelSM;
+    private SignalBus_Noel noelSignalBus;//unused
 
     public override void _Ready()
     {
         base._Ready();
-        playerBlackboard = GetTree().GetFirstNodeInGroup("Player_Blackboard") as BlackBoard_Player;
+        _playerBlackboard = GetTree().GetFirstNodeInGroup("Player_Blackboard") as BlackBoard_Player;
         noelBlackboard = GetTree().GetFirstNodeInGroup("Noel_Blackboard") as Blackboard_Noel;
         noelSM = GetTree().GetFirstNodeInGroup("noelSM") as StateMachineNoel;
+        noelSignalBus = SignalBus_Noel.Instance_noel;
 
 
         //change this latter for a much more flexible approach
         gravity = ProjectSettings.GetSetting("physics/3d/default_gravity").AsSingle();
         InitializeAgent();
+
+        //test
+        noelSM.SetFocus(GlobalEnum.Focus.Player);
     }
     public override void _PhysicsProcess(double delta)
     {
@@ -98,11 +105,10 @@ public partial class Noel : CharacterBody3D
         _velocity.X = Mathf.Lerp(_velocity.X, direction.X, moveSmoothing);
         _velocity.Z = Mathf.Lerp(_velocity.Z, direction.Z, moveSmoothing);
     }
+
+    //not used
     public async Task DelayReaction(float seconds)
     {
-        //GD.Print("Timer created");
-        //_________________________
-
         if (timerCreation)
         {
             return;
@@ -122,8 +128,5 @@ public partial class Noel : CharacterBody3D
         await ToSignal(timer, Timer.SignalName.Timeout);
         timer.QueueFree();
         timerCreation = false;
-
-        //__________________________
-        //GD.Print("Timer destroyed");
     }
 }
