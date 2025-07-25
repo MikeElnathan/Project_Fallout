@@ -9,7 +9,7 @@ public partial class StateMachineNoel : BaseStateMachine
     private Vector3 noelVelocity = Vector3.Zero;
     private Vector3 playerPosition;
     private SignalBus_Noel signalBus_Noel;
-    private SignalBus.ActionType PlayerState;
+    private GlobalEnum.State PlayerState;
     public bool noelMoving {get; set;}
 
     public override void _Ready()

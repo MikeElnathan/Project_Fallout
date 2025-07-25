@@ -8,7 +8,6 @@ public partial class Noel : CharacterBody3D
     public float stoppingDistance { get; set; } = 2.0f;//default value
     public float ReactionSpeed { get; set; } = 1.0f;//default value
     private Vector3 _velocity;
-    public Vector3 getInternalVelocity => _velocity;
     public Vector3 movementsTargetPosition { get; set; }
     public Vector3 NavTarget
     {
@@ -16,7 +15,7 @@ public partial class Noel : CharacterBody3D
         set { _navigationAgent.TargetPosition = value; }
     }
     private float gravity;
-    public bool move { get; set; } = true; //set Noel to move, to be manipulated by state machnine
+    private bool move = true;
     private bool timerCreation = false;
     private NavigationAgent3D _navigationAgent;
     private BlackBoard_Player playerBlackboard;
@@ -37,9 +36,6 @@ public partial class Noel : CharacterBody3D
     }
     public override void _PhysicsProcess(double delta)
     {
-        //set default point of interest
-        movementsTargetPosition = playerBlackboard.GetPlayerPosition();
-
         moveNoel(delta);
 
         Velocity = _velocity;

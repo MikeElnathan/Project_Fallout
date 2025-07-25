@@ -6,7 +6,7 @@ public partial class BlackBoard_Player : Node
     private CharacterBody3D Player;
     public Vector3 playerPosition { get; private set; }
     private SignalBus playerSignaBus;
-    public SignalBus.ActionType currentState { get; private set; }
+    public GlobalEnum.State currentState { get; private set; }
     private static BlackBoard_Player _instance;
     public static BlackBoard_Player Instance => _instance;
     [Signal] public delegate void PlayerStateChangedEventHandler();
@@ -41,7 +41,7 @@ public partial class BlackBoard_Player : Node
 
         return playerPosition;
     }
-    public void SetStateInPlayerBlackboard(SignalBus.ActionType state)
+    public void SetStateInPlayerBlackboard(GlobalEnum.State state)
     {
         if (currentState != state)
         {

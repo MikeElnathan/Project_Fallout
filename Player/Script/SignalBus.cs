@@ -2,10 +2,6 @@ using Godot;
 
 public partial class SignalBus : Node3D
 {
-    public enum ActionType
-    {
-        Idle, Walk, Run, Jump, Sleep, Sneak
-    }
     //Sigleton instance
     private static SignalBus _instance;
     public static SignalBus Instance => _instance;
@@ -34,33 +30,33 @@ public partial class SignalBus : Node3D
 
     //Interaction
 
-    public void EmitPlayerSignal(ActionType action)
+    public void EmitPlayerSignal(GlobalEnum.State action)
     {
         switch (action)
         {
-            case ActionType.Idle:
+            case GlobalEnum.State.Idle:
                 EmitSignal(SignalName.Idle);
-                playerBlackboard.SetStateInPlayerBlackboard(ActionType.Idle);
+                playerBlackboard.SetStateInPlayerBlackboard(GlobalEnum.State.Idle);
                 break;
-            case ActionType.Walk:
+            case GlobalEnum.State.Walk:
                 EmitSignal(SignalName.Walk);
-                playerBlackboard.SetStateInPlayerBlackboard(ActionType.Walk);
+                playerBlackboard.SetStateInPlayerBlackboard(GlobalEnum.State.Walk);
                 break;
-            case ActionType.Run:
+            case GlobalEnum.State.Run:
                 EmitSignal(SignalName.Run);
-                playerBlackboard.SetStateInPlayerBlackboard(ActionType.Run);
+                playerBlackboard.SetStateInPlayerBlackboard(GlobalEnum.State.Run);
                 break;
-            case ActionType.Jump:
+            case GlobalEnum.State.Jump:
                 EmitSignal(SignalName.Jump);
-                playerBlackboard.SetStateInPlayerBlackboard(ActionType.Jump);
+                playerBlackboard.SetStateInPlayerBlackboard(GlobalEnum.State.Jump);
                 break;
-            case ActionType.Sleep:
+            case GlobalEnum.State.Sleep:
                 EmitSignal(SignalName.Sleep);
-                playerBlackboard.SetStateInPlayerBlackboard(ActionType.Sleep);
+                playerBlackboard.SetStateInPlayerBlackboard(GlobalEnum.State.Sleep);
                 break;
-            case ActionType.Sneak:
+            case GlobalEnum.State.Sneak:
                 EmitSignal(SignalName.Sneak);
-                playerBlackboard.SetStateInPlayerBlackboard(ActionType.Sneak);
+                playerBlackboard.SetStateInPlayerBlackboard(GlobalEnum.State.Sneak);
                 break;
             default:
                 GD.PrintErr("Unknown action type: ", action.ToString());

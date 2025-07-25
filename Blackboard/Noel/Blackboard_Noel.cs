@@ -5,10 +5,10 @@ public partial class Blackboard_Noel : Node
 {
     private CharacterBody3D Noel;
     private Noel noel;
-    public SignalBus.ActionType noelCurrentState { get; set; }
+    public GlobalEnum.State noelCurrentState { get; set; }
     public Vector3 noelPosition { get; private set; }
     public Vector3 noelVelocity { get; private set; }
-    public SignalBus.ActionType NoelState { get; }
+    public GlobalEnum.State NoelState { get; }
     private SignalBus_Noel noelSignalBus;
     //Noel mood here
     private static Blackboard_Noel _instance;
