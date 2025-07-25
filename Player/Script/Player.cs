@@ -45,6 +45,15 @@ public partial class Player : CharacterBody3D
 
         Jump_Physics();
     }
+    public override void _PhysicsProcess(double delta)
+    {
+        Keyboard_move();
+        Handle_Movement(delta);
+        Handle_jump(delta);
+        State_Signal_Sender();
+
+        MoveAndSlide();
+    }
     private void Jump_Physics()
     {
         jump_velocity = (2.0f * jump_height) / time_to_peak;
@@ -162,15 +171,6 @@ public partial class Player : CharacterBody3D
             signalBus.EmitPlayerSignal(new_action);
             current_action = new_action;
         }
-    }
-    public override void _PhysicsProcess(double delta)
-    {
-        Keyboard_move();
-        Handle_Movement(delta);
-        Handle_jump(delta);
-        State_Signal_Sender();
-
-        MoveAndSlide();
     }
 
 }
