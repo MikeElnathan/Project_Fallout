@@ -58,21 +58,17 @@ public partial class Noel : CharacterBody3D
                     NavTarget = movementsTargetPosition;
                 }
                 AgentMove();
-                //try flipping balckboard move bool here
-                noelSM.noelMoving = true;
             }
             else
             {
                 _velocity.X = 0f;
                 _velocity.Z = 0f;
-                noelSM.noelMoving = false;
             }
         }
         else
         {
             _velocity.X = 0f;
             _velocity.Z = 0f;
-            noelSM.noelMoving = false;
         }
 
         if (!IsOnFloor())

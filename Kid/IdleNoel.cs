@@ -19,5 +19,4 @@ public partial class IdleNoel : State
     {
         base.Exit();
     }
-
 }
