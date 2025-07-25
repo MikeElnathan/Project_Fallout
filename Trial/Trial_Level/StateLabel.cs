@@ -4,6 +4,7 @@ public partial class StateLabel : Label
 {
     private BlackBoard_Player playerBlackboard;
     private Blackboard_Noel noelBlackboard;
+    public string noelStateText { get; set; } = "default";
     private Noel noel;
     public override void _Ready()
     {
@@ -14,6 +15,6 @@ public partial class StateLabel : Label
 
     public override void _Process(double delta)
     {
-        Text = $"Player State: {playerBlackboard.currentState}\nNoel State:{noelBlackboard.noelCurrentState}\nNoel's Move flag: {noel.move}";
+        Text = $"Player State: {playerBlackboard.currentState}\nNoel State:{noelStateText}";
     }
 }

@@ -37,7 +37,7 @@ script = ExtResource("2_q457y")
 [node name="SignalBus_Noel" type="Node3D" parent="."]
 script = ExtResource("2_0qoxe")
 
-[node name="StateMachine_Noel" type="Node3D" parent="."]
+[node name="StateMachine_Noel" type="Node3D" parent="." groups=["noelSM"]]
 script = ExtResource("3_855m6")
 
 [node name="walkNoel" type="Node3D" parent="StateMachine_Noel"]

@@ -10,6 +10,7 @@ public partial class StateMachineNoel : BaseStateMachine
     private Vector3 playerPosition;
     private SignalBus_Noel signalBus_Noel;
     private SignalBus.ActionType PlayerState;
+    public bool noelMoving {get; set;}
 
     public override void _Ready()
     {
@@ -36,9 +37,8 @@ public partial class StateMachineNoel : BaseStateMachine
         {
             PlayerState = signalBus_Noel.curentPlayerState;
         }
-
         //switching to Idle state base on velocity
-        if (noelBlackboard.noelMoving)
+        if (noelMoving)
         {
             noelBlackboard.noelCurrentState = SignalBus.ActionType.Walk;
             changeState("walkNoel");
@@ -47,7 +47,7 @@ public partial class StateMachineNoel : BaseStateMachine
         {
             noelBlackboard.noelCurrentState = SignalBus.ActionType.Idle;
             changeState("idleNoel");
+            GD.Print("idle triggered");
         }
-
     }
 }

@@ -21,12 +21,14 @@ public partial class Noel : CharacterBody3D
     private NavigationAgent3D _navigationAgent;
     private BlackBoard_Player playerBlackboard;
     private Blackboard_Noel noelBlackboard;
+    private StateMachineNoel noelSM;
 
     public override void _Ready()
     {
         base._Ready();
         playerBlackboard = GetTree().GetFirstNodeInGroup("Player_Blackboard") as BlackBoard_Player;
         noelBlackboard = GetTree().GetFirstNodeInGroup("Noel_Blackboard") as Blackboard_Noel;
+        noelSM = GetTree().GetFirstNodeInGroup("noelSM") as StateMachineNoel;
 
 
         //change this latter for a much more flexible approach
@@ -38,22 +40,10 @@ public partial class Noel : CharacterBody3D
         //set default point of interest
         movementsTargetPosition = playerBlackboard.GetPlayerPosition();
 
-        Vector3 oldPosition = GlobalPosition;
-
         moveNoel(delta);
 
         Velocity = _velocity;
         MoveAndSlide();
-
-        Vector3 newPosition = GlobalPosition;
-        Vector3 actualMovement = newPosition - oldPosition;
-
-        noelBlackboard.setnoelMoves(actualMovement.Length() > 0.02f);
-
-        if (actualMovement.Length() > 0.02f)
-        {
-            //GD.Print("moving, length: ", actualMovement.Length());
-        }
     }
     private void moveNoel(double delta)
     {
@@ -68,17 +58,21 @@ public partial class Noel : CharacterBody3D
                     NavTarget = movementsTargetPosition;
                 }
                 AgentMove();
+                //try flipping balckboard move bool here
+                noelSM.noelMoving = true;
             }
             else
             {
                 _velocity.X = 0f;
                 _velocity.Z = 0f;
+                noelSM.noelMoving = false;
             }
         }
         else
         {
             _velocity.X = 0f;
             _velocity.Z = 0f;
+            noelSM.noelMoving = false;
         }
 
         if (!IsOnFloor())

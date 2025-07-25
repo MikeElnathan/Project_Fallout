@@ -5,7 +5,6 @@ public partial class Blackboard_Noel : Node
 {
     private CharacterBody3D Noel;
     private Noel noel;
-    public bool noelMoving { get; private set; }
     public SignalBus.ActionType noelCurrentState { get; set; }
     public Vector3 noelPosition { get; private set; }
     public Vector3 noelVelocity { get; private set; }
@@ -43,15 +42,5 @@ public partial class Blackboard_Noel : Node
             noelPosition = Noel.GlobalPosition;
         }
         return noelPosition;
-    }
-    public void setnoelMoves(bool move)
-    {
-        //i have to flip this. otherwise its...well.. flipped.
-        bool temp = noelMoving;
-        noelMoving = move;
-        if (move != temp)
-        {
-            GD.Print("noelMoving: ", noelMoving, ", move: ", move, ", Noel current state: ", noelCurrentState);
-        }
     }
 }

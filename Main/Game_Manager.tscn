@@ -4,10 +4,10 @@
 [ext_resource type="Script" uid="uid://xlocdf2fwjlb" path="res://Blackboard/Player/BlackBoard_Player.cs" id="1_bbwkg"]
 [ext_resource type="Script" uid="uid://ygaxmxipt10f" path="res://Blackboard/Noel/Blackboard_Noel.cs" id="3_mawo6"]
 
-[node name="Game_Manager" type="Node3D"]
+[node name="Game_Manager" type="Node"]
 script = ExtResource("1_5akj2")
 
-[node name="BlackBoard" type="Node3D" parent="."]
+[node name="BlackBoard" type="Node" parent="."]
 
 [node name="PlayerBlackBoard" type="Node" parent="BlackBoard" groups=["Player_Blackboard"]]
 script = ExtResource("1_bbwkg")

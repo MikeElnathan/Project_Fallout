@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public partial class GameManager : Node3D
+public partial class GameManager : Node
 {
     private PackedScene TrialLevel;
 
