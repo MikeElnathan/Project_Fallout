@@ -3,7 +3,6 @@ using System;
 
 public partial class Player : CharacterBody3D
 {
-    private SignalBus signalBus;
     private float speed;
     private float run_speed = 8.0f;
     private float walk_speed = 2.0f;
@@ -26,8 +25,10 @@ public partial class Player : CharacterBody3D
     private Node3D visual_mesh;
     private Camera3D camera;
 
-    private SignalBus.ActionType current_action;
-    private SignalBus.ActionType new_action;
+    private GlobalEnum.State current_action;
+    private GlobalEnum.State new_action;
+
+    private SignalBus signalBus;
 
     public override void _Ready()
     {
@@ -40,15 +41,15 @@ public partial class Player : CharacterBody3D
         speed = walk_speed;
 
         signalBus = SignalBus.Instance;
-        signalBus.EmitPlayerSignal(SignalBus.ActionType.Idle);
+        signalBus.EmitPlayerSignal(GlobalEnum.State.Idle);
 
         Jump_Physics();
     }
     private void Jump_Physics()
     {
         jump_velocity = (2.0f * jump_height) / time_to_peak;
-        jump_gravity = (-2.0f * jump_height) / (float)Math.Pow(time_to_peak, 2);
-        fall_gravity = (-2.0f * jump_height) / (float)Math.Pow(time_to_fall, 2);
+        jump_gravity = (-2.0f * jump_height) / Mathf.Pow(time_to_peak, 2);
+        fall_gravity = (-2.0f * jump_height) / Mathf.Pow(time_to_fall, 2);
     }
     public override void _Input(InputEvent @event)
     {
@@ -144,16 +145,16 @@ public partial class Player : CharacterBody3D
     {
         if (target_velocity.Length() > 0)
         {
-            new_action = Run ? SignalBus.ActionType.Run : SignalBus.ActionType.Walk;
+            new_action = Run ? GlobalEnum.State.Run : GlobalEnum.State.Walk;
         }
         else
         {
-            new_action = SignalBus.ActionType.Idle;
+            new_action = GlobalEnum.State.Idle;
         }
 
         if (Jump)
         {
-            new_action = SignalBus.ActionType.Jump;
+            new_action = GlobalEnum.State.Jump;
         }
 
         if (new_action != current_action)

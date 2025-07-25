@@ -6,7 +6,7 @@ public partial class SignalBus_Noel : Node3D
     private static SignalBus_Noel _instance_noel;
     public static SignalBus_Noel Instance_noel => _instance_noel;
     private BlackBoard_Player playerBlackboard;
-    public SignalBus.ActionType curentPlayerState { get; private set; }
+    public GlobalEnum.State curentPlayerState { get; private set; }
     [Signal]public delegate void PlayerStateSignalEventHandler();
 
     public override void _Ready()
