@@ -44,19 +44,14 @@ public partial class StateMachineNoel : BaseStateMachine
 
     private void StateChangeManager()
     {
-        Vector3 tempTarget = classNoel.NavTarget;
-
         if (_focus == GlobalEnum.Focus.Player)
         {
-            //this portion is not working
-            GD.Print("focus is on player");
-
-            if (classNoel.NavTarget != tempTarget)
+            classNoel.movementsTargetPosition = playerBlackboard.GetPlayerPosition();
+            changeState("walkNoel");
+            if (noel.Velocity.X == 0f && noel.Velocity.Y == 0f)
             {
-                classNoel.NavTarget = playerBlackboard.GetPlayerPosition();
-                changeState("walkNoel");
+                changeState("idleNoel");
             }
-            else GD.Print("Target set already");
         }
         else if (_focus == GlobalEnum.Focus.Noel)
         {
