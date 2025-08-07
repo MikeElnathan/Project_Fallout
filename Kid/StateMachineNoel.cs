@@ -44,18 +44,16 @@ public partial class StateMachineNoel : BaseStateMachine
 
     private void StateChangeManager()
     {
-        if (_focus == GlobalEnum.Focus.Player)
+        classNoel.movementsTargetPosition = playerBlackboard.GetPlayerPosition();
+
+        if (noel.Velocity.X == 0f && noel.Velocity.Y == 0f)
         {
-            classNoel.movementsTargetPosition = playerBlackboard.GetPlayerPosition();
-            changeState("walkNoel");
-            if (noel.Velocity.X == 0f && noel.Velocity.Y == 0f)
-            {
-                changeState("idleNoel");
-            }
+            changeState("idleNoel");
         }
-        else if (_focus == GlobalEnum.Focus.Noel)
+        else
         {
-            GD.Print("focus is on noel");
+            //to change
+            changeState("walkNoel");
         }
     }
 }

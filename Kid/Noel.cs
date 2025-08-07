@@ -33,7 +33,6 @@ public partial class Noel : CharacterBody3D
         noelSM = GetTree().GetFirstNodeInGroup("noelSM") as StateMachineNoel;
         noelSignalBus = SignalBus_Noel.Instance_noel;
 
-
         //change this latter for a much more flexible approach
         gravity = ProjectSettings.GetSetting("physics/3d/default_gravity").AsSingle();
         InitializeAgent();
@@ -105,8 +104,7 @@ public partial class Noel : CharacterBody3D
         _velocity.X = Mathf.Lerp(_velocity.X, direction.X, moveSmoothing);
         _velocity.Z = Mathf.Lerp(_velocity.Z, direction.Z, moveSmoothing);
     }
-
-    //not used
+    //not used.Keep it here.
     public async Task DelayReaction(float seconds)
     {
         if (timerCreation)
