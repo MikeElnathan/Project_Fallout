@@ -14,13 +14,15 @@ public partial class Player : CharacterBody3D
     private float rotation_speed = 8.0f;
     private float move_damping = 25.0f;
 
+    
+    private float jump_height = 2.0f;
+    private float time_to_peak = 0.6f;
+    private float time_to_fall = 0.4f;
+
     private float jump_gravity;
     private float jump_velocity;
     private float fall_gravity;
 
-    private float jump_height = 2.0f;
-    private float time_to_peak = 0.6f;
-    private float time_to_fall = 0.4f;
 
     private Node3D visual_mesh;
     private Camera3D camera;
