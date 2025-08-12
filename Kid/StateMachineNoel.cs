@@ -2,13 +2,18 @@ using Godot;
 
 public partial class StateMachineNoel : BaseStateMachine
 {
-    public GlobalEnum.Focus _focus { get; private set; }
-    private GlobalEnum.State playerState;
-    private BlackBoard_Player playerBlackboard;
-    private Blackboard_Noel noelBlackboard;
-    private CharacterBody3D noel;
-    private Noel classNoel;
-    private SignalBus_Noel signalBus_Noel;
+    //---Public API---
+    public GlobalEnum.Focus focus { get; private set; }
+
+    //---Internal State---
+    private GlobalEnum.State _playerState;
+
+    //---External Reference---
+    private BlackBoard_Player _playerBlackboard;
+    private Blackboard_Noel _noelBlackboard;
+    private CharacterBody3D _noel;
+    private Noel _classNoel;
+    private SignalBus_Noel _signalBus_Noel;
 
     public override void _Ready()
     {
@@ -24,29 +29,28 @@ public partial class StateMachineNoel : BaseStateMachine
         base._PhysicsProcess(delta);
         StateChangeManager();
     }
-
     private void initialize()
     {
-        signalBus_Noel = SignalBus_Noel.Instance_noel;
-        noelBlackboard = Blackboard_Noel.Instance_noel;
-        playerBlackboard = BlackBoard_Player.Instance;
+        _signalBus_Noel = SignalBus_Noel.Instance_noel;
+        _noelBlackboard = Blackboard_Noel.Instance_noel;
+        _playerBlackboard = BlackBoard_Player.Instance;
 
-        noel = GetParent() as CharacterBody3D;
-        classNoel = GetParent() as Noel;
+        _noel = GetParent() as CharacterBody3D;
+        _classNoel = GetParent() as Noel;
     }
     protected override void ReadSignal()
     {
-        signalBus_Noel.Connect(SignalBus_Noel.SignalName.PlayerStateSignal, new Callable(this, nameof(setPlayerState)));
+        _signalBus_Noel.Connect(SignalBus_Noel.SignalName.PlayerStateSignal, new Callable(this, nameof(setPlayerState)));
     }
 
-    private void setPlayerState() => playerState = playerBlackboard.currentState;
-    public void SetFocus(GlobalEnum.Focus focus) => _focus = focus;
+    private void setPlayerState() => _playerState = _playerBlackboard.currentState;
+    public void SetFocus(GlobalEnum.Focus _focus) => focus = _focus;
 
     private void StateChangeManager()
     {
-        classNoel.movementsTargetPosition = playerBlackboard.GetPlayerPosition();
+        _classNoel.movementsTargetPosition = _playerBlackboard.GetPlayerPosition();
 
-        if (noel.Velocity.X == 0f && noel.Velocity.Y == 0f)
+        if (_noel.Velocity.X == 0f && _noel.Velocity.Y == 0f)
         {
             changeState("idleNoel");
         }

@@ -3,97 +3,104 @@ using System.Threading.Tasks;
 
 public partial class Noel : CharacterBody3D
 {
-    private float moveSmoothing = 0.5f;
+    //---Configurable Parameters---
+    private float _moveSmoothing = 0.5f;
     public float movementSpeed { get; set; } = 1.5f;//to retrieve from character stat
     public float stoppingDistance { get; set; } = 2.0f;//default value
     public float ReactionSpeed { get; set; } = 1.0f;//default value
+
+    //--Runtime State---
     private Vector3 _velocity;
     public Vector3 movementsTargetPosition { get; set; }
-    public Vector3 NavTarget
+    private Vector3 _navTarget
     {
         get { return _navigationAgent.TargetPosition; }
         set { _navigationAgent.TargetPosition = value; }
     }
-    private float gravity;
-    private bool move = true;
-    private bool timerCreation = false;
+    private float _gravity;
+    private bool _move = true;
+    private bool _timerCreation = false;
 
+    //---External Reference---
     private NavigationAgent3D _navigationAgent;
     private BlackBoard_Player _playerBlackboard;
     private GlobalEnum.State _currentPlayerState;
-    private Blackboard_Noel noelBlackboard;
-    private StateMachineNoel noelSM;
+    private Blackboard_Noel _noelBlackboard;
+    private StateMachineNoel _noelSM;
     private SignalBus_Noel noelSignalBus;//unused
 
     public override void _Ready()
     {
         base._Ready();
         _playerBlackboard = GetTree().GetFirstNodeInGroup("Player_Blackboard") as BlackBoard_Player;
-        noelBlackboard = GetTree().GetFirstNodeInGroup("Noel_Blackboard") as Blackboard_Noel;
-        noelSM = GetTree().GetFirstNodeInGroup("noelSM") as StateMachineNoel;
+        _noelBlackboard = GetTree().GetFirstNodeInGroup("Noel_Blackboard") as Blackboard_Noel;
+        _noelSM = GetTree().GetFirstNodeInGroup("noelSM") as StateMachineNoel;
         noelSignalBus = SignalBus_Noel.Instance_noel;
 
         //change this latter for a much more flexible approach
-        gravity = ProjectSettings.GetSetting("physics/3d/default_gravity").AsSingle();
-        InitializeAgent();
+        _gravity = ProjectSettings.GetSetting("physics/3d/default_gravity").AsSingle();
+        _initializeAgent();
 
         //test
-        noelSM.SetFocus(GlobalEnum.Focus.Player);
+        _noelSM.SetFocus(GlobalEnum.Focus.Player);
     }
     public override void _PhysicsProcess(double delta)
     {
-        moveNoel(delta);
+        _moveNoel(delta);
 
         Velocity = _velocity;
         MoveAndSlide();
     }
-    private void moveNoel(double delta)
+    private void _moveNoel(double delta)
     {
         float buffer = 0.05f;
         float distance = GlobalPosition.DistanceTo(movementsTargetPosition);
-        if (move)
+        if (_move)
         {
             if (distance > stoppingDistance + buffer)
             {
                 if (movementsTargetPosition.LengthSquared() > 0.0001f)
                 {
-                    NavTarget = movementsTargetPosition;
+                    _navTarget = movementsTargetPosition;
                 }
-                AgentMove();
+                _agentMove();
             }
             else
             {
-                _velocity.X = 0f;
-                _velocity.Z = 0f;
+                _stopHorizontalMovement();
             }
         }
         else
         {
-            _velocity.X = 0f;
-            _velocity.Z = 0f;
+            _stopHorizontalMovement();
         }
 
         if (!IsOnFloor())
         {
-            _velocity.Y -= gravity * (float)delta;
+            _velocity.Y -= _gravity * (float)delta;
         }
         else
         {
             _velocity.Y = 0.0f;
         }
     }
-    private void InitializeAgent()
+    private void _stopHorizontalMovement()
+    {
+        _velocity.X = 0f;
+        _velocity.Z = 0f;
+    }
+    private void _initializeAgent()
     {
         _navigationAgent = GetNode<NavigationAgent3D>("NavigationAgent3D");
         _navigationAgent.PathDesiredDistance = 0.5f;
         _navigationAgent.TargetDesiredDistance = stoppingDistance;
-        Callable.From(ActorSetup).CallDeferred();
+        Callable.From(_actorSetup).CallDeferred();
     }
-    private async void ActorSetup()
+    private async void _actorSetup()
     {
         await ToSignal(GetTree(), SceneTree.SignalName.PhysicsFrame);
     }
-    private void AgentMove()
+    private void _agentMove()
     {
         Vector3 direction = Vector3.Zero;
         Vector3 currentAgentPosition = GlobalPosition;
@@ -101,18 +108,18 @@ public partial class Noel : CharacterBody3D
 
         direction = currentAgentPosition.DirectionTo(nextPathPosition) * movementSpeed;
 
-        _velocity.X = Mathf.Lerp(_velocity.X, direction.X, moveSmoothing);
-        _velocity.Z = Mathf.Lerp(_velocity.Z, direction.Z, moveSmoothing);
+        _velocity.X = Mathf.Lerp(_velocity.X, direction.X, _moveSmoothing);
+        _velocity.Z = Mathf.Lerp(_velocity.Z, direction.Z, _moveSmoothing);
     }
     //not used.Keep it here.
     public async Task DelayReaction(float seconds)
     {
-        if (timerCreation)
+        if (_timerCreation)
         {
             return;
         }
 
-        timerCreation = true;
+        _timerCreation = true;
 
         Timer timer = new Timer
         {
@@ -125,6 +132,6 @@ public partial class Noel : CharacterBody3D
 
         await ToSignal(timer, Timer.SignalName.Timeout);
         timer.QueueFree();
-        timerCreation = false;
+        _timerCreation = false;
     }
 }
