@@ -42,6 +42,7 @@ public partial class StateMachineNoel : BaseStateMachine
     {
         _signalBus_Noel.Connect(SignalBus_Noel.SignalName.PlayerStateSignal, new Callable(this, nameof(setPlayerState)));
     }
+    
     private void setPlayerState() => _playerState = _playerBlackboard.currentState;
     public void SetFocus(GlobalEnum.Focus _focus) => focus = _focus;
 

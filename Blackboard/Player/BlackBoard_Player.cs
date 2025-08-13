@@ -3,9 +3,8 @@ using System.Threading.Tasks;
 
 public partial class BlackBoard_Player : Node
 {
-    private CharacterBody3D Player;
+    private CharacterBody3D _player;
     public Vector3 playerPosition { get; private set; }
-    private SignalBus playerSignaBus;
     public GlobalEnum.State currentState { get; private set; }
     private static BlackBoard_Player _instance;
     public static BlackBoard_Player Instance => _instance;
@@ -22,17 +21,17 @@ public partial class BlackBoard_Player : Node
     }
     private async Task GetPlayer()
     {
-        while (Player == null || !Player.IsInsideTree())
+        while (_player == null || !_player.IsInsideTree())
         {
-            Player = GetTree().GetFirstNodeInGroup("Player") as CharacterBody3D;
+            _player = GetTree().GetFirstNodeInGroup("Player") as CharacterBody3D;
             await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
         }
     }
     public Vector3 GetPlayerPosition()
     {
-        if (Player != null)
+        if (_player != null)
         {
-            playerPosition = Player.GlobalPosition;
+            playerPosition = _player.GlobalPosition;
         }
         else
         {
@@ -50,5 +49,4 @@ public partial class BlackBoard_Player : Node
         }
         else return;
     }
-
 }
