@@ -19,7 +19,6 @@ public partial class Noel : CharacterBody3D
     }
     private float _gravity;
     private bool _move = true;
-    private bool _timerCreation = false;
 
     //---External Reference---
     private NavigationAgent3D _navigationAgent;
@@ -115,29 +114,5 @@ public partial class Noel : CharacterBody3D
 
         _velocity.X = Mathf.Lerp(_velocity.X, direction.X, _moveSmoothing);
         _velocity.Z = Mathf.Lerp(_velocity.Z, direction.Z, _moveSmoothing);
-    }
-    
-    //not used.Keep it here.
-    public async Task DelayReaction(float seconds)
-    {
-        if (_timerCreation)
-        {
-            return;
-        }
-
-        _timerCreation = true;
-
-        Timer timer = new Timer
-        {
-            Name = "delayTimer",
-            WaitTime = seconds,
-            OneShot = true
-        };
-        AddChild(timer);
-        timer.Start();
-
-        await ToSignal(timer, Timer.SignalName.Timeout);
-        timer.QueueFree();
-        _timerCreation = false;
     }
 }
