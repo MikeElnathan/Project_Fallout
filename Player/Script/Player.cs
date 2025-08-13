@@ -3,47 +3,47 @@ using System;
 
 public partial class Player : CharacterBody3D
 {
-    private float speed;
-    private float run_speed = 8.0f;
-    private float walk_speed = 2.0f;
-    private bool Run = false;
-    private bool Jump = false;
-    private Godot.Vector3 move_dir = Godot.Vector3.Zero;
-    private Godot.Vector2 input_dir = Godot.Vector2.Zero;
-    private Godot.Vector3 target_velocity = Godot.Vector3.Zero;
-    private float rotation_speed = 8.0f;
-    private float move_damping = 25.0f;
+    //--- Move Variables ---
+    private float _speed;
+    private float _runSpeed = 8.0f;
+    private float _walkSpeed = 2.0f;
+    private bool _run = false;
+    private bool _jump = false;
+    private Godot.Vector3 _moveDir = Godot.Vector3.Zero;
+    private Godot.Vector2 _inputDir = Godot.Vector2.Zero;
+    private Godot.Vector3 _targetVelocity = Godot.Vector3.Zero;
+    private float _rotationSpeed = 8.0f;
+    private float _moveDamping = 25.0f;
 
-    
-    private float jump_height = 2.0f;
-    private float time_to_peak = 0.6f;
-    private float time_to_fall = 0.4f;
+    //--- Jump Variables ---
+    private float _jumpHeight = 2.0f;
+    private float _timeToPeak = 0.6f;
+    private float _timeToFall = 0.4f;
+    private float _jumpGravity;
+    private float _jumpVelocity;
+    private float _fallGravity;
 
-    private float jump_gravity;
-    private float jump_velocity;
-    private float fall_gravity;
+    // --- Mesh and Camera ---
+    private Node3D _visualMesh;
+    private Camera3D _camera;
 
+    private GlobalEnum.State _currentAction;
+    private GlobalEnum.State _newAction;
 
-    private Node3D visual_mesh;
-    private Camera3D camera;
-
-    private GlobalEnum.State current_action;
-    private GlobalEnum.State new_action;
-
-    private SignalBus signalBus;
+    private SignalBus _signalBus;
 
     public override void _Ready()
     {
         MotionMode = CharacterBody3D.MotionModeEnum.Grounded;
 
-        camera = GetNode<Camera3D>("CameraAndMesh/Camera_Arm/Camera3D");
+        _camera = GetNode<Camera3D>("CameraAndMesh/Camera_Arm/Camera3D");
 
-        visual_mesh = GetNode<Node3D>("CameraAndMesh/Mesh");
+        _visualMesh = GetNode<Node3D>("CameraAndMesh/Mesh");
 
-        speed = walk_speed;
+        _speed = _walkSpeed;
 
-        signalBus = SignalBus.Instance;
-        signalBus.EmitPlayerSignal(GlobalEnum.State.Idle);
+        _signalBus = SignalBus.Instance;
+        _signalBus.EmitPlayerSignal(GlobalEnum.State.Idle);
 
         Jump_Physics();
     }
@@ -58,9 +58,9 @@ public partial class Player : CharacterBody3D
     }
     private void Jump_Physics()
     {
-        jump_velocity = (2.0f * jump_height) / time_to_peak;
-        jump_gravity = (-2.0f * jump_height) / Mathf.Pow(time_to_peak, 2);
-        fall_gravity = (-2.0f * jump_height) / Mathf.Pow(time_to_fall, 2);
+        _jumpVelocity = (2.0f * _jumpHeight) / _timeToPeak;
+        _jumpGravity = (-2.0f * _jumpHeight) / Mathf.Pow(_timeToPeak, 2);
+        _fallGravity = (-2.0f * _jumpHeight) / Mathf.Pow(_timeToFall, 2);
     }
     public override void _Input(InputEvent @event)
     {
@@ -68,69 +68,69 @@ public partial class Player : CharacterBody3D
         {
             if (keyEvent.Pressed && Input.IsActionJustPressed("Run"))
             {
-                speed = run_speed;
-                Run = true;
+                _speed = _runSpeed;
+                _run = true;
             }
             else if (!keyEvent.Pressed && Input.IsActionJustReleased("Run"))
             {
-                speed = walk_speed;
-                Run = false;
+                _speed = _walkSpeed;
+                _run = false;
             }
         }
     }
     private float return_gravity()
     {
-        return Velocity.Y > 0.0f ? jump_gravity : fall_gravity;
+        return Velocity.Y > 0.0f ? _jumpGravity : _fallGravity;
     }
     private void jump()
     {
-        Velocity = new Godot.Vector3(Velocity.X, jump_velocity, Velocity.Z);
+        Velocity = new Godot.Vector3(Velocity.X, _jumpVelocity, Velocity.Z);
     }
-    private void rotate_Visual_Mesh()
+    private void rotate__visualMesh()
     {
-        if (move_dir.Length() > 0.1f)
+        if (_moveDir.Length() > 0.1f)
         {
-            float target_angle = Mathf.Atan2(move_dir.X, move_dir.Z);
-            float current_yaw = visual_mesh.Rotation.Y;
-            float smoothed_angle = Mathf.LerpAngle(current_yaw, target_angle, rotation_speed * (float)GetPhysicsProcessDeltaTime());
+            float target_angle = Mathf.Atan2(_moveDir.X, _moveDir.Z);
+            float current_yaw = _visualMesh.Rotation.Y;
+            float smoothed_angle = Mathf.LerpAngle(current_yaw, target_angle, _rotationSpeed * (float)GetPhysicsProcessDeltaTime());
 
-            visual_mesh.Rotation = new Godot.Vector3(0, smoothed_angle, 0);
+            _visualMesh.Rotation = new Godot.Vector3(0, smoothed_angle, 0);
         }
     }
     private void Keyboard_move()
     {
-        input_dir = Input.GetVector("Left", "Right", "Forward", "Backward");
+        _inputDir = Input.GetVector("Left", "Right", "Forward", "Backward");
 
-        Godot.Vector3 forward = -camera.GlobalTransform.Basis.Z;
-        Godot.Vector3 right = camera.GlobalTransform.Basis.X;
+        Godot.Vector3 forward = -_camera.GlobalTransform.Basis.Z;
+        Godot.Vector3 right = _camera.GlobalTransform.Basis.X;
 
         forward.Y = 0.0f;
         right.Y = 0.0f;
         forward = forward.Normalized();
         right = right.Normalized();
 
-        if (input_dir.Length() > 0.1f)
+        if (_inputDir.Length() > 0.1f)
         {
-            move_dir = (right * input_dir.X + forward * -input_dir.Y).Normalized();
-            target_velocity = move_dir * speed;
-            rotate_Visual_Mesh();
+            _moveDir = (right * _inputDir.X + forward * -_inputDir.Y).Normalized();
+            _targetVelocity = _moveDir * _speed;
+            rotate__visualMesh();
         }
         else
         {
-            target_velocity = Godot.Vector3.Zero;
+            _targetVelocity = Godot.Vector3.Zero;
         }
     }
     private void Handle_Movement(double delta)
     {
         Godot.Vector3 horizontal_velocity = new Godot.Vector3(Velocity.X, 0, Velocity.Z);
 
-        if (target_velocity.Length() > 0)
+        if (_targetVelocity.Length() > 0)
         {
-            horizontal_velocity = horizontal_velocity.MoveToward(target_velocity, move_damping * (float)delta);
+            horizontal_velocity = horizontal_velocity.MoveToward(_targetVelocity, _moveDamping * (float)delta);
         }
         else
         {
-            horizontal_velocity = horizontal_velocity.MoveToward(Godot.Vector3.Zero, move_damping * (float)delta);
+            horizontal_velocity = horizontal_velocity.MoveToward(Godot.Vector3.Zero, _moveDamping * (float)delta);
         }
         Velocity = new Godot.Vector3(horizontal_velocity.X, Velocity.Y, horizontal_velocity.Z);
     }
@@ -141,37 +141,37 @@ public partial class Player : CharacterBody3D
         if (Input.IsActionJustPressed("Jump") && IsOnFloor())
         {
             jump();
-            Jump = true;
-            Godot.Vector3 jump_momentum = move_dir * speed * 0.1f;
+            _jump = true;
+            Godot.Vector3 jump_momentum = _moveDir * _speed * 0.1f;
             Velocity = new Godot.Vector3(Velocity.X + jump_momentum.X, Velocity.Y, Velocity.Z + jump_momentum.Z);
         }
 
         if (IsOnFloor() && Velocity.Y < 0.0f)
         {
-            Jump = false;
+            _jump = false;
             Velocity = new Godot.Vector3(Velocity.X, 0.0f, Velocity.Z);
         }
     }
     private void State_Signal_Sender()
     {
-        if (target_velocity.Length() > 0)
+        if (_targetVelocity.Length() > 0)
         {
-            new_action = Run ? GlobalEnum.State.Run : GlobalEnum.State.Walk;
+            _newAction = _run ? GlobalEnum.State.Run : GlobalEnum.State.Walk;
         }
         else
         {
-            new_action = GlobalEnum.State.Idle;
+            _newAction = GlobalEnum.State.Idle;
         }
 
-        if (Jump)
+        if (_jump)
         {
-            new_action = GlobalEnum.State.Jump;
+            _newAction = GlobalEnum.State.Jump;
         }
 
-        if (new_action != current_action)
+        if (_newAction != _currentAction)
         {
-            signalBus.EmitPlayerSignal(new_action);
-            current_action = new_action;
+            _signalBus.EmitPlayerSignal(_newAction);
+            _currentAction = _newAction;
         }
     }
 
