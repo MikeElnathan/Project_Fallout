@@ -27,7 +27,7 @@ public partial class StateMachineNoel : BaseStateMachine
     public override void _PhysicsProcess(double delta)
     {
         base._PhysicsProcess(delta);
-        StateChangeManager();
+        _stateChangeManager();
     }
     private void initialize()
     {
@@ -42,15 +42,15 @@ public partial class StateMachineNoel : BaseStateMachine
     {
         _signalBus_Noel.Connect(SignalBus_Noel.SignalName.PlayerStateSignal, new Callable(this, nameof(setPlayerState)));
     }
-
     private void setPlayerState() => _playerState = _playerBlackboard.currentState;
     public void SetFocus(GlobalEnum.Focus _focus) => focus = _focus;
 
-    private void StateChangeManager()
+    private void _stateChangeManager()
     {
         _classNoel.movementsTargetPosition = _playerBlackboard.GetPlayerPosition();
+        bool _isNoelIdle = _noel.Velocity.X == 0f && _noel.Velocity.Z == 0f;
 
-        if (_noel.Velocity.X == 0f && _noel.Velocity.Y == 0f)
+        if (_isNoelIdle)
         {
             changeState("idleNoel");
         }

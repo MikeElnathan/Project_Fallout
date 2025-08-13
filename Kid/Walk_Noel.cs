@@ -4,17 +4,17 @@ using System.Threading.Tasks;
 
 public partial class Walk_Noel : State
 {
-    private Noel noel;
-    private StateLabel stateText;
+    private Noel _noel;
+    private StateLabel _stateText;
     public override void _Ready()
     {
         base._Ready();
-        noel = GetTree().GetFirstNodeInGroup("Noel") as Noel;
-        stateText = GetTree().GetFirstNodeInGroup("StateLabel") as StateLabel;
+        _noel = GetTree().GetFirstNodeInGroup("Noel") as Noel;
+        _stateText = GetTree().GetFirstNodeInGroup("StateLabel") as StateLabel;
     }
     public override void Enter()
     {
-        stateText.noelStateText = "Walking";
+        _stateText.noelStateText = "Walking";
     }
     public override void Exit()
     {
