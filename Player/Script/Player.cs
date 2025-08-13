@@ -23,13 +23,13 @@ public partial class Player : CharacterBody3D
     private float _jumpVelocity;
     private float _fallGravity;
 
-    // --- Mesh and Camera ---
+    // --- Scene references ---
     private Node3D _visualMesh;
     private Camera3D _camera;
 
+    // --- State Handling ---
     private GlobalEnum.State _currentAction;
     private GlobalEnum.State _newAction;
-
     private SignalBus _signalBus;
 
     public override void _Ready()
@@ -56,11 +56,39 @@ public partial class Player : CharacterBody3D
 
         MoveAndSlide();
     }
+
+    /// <summary>Applies gravity, handles jump input, and manages landing.</summary>
     private void Jump_Physics()
     {
         _jumpVelocity = (2.0f * _jumpHeight) / _timeToPeak;
         _jumpGravity = (-2.0f * _jumpHeight) / Mathf.Pow(_timeToPeak, 2);
         _fallGravity = (-2.0f * _jumpHeight) / Mathf.Pow(_timeToFall, 2);
+    }
+    private float return_gravity()
+    {
+        return Velocity.Y > 0.0f ? _jumpGravity : _fallGravity;
+    }
+    private void jump()
+    {
+        Velocity = new Godot.Vector3(Velocity.X, _jumpVelocity, Velocity.Z);
+    }
+    private void Handle_jump(double delta)
+    {
+        Velocity = new Godot.Vector3(Velocity.X, Velocity.Y + return_gravity() * (float)delta, Velocity.Z);
+
+        if (Input.IsActionJustPressed("Jump") && IsOnFloor())
+        {
+            jump();
+            _jump = true;
+            Godot.Vector3 jump_momentum = _moveDir * _speed * 0.1f;
+            Velocity = new Godot.Vector3(Velocity.X + jump_momentum.X, Velocity.Y, Velocity.Z + jump_momentum.Z);
+        }
+
+        if (IsOnFloor() && Velocity.Y < 0.0f)
+        {
+            _jump = false;
+            Velocity = new Godot.Vector3(Velocity.X, 0.0f, Velocity.Z);
+        }
     }
     public override void _Input(InputEvent @event)
     {
@@ -77,14 +105,6 @@ public partial class Player : CharacterBody3D
                 _run = false;
             }
         }
-    }
-    private float return_gravity()
-    {
-        return Velocity.Y > 0.0f ? _jumpGravity : _fallGravity;
-    }
-    private void jump()
-    {
-        Velocity = new Godot.Vector3(Velocity.X, _jumpVelocity, Velocity.Z);
     }
     private void rotate__visualMesh()
     {
@@ -133,24 +153,6 @@ public partial class Player : CharacterBody3D
             horizontal_velocity = horizontal_velocity.MoveToward(Godot.Vector3.Zero, _moveDamping * (float)delta);
         }
         Velocity = new Godot.Vector3(horizontal_velocity.X, Velocity.Y, horizontal_velocity.Z);
-    }
-    private void Handle_jump(double delta)
-    {
-        Velocity = new Godot.Vector3(Velocity.X, Velocity.Y + return_gravity() * (float)delta, Velocity.Z);
-
-        if (Input.IsActionJustPressed("Jump") && IsOnFloor())
-        {
-            jump();
-            _jump = true;
-            Godot.Vector3 jump_momentum = _moveDir * _speed * 0.1f;
-            Velocity = new Godot.Vector3(Velocity.X + jump_momentum.X, Velocity.Y, Velocity.Z + jump_momentum.Z);
-        }
-
-        if (IsOnFloor() && Velocity.Y < 0.0f)
-        {
-            _jump = false;
-            Velocity = new Godot.Vector3(Velocity.X, 0.0f, Velocity.Z);
-        }
     }
     private void State_Signal_Sender()
     {
