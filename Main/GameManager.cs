@@ -3,7 +3,7 @@ using System;
 
 public partial class GameManager : Node
 {
-    private PackedScene TrialLevel;
+    private PackedScene _trialLevel;
 
     public override void _Ready()
     {
@@ -12,10 +12,10 @@ public partial class GameManager : Node
     }
     private void LoadTrial()
     {
-        LoadScene("res://Trial/Trial_Level/trial_level_1.tscn", ref TrialLevel);
-        if (TrialLevel != null)
+        LoadScene("res://Trial/Trial_Level/trial_level_1.tscn", ref _trialLevel);
+        if (_trialLevel != null)
         {
-            Node3D trialLevel = TrialLevel.Instantiate<Node3D>();
+            Node3D trialLevel = _trialLevel.Instantiate<Node3D>();
             AddChild(trialLevel);
         }
         else
