@@ -176,5 +176,4 @@ public partial class Player : CharacterBody3D
             _currentAction = _newAction;
         }
     }
-
 }

@@ -14,5 +14,4 @@ public partial class PlayerAnimation : AnimationPlayer
         }
         _animInstance = this;
     }
-
 }
