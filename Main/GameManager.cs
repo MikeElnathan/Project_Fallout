@@ -22,7 +22,6 @@ public partial class GameManager : Node
         {
             throw new Exception("empty level warning");
         }
-
     }
     private void LoadScene(String pathName, ref PackedScene sceneName)
     {

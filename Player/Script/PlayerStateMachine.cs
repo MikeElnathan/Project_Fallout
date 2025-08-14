@@ -2,11 +2,11 @@ using Godot;
 
 public partial class PlayerStateMachine : BaseStateMachine
 {
-    private SignalBus signalBus;
+    private SignalBus _signalBus;
 
     public override void _Ready()
     {
-        signalBus = SignalBus.Instance;
+        _signalBus = SignalBus.Instance;
         base._Ready();
     }
     protected override void GetAnimation()
@@ -16,12 +16,12 @@ public partial class PlayerStateMachine : BaseStateMachine
     protected override void ReadSignal()
     {
         base.ReadSignal();
-        signalBus.Connect(SignalBus.SignalName.Idle, new Callable(this, nameof(onIdle)));
-        signalBus.Connect(SignalBus.SignalName.Walk, new Callable(this, nameof(onWalk)));
-        signalBus.Connect(SignalBus.SignalName.Jump, new Callable(this, nameof(onJump)));
-        signalBus.Connect(SignalBus.SignalName.Run, new Callable(this, nameof(onRun)));
-        signalBus.Connect(SignalBus.SignalName.Sleep, new Callable(this, nameof(onSleep)));
-        signalBus.Connect(SignalBus.SignalName.Sneak, new Callable(this, nameof(onSneak)));
+        _signalBus.Connect(SignalBus.SignalName.Idle, new Callable(this, nameof(onIdle)));
+        _signalBus.Connect(SignalBus.SignalName.Walk, new Callable(this, nameof(onWalk)));
+        _signalBus.Connect(SignalBus.SignalName.Jump, new Callable(this, nameof(onJump)));
+        _signalBus.Connect(SignalBus.SignalName.Run, new Callable(this, nameof(onRun)));
+        _signalBus.Connect(SignalBus.SignalName.Sleep, new Callable(this, nameof(onSleep)));
+        _signalBus.Connect(SignalBus.SignalName.Sneak, new Callable(this, nameof(onSneak)));
     }
     private void onIdle() => changeState("Idle");
     private void onWalk() => changeState("Walk");

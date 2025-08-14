@@ -36,7 +36,7 @@ public partial class Noel : CharacterBody3D
         _noelSM = GetTree().GetFirstNodeInGroup("noelSM") as StateMachineNoel;
         noelSignalBus = SignalBus_Noel.Instance_noel;
 
-        //change this latter for a much more flexible approach
+        //change this later for a much more flexible approach
         _gravity = ProjectSettings.GetSetting("physics/3d/default_gravity").AsSingle();
         _initializeAgent();
 
