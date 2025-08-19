@@ -49,16 +49,10 @@ public partial class StateMachineNoel : BaseStateMachine
     private void _stateChangeManager()
     {
         _classNoel.movementsTargetPosition = _playerBlackboard.GetPlayerPosition();
-        bool _isNoelIdle = _noel.Velocity.X == 0f && _noel.Velocity.Z == 0f;
-
-        if (_isNoelIdle)
-        {
-            changeState("idleNoel");
-        }
-        else
-        {
-            //to change
-            changeState("walkNoel");
-        }
+        changeState(noelMoving() ? "idleNoel" : "walkNoel");
+    }
+    private bool noelMoving()
+    {
+        return _noel.Velocity.X == 0f && _noel.Velocity.Z == 0f;
     }
 }
