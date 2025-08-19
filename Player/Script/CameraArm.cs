@@ -4,29 +4,29 @@ using System.Runtime.CompilerServices;
 
 public partial class CameraArm : Node3D
 {
-    private float orbit_sensitivity = 6.5f;
+    private float _orbitSensitivity = 6.5f;
 
-    private float orbit_velocity = 0.0f;
-    private float vertical_velocity = 0.0f;
-    private float current_yaw = 0.0f;
-    private float current_pitch = 0.0f;
-    private float min_pitch = 0.0f;
-    private float max_pitch = 25.0f;
-    private float deadzone = 1.5f;
+    private float _orbitVelocity = 0.0f;
+    private float _verticalVelocity = 0.0f;
+    private float _currentYaw = 0.0f;
+    private float _currentPitch = 0.0f;
+    private float _minPitch = 0.0f;
+    private float _maxPitch = 25.0f;
+    private float _deadZone = 1.5f;
 
-    private float zoom = 45.0f;
-    private float zoom_value = 2.0f;
-    private float zoom_min = 30.0f;
-    private float zoom_max = 75.0f;
-    private float target_zoom;
+    private float _zoom = 45.0f;
+    private float _zoomValue = 2.0f;
+    private float _zoomMin = 30.0f;
+    private float _zoomMax = 75.0f;
+    private float _targetZoom;
 
-    private Camera3D camera;
+    private Camera3D _camera;
 
     public override void _Ready()
     {
-        current_yaw = RotationDegrees.Y;
-        camera = GetChild<Camera3D>(0);
-        camera.Fov = zoom;
+        _currentYaw = RotationDegrees.Y;
+        _camera = GetChild<Camera3D>(0);
+        _camera.Fov = _zoom;
     }
 
     public override void _Input(InputEvent @event)
@@ -35,13 +35,13 @@ public partial class CameraArm : Node3D
         {
             if (Input.IsActionPressed("Orbit_Camera"))
             {
-                if (Math.Abs(mouseMotion.Relative.X) > deadzone)
+                if (Math.Abs(mouseMotion.Relative.X) > _deadZone)
                 {
-                    orbit_velocity -= mouseMotion.Relative.X * orbit_sensitivity;
+                    _orbitVelocity -= mouseMotion.Relative.X * _orbitSensitivity;
                 }
-                if (Math.Abs(mouseMotion.Relative.Y) > deadzone)
+                if (Math.Abs(mouseMotion.Relative.Y) > _deadZone)
                 {
-                    vertical_velocity -= mouseMotion.Relative.Y * orbit_sensitivity;
+                    _verticalVelocity -= mouseMotion.Relative.Y * _orbitSensitivity;
                 }
             }
         }
@@ -49,33 +49,33 @@ public partial class CameraArm : Node3D
         {
             if (mouseButton.ButtonIndex == MouseButton.WheelUp)
             {
-                zoom -= zoom_value;
+                _zoom -= _zoomValue;
             }
             if (mouseButton.ButtonIndex == MouseButton.WheelDown)
             {
-                zoom += zoom_value;
+                _zoom += _zoomValue;
             }
-            zoom = Mathf.Clamp(zoom, zoom_min, zoom_max);
+            _zoom = Mathf.Clamp(_zoom, _zoomMin, _zoomMax);
         }
     }
 
     public override void _PhysicsProcess(double delta)
     {
         // orbit camera
-        current_yaw += orbit_velocity * (float)delta;
+        _currentYaw += _orbitVelocity * (float)delta;
 
 
-        current_pitch += vertical_velocity * (float)delta;
-        current_pitch = Mathf.Clamp(current_pitch, min_pitch, max_pitch);
+        _currentPitch += _verticalVelocity * (float)delta;
+        _currentPitch = Mathf.Clamp(_currentPitch, _minPitch, _maxPitch);
 
-        RotationDegrees = new Godot.Vector3(current_pitch, current_yaw, RotationDegrees.Z);
+        RotationDegrees = new Godot.Vector3(_currentPitch, _currentYaw, RotationDegrees.Z);
 
-        orbit_velocity *= 0.55f;
-        vertical_velocity *= 0.55f;
+        _orbitVelocity *= 0.55f;
+        _verticalVelocity *= 0.55f;
         //
         // Zoom camera
-        target_zoom = Mathf.Lerp(zoom, target_zoom, 0.85f);
-        camera.Fov = target_zoom;
+        _targetZoom = Mathf.Lerp(_zoom, _targetZoom, 0.85f);
+        _camera.Fov = _targetZoom;
         //
     }
 
