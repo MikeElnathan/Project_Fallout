@@ -45,20 +45,16 @@ public partial class Noel : CharacterBody3D
     }
     public override void _PhysicsProcess(double delta)
     {
-        _checkPlayerState();
         _moveNoel(delta);
 
         Velocity = _velocity;
         MoveAndSlide();
     }
-
-    //Consider changing this when there is dedicated Ai managing Noel focus
-    private void _checkPlayerState() => _move = _playerBlackboard.currentState != GlobalEnum.State.Jump;
-
     private void _moveNoel(double delta)
     {
         float buffer = 0.05f;
-        float distance = GlobalPosition.DistanceTo(movementsTargetPosition);
+        Vector3 ignorePlayerJump = new Vector3(movementsTargetPosition.X, 0f, movementsTargetPosition.Z);
+        float distance = GlobalPosition.DistanceTo(ignorePlayerJump);
         if (_move)
         {
             if (distance > stoppingDistance + buffer)
