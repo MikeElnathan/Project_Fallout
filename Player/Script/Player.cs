@@ -30,7 +30,10 @@ public partial class Player : CharacterBody3D
     // --- State Handling ---
     private GlobalEnum.State _currentAction;
     private GlobalEnum.State _newAction;
+
+    //Reference to global script
     private SignalBus _signalBus;
+    private BlackBoard_Player _blackboardPlayer;
 
     public override void _Ready()
     {
@@ -43,6 +46,8 @@ public partial class Player : CharacterBody3D
         _speed = _walkSpeed;
 
         _signalBus = SignalBus.Instance;
+        _blackboardPlayer = BlackBoard_Player.Instance;
+
         _signalBus.EmitPlayerSignal(GlobalEnum.State.Idle);
 
         Jump_Physics();
@@ -57,7 +62,7 @@ public partial class Player : CharacterBody3D
         MoveAndSlide();
     }
 
-    /// <summary>Applies gravity, handles jump input, and manages landing.</summary>
+    /// <summary>Pre-compute gravity and velocity values</summary>
     private void Jump_Physics()
     {
         _jumpVelocity = (2.0f * _jumpHeight) / _timeToPeak;
@@ -175,5 +180,9 @@ public partial class Player : CharacterBody3D
             _signalBus.EmitPlayerSignal(_newAction);
             _currentAction = _newAction;
         }
+    }
+    public float jumpDuration()
+    {
+        return _timeToFall + _timeToPeak;
     }
 }

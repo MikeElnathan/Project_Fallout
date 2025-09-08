@@ -4,10 +4,12 @@ using System.Threading.Tasks;
 public partial class BlackBoard_Player : Node
 {
     private CharacterBody3D _player;
+    private Player _Player; // the player script
     public Vector3 playerPosition { get; private set; }
     public GlobalEnum.State currentState { get; private set; }
     private static BlackBoard_Player _instance;
     public static BlackBoard_Player Instance => _instance;
+    public float jumpDuration { get; private set; }
     [Signal] public delegate void PlayerStateChangedEventHandler();
     public override void _Ready()
     {
@@ -18,6 +20,8 @@ public partial class BlackBoard_Player : Node
         }
         _instance = this;
         _ = GetPlayer();
+        _Player = GetTree().GetFirstNodeInGroup("Player") as Player;
+        jumpDuration = _Player.jumpDuration();
     }
     private async Task GetPlayer()
     {
