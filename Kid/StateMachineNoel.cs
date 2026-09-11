@@ -1,0 +1,53 @@
+using Godot;
+
+public partial class StateMachineNoel : BaseStateMachine
+{
+    private BlackBoard_Player playerBlackboard;
+    private Blackboard_Noel noelBlackboard;
+    private CharacterBody3D noel;
+    private Noel classNoel;
+    private Vector3 noelVelocity = Vector3.Zero;
+    private Vector3 playerPosition;
+    private SignalBus_Noel signalBus_Noel;
+    private SignalBus.ActionType PlayerState;
+    public bool noelMoving {get; set;}
+
+    public override void _Ready()
+    {
+        playerBlackboard = BlackBoard_Player.Instance;
+        signalBus_Noel = SignalBus_Noel.Instance_noel;
+        noelBlackboard = Blackboard_Noel.Instance_noel;
+        noel = GetParent() as CharacterBody3D;
+        classNoel = GetParent() as Noel;
+        base._Ready();
+    }
+    public override void _Process(double delta)
+    {
+        base._Process(delta);
+    }
+    protected override void ReadSignal()
+    {
+        base.ReadSignal();
+        signalBus_Noel.Connect(SignalBus_Noel.SignalName.PlayerStateSignal, new Callable(this, nameof(StateChangeParameter)));
+    }
+    private void StateChangeParameter()
+    {
+        //set player state
+        if (PlayerState != signalBus_Noel.curentPlayerState)
+        {
+            PlayerState = signalBus_Noel.curentPlayerState;
+        }
+        //switching to Idle state base on velocity
+        if (noelMoving)
+        {
+            noelBlackboard.noelCurrentState = SignalBus.ActionType.Walk;
+            changeState("walkNoel");
+        }
+        else
+        {
+            noelBlackboard.noelCurrentState = SignalBus.ActionType.Idle;
+            changeState("idleNoel");
+            GD.Print("idle triggered");
+        }
+    }
+}
