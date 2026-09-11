@@ -47,7 +47,7 @@ public partial class StateMachineNoel : BaseStateMachine
         {
             noelBlackboard.noelCurrentState = SignalBus.ActionType.Idle;
             changeState("idleNoel");
-            GD.Print("idle triggered");
+            GD.Print("Noel state in noel blackboard: ", noelBlackboard.noelCurrentState);
         }
     }
 }

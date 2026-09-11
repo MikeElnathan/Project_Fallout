@@ -15,6 +15,6 @@ public partial class StateLabel : Label
 
     public override void _Process(double delta)
     {
-        Text = $"Player State: {playerBlackboard.currentState}\nNoel State:{noelStateText}";
+        Text = $"Player State: {playerBlackboard.currentState}";
     }
 }

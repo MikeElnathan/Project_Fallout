@@ -42,6 +42,8 @@ public partial class Noel : CharacterBody3D
     private void setNoelSpeed()
     {
         if (playerBlackboard.currentState == SignalBus.ActionType.Walk){movementSpeed = 0.5f;}
+        if (playerBlackboard.currentState == SignalBus.ActionType.Run){movementSpeed = 1.5f;}
+
     }
     private Vector3 movementTarget()
     {
@@ -61,50 +63,7 @@ public partial class Noel : CharacterBody3D
     }
     private void moveNoel(double delta)
     {
-        float buffer = 0.05f;
-        float distance = GlobalPosition.DistanceTo(movementsTargetPosition);
-        if (move)
-        {
-            if (distance > stoppingDistance + buffer)                   //Check distance between player and Noel
-            {
-                if (movementsTargetPosition.LengthSquared() > 0.0001f)
-                {
-                    NavTarget = movementsTargetPosition;
-                }
-                // if (movementsTargetPosition.LengthSquared() > 12f)
-                // {
-                //     movementSpeed = movementSpeed * 2;
-                // }
-                // else
-                // {
-                //     movementSpeed = 0.5f;
-                // }
-                AgentMove();
-                //try flipping balckboard move bool here
-                noelSM.noelMoving = true;
-            }
-            else
-            {
-                _velocity.X = 0f;
-                _velocity.Z = 0f;
-                noelSM.noelMoving = false;
-            }
-        }
-        else
-        {
-            _velocity.X = 0f;
-            _velocity.Z = 0f;
-            noelSM.noelMoving = false;
-        }
-
-        if (!IsOnFloor())
-        {
-            _velocity.Y -= gravity * (float)delta;
-        }
-        else
-        {
-            _velocity.Y = 0.0f;
-        }
+        
     }
     private void InitializeAgent()
     {
