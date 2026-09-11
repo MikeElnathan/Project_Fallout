@@ -1,9 +1,9 @@
 [gd_scene format=3 uid="uid://dgdr6vln34so2"]
 
-[ext_resource type="Script" uid="uid://dyay4oqsvty3" path="res://Kid/NPC_Follower_Template/NoelStateMachine.cs" id="1_1n1dw"]
-[ext_resource type="Script" uid="uid://dfq0j0yr7buk" path="res://Kid/NPC_Follower_Template/NoelIdle.cs" id="2_l3d1v"]
-[ext_resource type="Script" uid="uid://dee0i76or2qxx" path="res://Kid/NPC_Follower_Template/NoelWalk.cs" id="3_t22q8"]
-[ext_resource type="Script" uid="uid://daldh82foev8p" path="res://Kid/NPC_Follower_Template/NoelRun.cs" id="4_ls2ip"]
+[ext_resource type="Script" uid="uid://dyay4oqsvty3" path="res://Kid/NPC_Follower_Template/FollowerStateMachine.cs" id="1_1n1dw"]
+[ext_resource type="Script" uid="uid://dfq0j0yr7buk" path="res://Kid/NPC_Follower_Template/FollowerIdle.cs" id="2_l3d1v"]
+[ext_resource type="Script" uid="uid://dee0i76or2qxx" path="res://Kid/NPC_Follower_Template/FollowerWalk.cs" id="3_t22q8"]
+[ext_resource type="Script" uid="uid://daldh82foev8p" path="res://Kid/NPC_Follower_Template/FollowerRun.cs" id="4_ls2ip"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_bjqgx"]
 
@@ -11,22 +11,20 @@
 
 [node name="NpcFollowerTemplate" type="CharacterBody3D" unique_id=2115661848]
 
-[node name="NoelBlackboard" type="Node" parent="." unique_id=189628268]
-
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=2043125877]
 mesh = SubResource("CapsuleMesh_bjqgx")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=395976262]
 shape = SubResource("CapsuleShape3D_8jovo")
 
-[node name="NoelStateMachine" type="Node3D" parent="." unique_id=1585944303]
+[node name="FollowerStateMachine" type="Node3D" parent="." unique_id=1585944303]
 script = ExtResource("1_1n1dw")
 
-[node name="Idle" type="Node3D" parent="NoelStateMachine" unique_id=4598431]
+[node name="Idle" type="Node3D" parent="FollowerStateMachine" unique_id=4598431]
 script = ExtResource("2_l3d1v")
 
-[node name="Walk" type="Node3D" parent="NoelStateMachine" unique_id=1547130598]
+[node name="Walk" type="Node3D" parent="FollowerStateMachine" unique_id=1547130598]
 script = ExtResource("3_t22q8")
 
-[node name="Run" type="Node3D" parent="NoelStateMachine" unique_id=1947014352]
+[node name="Run" type="Node3D" parent="FollowerStateMachine" unique_id=1947014352]
 script = ExtResource("4_ls2ip")
