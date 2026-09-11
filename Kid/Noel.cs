@@ -1,6 +1,7 @@
 using Godot;
 using System.Threading.Tasks;
 
+
 public partial class Noel : CharacterBody3D
 {
     private float moveSmoothing = 0.5f;
@@ -26,28 +27,32 @@ public partial class Noel : CharacterBody3D
     public override void _Ready()
     {
         base._Ready();
+        //Blackboard reference
         playerBlackboard = GetTree().GetFirstNodeInGroup("Player_Blackboard") as BlackBoard_Player;
         noelBlackboard = GetTree().GetFirstNodeInGroup("Noel_Blackboard") as Blackboard_Noel;
-        noelSM = GetTree().GetFirstNodeInGroup("noelSM") as StateMachineNoel;
 
+        noelSM = GetTree().GetFirstNodeInGroup("noelSM") as StateMachineNoel;
 
         //change this latter for a much more flexible approach
         gravity = ProjectSettings.GetSetting("physics/3d/default_gravity").AsSingle();
         InitializeAgent();
+
     }
 
+    private void setNoelSpeed()
+    {
+        if (playerBlackboard.currentState == SignalBus.ActionType.Walk){movementSpeed = 0.5f;}
+    }
     private Vector3 movementTarget()
     {
-        Vector3 target = new Vector3(0, 0, 0);
-
-        //TODO
-
-        return target;
+        Vector3 follow_target = playerBlackboard.GetPlayerPosition();
+        //GD.Print("set follow_target to: ", followTarget);
+        return follow_target;
     }
     public override void _PhysicsProcess(double delta)
     {
         //set default point of interest
-        movementsTargetPosition = playerBlackboard.GetPlayerPosition();
+        movementsTargetPosition = movementTarget();
 
         moveNoel(delta);
 
@@ -60,12 +65,20 @@ public partial class Noel : CharacterBody3D
         float distance = GlobalPosition.DistanceTo(movementsTargetPosition);
         if (move)
         {
-            if (distance > stoppingDistance + buffer)
+            if (distance > stoppingDistance + buffer)                   //Check distance between player and Noel
             {
                 if (movementsTargetPosition.LengthSquared() > 0.0001f)
                 {
                     NavTarget = movementsTargetPosition;
                 }
+                // if (movementsTargetPosition.LengthSquared() > 12f)
+                // {
+                //     movementSpeed = movementSpeed * 2;
+                // }
+                // else
+                // {
+                //     movementSpeed = 0.5f;
+                // }
                 AgentMove();
                 //try flipping balckboard move bool here
                 noelSM.noelMoving = true;
