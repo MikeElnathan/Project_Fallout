@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="BlackBoard_Follower" format=3 uid="uid://bvdie54nuddix"]
+
+[ext_resource type="Script" uid="uid://biwkm1y7nfvyf" path="res://Blackboard/Follower/BlackBoard_Follower.cs" id="1_btuku"]
+
+[resource]
+resource_local_to_scene = true
+resource_name = "NoelNPC"
+script = ExtResource("1_btuku")
+metadata/_custom_type_script = "uid://biwkm1y7nfvyf"

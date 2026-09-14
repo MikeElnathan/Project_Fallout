@@ -1,7 +1,10 @@
 [gd_scene format=3 uid="uid://dgdr6vln34so2"]
 
+[ext_resource type="Script" uid="uid://dbdtuu7pia13y" path="res://Kid/NPC_Follower_Template/Noel.cs" id="1_01fsq"]
 [ext_resource type="Script" uid="uid://dyay4oqsvty3" path="res://Kid/NPC_Follower_Template/FollowerStateMachine.cs" id="1_1n1dw"]
+[ext_resource type="Script" uid="uid://c8m1y6nt6gykq" path="res://Kid/NPC_Follower_Template/NpcAi.cs" id="1_ls2ip"]
 [ext_resource type="Script" uid="uid://dfq0j0yr7buk" path="res://Kid/NPC_Follower_Template/FollowerIdle.cs" id="2_l3d1v"]
+[ext_resource type="Resource" uid="uid://bvdie54nuddix" path="res://Kid/NPC_Follower_Template/NoelBlackboard.tres" id="3_65a21"]
 [ext_resource type="Script" uid="uid://dee0i76or2qxx" path="res://Kid/NPC_Follower_Template/FollowerWalk.cs" id="3_t22q8"]
 [ext_resource type="Script" uid="uid://daldh82foev8p" path="res://Kid/NPC_Follower_Template/FollowerRun.cs" id="4_ls2ip"]
 
@@ -9,7 +12,12 @@
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_8jovo"]
 
-[node name="NpcFollowerTemplate" type="CharacterBody3D" unique_id=2115661848]
+[node name="Noel" type="CharacterBody3D" unique_id=2115661848]
+script = ExtResource("1_01fsq")
+
+[node name="NPC AI" type="Node" parent="." unique_id=710915031]
+script = ExtResource("1_ls2ip")
+npcBlackboard = ExtResource("3_65a21")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=2043125877]
 mesh = SubResource("CapsuleMesh_bjqgx")

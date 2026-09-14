@@ -6684,7 +6684,7 @@ tracks/113/keys = PackedFloat32Array(0, 1, 4.76798e-08, 9.27814, -3.97194e-06)
 
 [sub_resource type="Animation" id="Animation_5nw35"]
 resource_name = "Jumping"
-length = 1.2083
+length = 1.2333333
 tracks/0/type = "position_3d"
 tracks/0/imported = true
 tracks/0/enabled = true

@@ -1,5 +1,11 @@
-public enum NoelFollowTarget //Expand your choice here
+public enum NPCFollowTarget //Expand your choice here
 {
     PLAYER,
     OBJECTS
+}
+public enum NPCState
+{
+    WALK,
+    RUN,
+    IDLE
 }
