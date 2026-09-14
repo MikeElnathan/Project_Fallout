@@ -8,6 +8,8 @@ public partial class BlackBoard_Follower : Resource //Should have named it Black
 {
 	[Export]
 	public NPCState npcState {get; private set;}
+	[Signal]public delegate void StateChangedEventHandler();
+
 	[Export]
 	public Vector3 npcPosition {get; private set;}
 	[Export]
@@ -21,8 +23,13 @@ public partial class BlackBoard_Follower : Resource //Should have named it Black
 		if(npcState != state)
 		{
 			npcState = state;
+			State();
 		}
 		else return;
+	}
+	public void State()
+	{
+		EmitSignal(SignalName.StateChanged);
 	}
 	public void setNPCPosition(Vector3 position)
 	{
