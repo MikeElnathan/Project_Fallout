@@ -17,6 +17,10 @@ public partial class Noel : CharacterBody3D
 		readFromBlackboard();
 		initNavAgent();
     }
+    public override void _Process(double delta)
+    {
+        base._Process(delta);
+    }
 	public override void _PhysicsProcess(double delta)
 	{
 		if (!IsOnFloor())
@@ -30,23 +34,10 @@ public partial class Noel : CharacterBody3D
 		MoveAndSlide();
 
 	}
-	private void moveNoel()
+	private async void ActorSetup()
 	{
-		if (_navigationAgent.IsNavigationFinished())
-    	{
-       		_velocity.X = 0;
-        	_velocity.Z = 0;
-        	return;
-    	}
-
-		Vector3 nextPathPosition = _navigationAgent.GetNextPathPosition();
-		Vector3 direction = GlobalPosition.DirectionTo(nextPathPosition);
-
-		var path = _navigationAgent.GetCurrentNavigationPath();
-		
-		_velocity.X = direction.X * _walkSpeed;
-		_velocity.Z = direction.Z * _walkSpeed;
-		
+		await ToSignal(GetTree(), SceneTree.SignalName.PhysicsFrame);
+		_navigationAgent.TargetPosition = _thingsToFollow;
 	}
 	public void setThingsToFollow(Vector3 position)
 	{
@@ -69,21 +60,27 @@ public partial class Noel : CharacterBody3D
 
 		_navigationAgent.PathDesiredDistance = 0.5f;
 		_navigationAgent.TargetDesiredDistance = 0.5f;
-		//_navigationAgent.PathHeightOffset = -0.604f;
 
 		Callable.From(ActorSetup).CallDeferred();
 	}
-
-	private async void ActorSetup()
+	private void moveNoel()
 	{
-		await ToSignal(GetTree(), SceneTree.SignalName.PhysicsFrame);
-		_navigationAgent.TargetPosition = _thingsToFollow;
+		if (_navigationAgent.IsNavigationFinished())
+    	{
+       		_velocity.X = 0;
+        	_velocity.Z = 0;
+        	return;
+    	}
+
+		Vector3 nextPathPosition = _navigationAgent.GetNextPathPosition();
+		Vector3 direction = GlobalPosition.DirectionTo(nextPathPosition);
+
+		var path = _navigationAgent.GetCurrentNavigationPath();
+		
+		_velocity.X = direction.X * _walkSpeed;
+		_velocity.Z = direction.Z * _walkSpeed;
+		
 	}
-    public override void _Process(double delta)
-    {
-        base._Process(delta);
-		readFromBlackboard();
-    }
 
 	private async void readFromBlackboard()
 	{
