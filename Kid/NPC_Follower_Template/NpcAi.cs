@@ -1,8 +1,5 @@
 using Godot;
 using Godot.Collections;
-using System;
-using System.ComponentModel;
-using System.Security.Cryptography.X509Certificates;
 
 
 public partial class NpcAi : Node
@@ -13,16 +10,40 @@ public partial class NpcAi : Node
 	[Export(PropertyHint.File, "*.json")]
 	private string _saveDataStringPath;
 
+	public static Vector3 _playerPosition; //KIV
+	private BlackBoard_Player blackBoard_Player;
+	private Noel _noel;
+
 
 	public override void _Ready()
 	{
+		_noel = GetParent<Noel>() as Noel;
+
 		getSaveFiles();
+		getPlayerBlackboard();
+
+		//_playerPosition = new Vector3(0, 0, 0); //default
 	}
 	public override void _Process(double delta)
 	{
-		
+		_playerPosition = blackBoard_Player.GetPlayerPosition();
+		_noel.setThingsToFollow(_playerPosition);
 	}
+	private void getPlayerBlackboard()
+	{
+		blackBoard_Player = GetTree().GetFirstNodeInGroup("Player_Blackboard") as BlackBoard_Player;
+		
+		if(blackBoard_Player == null)
+		{
+			GD.PrintErr("NpcAi (noel's) can't find player's blackboard");
+			return;
+		}
+	}
+	private void giveSomethingToFollow()
+	{
+		//temporary test
 
+	}
 	//Get save file then write it to blackboard. Should check for any  save files, otherwise, will resort to default stat and position, ala new game mode
 	private void getSaveFiles()
 	{

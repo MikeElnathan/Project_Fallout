@@ -3,13 +3,91 @@ using System;
 
 public partial class Noel : CharacterBody3D
 {
+	private float _walkSpeed;
+	private float _runSpeed;
+	[Export]
+	private NavigationAgent3D _navigationAgent;
+	private Vector3 _thingsToFollow;
+	private float _gravity;
+	private Vector3 _velocity;
+
+    public override void _Ready()
+    {
+		_gravity = ProjectSettings.GetSetting("physics/3d/default_gravity").AsSingle();
+		readFromBlackboard();
+		initNavAgent();
+    }
+	public override void _PhysicsProcess(double delta)
+	{
+		if (!IsOnFloor())
+		{
+			_velocity.Y -= _gravity * (float)delta;
+		}else _velocity.Y = 0f;
+
+		moveNoel();
+
+		Velocity = _velocity;
+		MoveAndSlide();
+
+	}
+	private void moveNoel()
+	{
+		if (_navigationAgent.IsNavigationFinished())
+    	{
+       		_velocity.X = 0;
+        	_velocity.Z = 0;
+        	return;
+    	}
+
+		Vector3 nextPathPosition = _navigationAgent.GetNextPathPosition();
+		Vector3 direction = GlobalPosition.DirectionTo(nextPathPosition);
+
+		var path = _navigationAgent.GetCurrentNavigationPath();
+		
+		_velocity.X = direction.X * _walkSpeed;
+		_velocity.Z = direction.Z * _walkSpeed;
+		
+	}
+	public void setThingsToFollow(Vector3 position)
+	{
+		//Call from AI
+		if(_thingsToFollow != position)
+		{
+			_thingsToFollow = position;
+			_navigationAgent.TargetPosition = _thingsToFollow;
+			return;
+		}
+		return;
+	}
+	private void initNavAgent()
+	{
+		if(_navigationAgent == null)
+		{
+			GD.PrintErr("No Navigation Agent 3D node found.");
+			return;
+		}
+
+		_navigationAgent.PathDesiredDistance = 0.5f;
+		_navigationAgent.TargetDesiredDistance = 0.5f;
+		//_navigationAgent.PathHeightOffset = -0.604f;
+
+		Callable.From(ActorSetup).CallDeferred();
+	}
+
+	private async void ActorSetup()
+	{
+		await ToSignal(GetTree(), SceneTree.SignalName.PhysicsFrame);
+		_navigationAgent.TargetPosition = _thingsToFollow;
+	}
     public override void _Process(double delta)
     {
         base._Process(delta);
+		readFromBlackboard();
     }
 
-	public override void _PhysicsProcess(double delta)
+	private async void readFromBlackboard()
 	{
-		MoveAndSlide();
+		_walkSpeed = BlackBoard_Follower.WalkSpeed;
+		_runSpeed = BlackBoard_Follower.RunSpeed;
 	}
 }
