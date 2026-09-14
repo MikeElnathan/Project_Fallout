@@ -5,7 +5,7 @@ public enum NPCFollowTarget //Expand your choice here
 }
 public enum NPCState
 {
+    IDLE,
     WALK,
-    RUN,
-    IDLE
+    RUN
 }

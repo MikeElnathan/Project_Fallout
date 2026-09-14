@@ -1,4 +1,5 @@
 using Godot;
+using Godot.Collections;
 using System;
 
 
@@ -11,14 +12,17 @@ public partial class BlackBoard_Follower : Resource //Should have named it Black
 	public Vector3 npcPosition {get; private set;}
 	[Export]
 	public NPCFollowTarget npcFollowTarget {get; private set;}
+	public static float WalkSpeed;
+	public static float RunSpeed;
 	
-
+	
 	public void SetNPCState(NPCState state)
 	{
 		if(npcState != state)
 		{
 			npcState = state;
 		}
+		else return;
 	}
 	public void setNPCPosition(Vector3 position)
 	{

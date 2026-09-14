@@ -1,0 +1,6 @@
+{
+	"movement":{
+		"walk_speed": 10.0,
+		"run_speed": 5.0
+	}
+}

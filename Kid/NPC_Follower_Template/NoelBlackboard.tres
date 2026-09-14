@@ -4,6 +4,6 @@
 
 [resource]
 resource_local_to_scene = true
-resource_name = "NoelNPC"
+resource_name = "Noel"
 script = ExtResource("1_btuku")
 metadata/_custom_type_script = "uid://biwkm1y7nfvyf"
