@@ -34,21 +34,25 @@ public partial class Noel : CharacterBody3D
 		MoveAndSlide();
 
 	}
-	private async void ActorSetup()
-	{
-		await ToSignal(GetTree(), SceneTree.SignalName.PhysicsFrame);
-		_navigationAgent.TargetPosition = _thingsToFollow;
-	}
-	public void setThingsToFollow(Vector3 position)
+	public async void setThingsToFollow(Vector3 position)
 	{
 		//Call from AI
 		if(_thingsToFollow != position)
 		{
+			// So that the nav system doesn't go crazy correcting position every frame, and the npc following more naturally.
+			// Need to adjust wait time though
+			await Utilities.createTimer(this, 1f); 
+
 			_thingsToFollow = position;
 			_navigationAgent.TargetPosition = _thingsToFollow;
 			return;
 		}
 		return;
+	}
+	private async void ActorSetup()
+	{
+		await ToSignal(GetTree(), SceneTree.SignalName.PhysicsFrame);
+		_navigationAgent.TargetPosition = _thingsToFollow;
 	}
 	private void initNavAgent()
 	{

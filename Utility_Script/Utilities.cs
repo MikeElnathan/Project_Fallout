@@ -1,11 +1,14 @@
 using Godot;
 using Godot.Collections;
-using System;
-using System.Collections.Generic;
+using System.Threading.Tasks;
 
 
-public static class Utilities
+public static class Utilities 
 {
+	public static async Task createTimer(Node node, float timeInSec)
+	{
+		await node.ToSignal(node.GetTree().CreateTimer(timeInSec), SceneTreeTimer.SignalName.Timeout);
+	}
 	public static Dictionary loadJSONData(string jsonpath)
 	{
 		string path = jsonpath;

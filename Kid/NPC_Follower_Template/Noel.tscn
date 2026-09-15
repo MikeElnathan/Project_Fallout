@@ -13,7 +13,6 @@
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_bjqgx"]
 
 [node name="Noel" type="CharacterBody3D" unique_id=2138196789 node_paths=PackedStringArray("_navigationAgent")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 script = ExtResource("1_outhx")
 _navigationAgent = NodePath("NavigationAgent3D")
 
