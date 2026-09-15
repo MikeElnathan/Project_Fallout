@@ -1,0 +1,8 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://b7k2etgswjyxh"]
+
+[ext_resource type="Texture2D" uid="uid://ccofhlbch0d5w" path="res://Trial/Prototyping Texture/Orange/texture_07.png" id="1_j3lsg"]
+
+[resource]
+albedo_texture = ExtResource("1_j3lsg")
+uv1_scale = Vector3(12, 1, 1)
+stencil_flags = 2

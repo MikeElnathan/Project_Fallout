@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cd06e3gldcvqd"
-path.s3tc="res://.godot/imported/texture_07.png-fe6168e113df7873becf5c9199fdb169.s3tc.ctex"
+uid="uid://dipdv4dt7y04f"
+path.bptc="res://.godot/imported/citrus_orchard_road_puresky_1k.exr-eaa0431e28d4c1d6fd7c88579b2e533d.bptc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://Trial/Prototyping Texture/Dark/texture_07.png"
-dest_files=["res://.godot/imported/texture_07.png-fe6168e113df7873becf5c9199fdb169.s3tc.ctex"]
+source_file="res://Trial/HDRI/citrus_orchard_road_puresky_1k.exr"
+dest_files=["res://.godot/imported/citrus_orchard_road_puresky_1k.exr-eaa0431e28d4c1d6fd7c88579b2e533d.bptc.ctex"]
 
 [params]
 

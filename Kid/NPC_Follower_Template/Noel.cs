@@ -3,10 +3,12 @@ using System;
 
 public partial class Noel : CharacterBody3D
 {
-	private float _walkSpeed;
-	private float _runSpeed;
 	[Export]
 	private NavigationAgent3D _navigationAgent;
+	private NpcAi _aiNPC; //use it
+	private float _walkSpeed;
+	private float _runSpeed;
+	private float _reactionTime;
 	private Vector3 _thingsToFollow;
 	private float _gravity;
 	private Vector3 _velocity;
@@ -15,6 +17,7 @@ public partial class Noel : CharacterBody3D
     {
 		_gravity = ProjectSettings.GetSetting("physics/3d/default_gravity").AsSingle();
 		readFromBlackboard();
+
 		initNavAgent();
     }
     public override void _Process(double delta)
@@ -41,7 +44,7 @@ public partial class Noel : CharacterBody3D
 		{
 			// So that the nav system doesn't go crazy correcting position every frame, and the npc following more naturally.
 			// Need to adjust wait time though
-			await Utilities.createTimer(this, 1f); 
+			await Utilities.createTimer(this, _reactionTime); 
 
 			_thingsToFollow = position;
 			_navigationAgent.TargetPosition = _thingsToFollow;
@@ -86,9 +89,11 @@ public partial class Noel : CharacterBody3D
 		
 	}
 
-	private async void readFromBlackboard()
+	private void readFromBlackboard()
 	{
+		GD.Print("Im reading from blackboard");
 		_walkSpeed = BlackBoard_Follower.WalkSpeed;
 		_runSpeed = BlackBoard_Follower.RunSpeed;
+		_reactionTime = BlackBoard_Follower.reactionTime;
 	}
 }

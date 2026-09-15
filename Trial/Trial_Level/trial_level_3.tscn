@@ -1,0 +1,54 @@
+[gd_scene format=3 uid="uid://b3yhn5b67ydtj"]
+
+[ext_resource type="Material" uid="uid://bbxkd1owaeb0d" path="res://Trial/Materials/Prototype_1.tres" id="1_fcd3k"]
+[ext_resource type="Material" uid="uid://fmbw5lh3hnd2" path="res://Trial/Materials/Prototype_4.tres" id="2_ws4t7"]
+[ext_resource type="PackedScene" uid="uid://c281hy8xkfmy8" path="res://Player/Player.tscn" id="2_xh778"]
+[ext_resource type="Environment" uid="uid://dn6jawis36v75" path="res://Resource/EnvironmentPreset_1.tres" id="4_3eggn"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_bjqgx"]
+size = Vector2(100, 100)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_xh778"]
+data = PackedVector3Array(50, 0, 50, -50, 0, 50, 50, 0, -50, -50, 0, 50, -50, 0, -50, 50, 0, -50)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_3eggn"]
+data = PackedVector3Array(-0.15, -1.75, 1, -0.15, -1.75, -1, -0.15, 1.75, -1, 0.15, -1.75, -1, -0.15, -1.75, -1, -0.15, -1.75, 1, -0.15, 1.75, -1, -0.15, -1.75, -1, 0.15, -1.75, -1, -0.15, 1.75, -1, -0.15, 1.75, 1, -0.15, -1.75, 1, -0.15, -1.75, 1, -0.15, 1.75, 1, 0.15, 1.75, 1, 0.15, 1.75, 1, -0.15, 1.75, 1, -0.15, 1.75, -1, -0.15, -1.75, 1, 0.15, -1.75, 1, 0.15, -1.75, -1, 0.15, 1.75, 1, 0.15, -1.75, 1, -0.15, -1.75, 1, 0.15, -1.75, -1, 0.15, -1.75, 1, 0.15, 1.75, 1, 0.15, -1.75, -1, 0.15, 1.75, -1, -0.15, 1.75, -1, -0.15, 1.75, -1, 0.15, 1.75, -1, 0.15, 1.75, 1, 0.15, 1.75, 1, 0.15, 1.75, -1, 0.15, -1.75, -1)
+
+[node name="trial_level_3" type="Node3D" unique_id=1926756437]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=2140382468]
+material_override = ExtResource("1_fcd3k")
+mesh = SubResource("PlaneMesh_bjqgx")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D" unique_id=2050138350]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/StaticBody3D" unique_id=863666669]
+shape = SubResource("ConcavePolygonShape3D_xh778")
+
+[node name="Door_1" type="CSGBox3D" parent="." unique_id=1022315464]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6274557, 2.3986695)
+material_override = ExtResource("2_ws4t7")
+size = Vector3(0.3, 3.5, 2)
+material = ExtResource("2_ws4t7")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Door_1" unique_id=203772448]
+
+[node name="CSGBakedCollisionShape3D" type="CollisionShape3D" parent="Door_1/StaticBody3D" unique_id=1909205894]
+shape = SubResource("ConcavePolygonShape3D_3eggn")
+
+[node name="Door_2" type="CSGBox3D" parent="." unique_id=1369999097]
+transform = Transform3D(0.13744453, 0, -0.99050945, 0, 1, 0, 0.99050945, 0, 0.13744453, 0, 1.6274557, 6.3774395)
+material_override = ExtResource("2_ws4t7")
+size = Vector3(0.3, 3.5, 2)
+material = ExtResource("2_ws4t7")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Door_2" unique_id=2009382304]
+
+[node name="CSGBakedCollisionShape3D" type="CollisionShape3D" parent="Door_2/StaticBody3D" unique_id=1768482581]
+shape = SubResource("ConcavePolygonShape3D_3eggn")
+
+[node name="Player" parent="." unique_id=1358758029 instance=ExtResource("2_xh778")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1237761308]
+environment = ExtResource("4_3eggn")

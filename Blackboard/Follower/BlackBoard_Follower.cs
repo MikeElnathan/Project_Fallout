@@ -16,6 +16,7 @@ public partial class BlackBoard_Follower : Resource //Should have named it Black
 	public NPCFollowTarget npcFollowTarget {get; private set;}
 	public static float WalkSpeed;
 	public static float RunSpeed;
+	public static float reactionTime;
 	
 	
 	public void SetNPCState(NPCState state)

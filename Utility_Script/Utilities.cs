@@ -1,10 +1,15 @@
 using Godot;
 using Godot.Collections;
+using System;
 using System.Threading.Tasks;
 
 
 public static class Utilities 
 {
+	public static void LoadScene(String pathName, ref PackedScene sceneName)
+	{
+		sceneName = GD.Load<PackedScene>(pathName);
+	}
 	public static async Task createTimer(Node node, float timeInSec)
 	{
 		await node.ToSignal(node.GetTree().CreateTimer(timeInSec), SceneTreeTimer.SignalName.Timeout);

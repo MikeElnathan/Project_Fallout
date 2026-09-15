@@ -4,6 +4,7 @@ using System;
 public partial class GameManager : Node
 {
     private PackedScene TrialLevel;
+    public GameState globalEnum;
 
     public override void _Ready()
     {
@@ -12,7 +13,7 @@ public partial class GameManager : Node
     }
     private void LoadTrial()
     {
-        LoadScene("res://Trial/Trial_Level/trial_level_1.tscn", ref TrialLevel);
+        Utilities.LoadScene("res://Trial/Trial_Level/trial_level_3.tscn", ref TrialLevel);
         if (TrialLevel != null)
         {
             Node3D trialLevel = TrialLevel.Instantiate<Node3D>();
@@ -23,9 +24,5 @@ public partial class GameManager : Node
             throw new Exception("empty level warning");
         }
 
-    }
-    private void LoadScene(String pathName, ref PackedScene sceneName)
-    {
-        sceneName = GD.Load<PackedScene>(pathName);
     }
 }

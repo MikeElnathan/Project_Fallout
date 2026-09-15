@@ -16,14 +16,15 @@
 script = ExtResource("1_outhx")
 _navigationAgent = NodePath("NavigationAgent3D")
 
-[node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=2086350516]
-avoidance_enabled = true
-debug_enabled = true
-
 [node name="AINpc" type="Node" parent="." unique_id=2090905823]
 script = ExtResource("2_ec7we")
 npcBlackboard = ExtResource("3_ec7we")
 _saveDataStringPath = "res://Data/CharacterStat/NoelStats.json"
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=2086350516]
+path_height_offset = -0.7
+avoidance_enabled = true
+debug_enabled = true
 
 [node name="MeshBody" type="MeshInstance3D" parent="." unique_id=1046267963]
 mesh = SubResource("CapsuleMesh_bjqgx")

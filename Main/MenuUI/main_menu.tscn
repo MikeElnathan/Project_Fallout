@@ -1,0 +1,45 @@
+[gd_scene format=3 uid="uid://d0l0gn4f000gy"]
+
+[ext_resource type="Shader" uid="uid://g1ujksntrtxv" path="res://Main/MenuUI/main_menu.gdshader" id="1_en6ie"]
+[ext_resource type="Shader" uid="uid://bau6w04b5ce23" path="res://Main/MenuUI/main_menu_2.gdshader" id="2_h8g0q"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_bjqgx"]
+shader = ExtResource("1_en6ie")
+shader_parameter/speed = 1.0
+shader_parameter/scale = 6.0
+shader_parameter/brightness = 1.0
+shader_parameter/color_speed = 1.0
+shader_parameter/color_a = Color(0.05, 0.1, 0.25, 1)
+shader_parameter/color_b = Color(0.1, 0.4, 0.8, 1)
+shader_parameter/background_color = Color(0.02, 0.02, 0.02, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_en6ie"]
+shader = ExtResource("2_h8g0q")
+shader_parameter/speed = 0.15
+shader_parameter/scale = 8.0
+shader_parameter/brightness = 1.5
+shader_parameter/color_speed = 0.6
+shader_parameter/color_a = Color(0.1, 0.5, 1, 1)
+shader_parameter/color_b = Color(0.1, 1, 0.8, 1)
+shader_parameter/background_color = Color(0.01, 0.05, 0.08, 1)
+
+[node name="Main_Menu" type="Node2D" unique_id=1115559384]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=888666625]
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer" unique_id=1249354258]
+material = SubResource("ShaderMaterial_bjqgx")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect2" type="ColorRect" parent="CanvasLayer/ColorRect" unique_id=1049760468]
+material = SubResource("ShaderMaterial_en6ie")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2

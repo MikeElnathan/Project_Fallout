@@ -19,10 +19,8 @@ public partial class NpcAi : Node
 	{
 		_noel = GetParent<Noel>() as Noel;
 
-		getSaveFiles();
 		getPlayerBlackboard();
-
-		//_playerPosition = new Vector3(0, 0, 0); //default
+		getSaveFiles();
 	}
 	public override void _Process(double delta)
 	{
@@ -59,6 +57,7 @@ public partial class NpcAi : Node
 
 		BlackBoard_Follower.WalkSpeed = (float)movement["walk_speed"];
 		BlackBoard_Follower.RunSpeed = (float)movement["run_speed"];
+		BlackBoard_Follower.reactionTime = (float)movement["reaction_time"];
 
 	}
 }

@@ -6,11 +6,15 @@
 [ext_resource type="Script" uid="uid://bqaacs25iuwfm" path="res://Player/Script/PlayerAnimation.cs" id="3_j23h2"]
 [ext_resource type="Script" uid="uid://5k0ng6op03i8" path="res://Player/Script/PlayerStateMachine.cs" id="3_tok1r"]
 [ext_resource type="Script" uid="uid://ckbnynh0iy76o" path="res://Player/Script/Walk.cs" id="4_ddoul"]
+[ext_resource type="Script" uid="uid://dij2t3wjdrkfh" path="res://Player/Camera3d.cs" id="5_5wa8t"]
 [ext_resource type="Script" uid="uid://ch86puc1ktc2l" path="res://Player/Script/Idle.cs" id="5_s1rgi"]
 [ext_resource type="Script" uid="uid://ddub3tpwvys5g" path="res://Player/Script/Jump.cs" id="6_6ysni"]
 [ext_resource type="Script" uid="uid://rh6kcfcahjsp" path="res://Player/Script/Run.cs" id="7_vlldt"]
-[ext_resource type="Script" uid="uid://c7vd8f7ddxn8e" path="res://Player/Sleep.cs" id="10_v0k0e"]
-[ext_resource type="Script" uid="uid://bh5sdxj6ypy4n" path="res://Player/Sneak.cs" id="11_5wa8t"]
+[ext_resource type="Script" uid="uid://c7vd8f7ddxn8e" path="res://Player/Script/Sleep.cs" id="10_ne7hh"]
+[ext_resource type="Script" uid="uid://bh5sdxj6ypy4n" path="res://Player/Script/Sneak.cs" id="11_5wa8t"]
+[ext_resource type="Script" uid="uid://xlocdf2fwjlb" path="res://Blackboard/Player/BlackBoard_Player.cs" id="13_p7tob"]
+[ext_resource type="Script" uid="uid://shf2yw2tehth" path="res://Trial/Trial_Level/FPS_Counter.cs" id="14_3mea3"]
+[ext_resource type="Script" uid="uid://dxen4ivvj1m5i" path="res://Trial/Trial_Level/StateLabel.cs" id="15_7v5gs"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cfj7n"]
 resource_name = "Beta_Joints_MAT1.017"
@@ -14733,6 +14737,9 @@ height = 2.55061
 transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, 0)
 script = ExtResource("1_3qydi")
 
+[node name="Blackboard" type="Node" parent="." unique_id=321473150 groups=["Player_Blackboard"]]
+script = ExtResource("13_p7tob")
+
 [node name="Player_Data" type="Node3D" parent="." unique_id=1410250385]
 
 [node name="Inventory" type="Node3D" parent="Player_Data" unique_id=1264778835]
@@ -15226,8 +15233,9 @@ max_pitch = 45.0
 [node name="Camera3D" type="Camera3D" parent="CameraAndMesh/Camera_Arm" unique_id=182557662]
 transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 15, 11)
 current = true
-fov = 37.8493
+fov = 37.849285
 size = 14.513
+script = ExtResource("5_5wa8t")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1832154206]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2917, 0)
@@ -15249,7 +15257,21 @@ script = ExtResource("6_6ysni")
 script = ExtResource("7_vlldt")
 
 [node name="Sleep" type="Node3D" parent="StateMachine" unique_id=948671186]
-script = ExtResource("10_v0k0e")
+script = ExtResource("10_ne7hh")
 
 [node name="Sneak" type="Node3D" parent="StateMachine" unique_id=1842226958]
 script = ExtResource("11_5wa8t")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=947505350]
+
+[node name="FPS" type="Label" parent="CanvasLayer" unique_id=683965266]
+offset_right = 242.0
+offset_bottom = 43.0
+script = ExtResource("14_3mea3")
+
+[node name="State" type="Label" parent="CanvasLayer" unique_id=1941166502 groups=["StateLabel"]]
+offset_left = 3.0
+offset_top = 85.0
+offset_right = 236.0
+offset_bottom = 123.0
+script = ExtResource("15_7v5gs")

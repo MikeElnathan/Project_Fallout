@@ -1,6 +1,7 @@
 {
 	"movement":{
 		"walk_speed": 5.0,
-		"run_speed": 7.0
+		"run_speed": 7.0,
+		"reaction_time": 2.5
 	}
 }
