@@ -29,9 +29,9 @@ layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_i6c6d")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=888666625]
+[node name="Main_Menu_Canvas" type="CanvasLayer" parent="." unique_id=888666625]
 
-[node name="ColorRect" type="ColorRect" parent="CanvasLayer" unique_id=1249354258]
+[node name="ColorRect" type="ColorRect" parent="Main_Menu_Canvas" unique_id=1249354258]
 material = SubResource("ShaderMaterial_bjqgx")
 anchors_preset = 15
 anchor_right = 1.0
@@ -39,7 +39,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ColorRect2" type="ColorRect" parent="CanvasLayer/ColorRect" unique_id=1049760468]
+[node name="ColorRect2" type="ColorRect" parent="Main_Menu_Canvas/ColorRect" unique_id=1049760468]
 material = SubResource("ShaderMaterial_en6ie")
 layout_mode = 1
 anchors_preset = 15
@@ -48,7 +48,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Main_Menu" type="VBoxContainer" parent="CanvasLayer" unique_id=91738173]
+[node name="Main_Menu" type="VBoxContainer" parent="Main_Menu_Canvas" unique_id=91738173]
 anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
@@ -57,19 +57,20 @@ offset_right = 146.0
 offset_bottom = 33.0
 grow_vertical = 2
 
-[node name="New Game" type="Button" parent="CanvasLayer/Main_Menu" unique_id=1362221769]
+[node name="New Game" type="Button" parent="Main_Menu_Canvas/Main_Menu" unique_id=1362221769]
 layout_mode = 2
 text = "New Game"
 
-[node name="Load Game" type="Button" parent="CanvasLayer/Main_Menu" unique_id=1735161321]
+[node name="Load Game" type="Button" parent="Main_Menu_Canvas/Main_Menu" unique_id=1735161321]
 layout_mode = 2
 text = "Load Game"
 
-[node name="Settings" type="Button" parent="CanvasLayer/Main_Menu" unique_id=1310467865]
+[node name="Settings" type="Button" parent="Main_Menu_Canvas/Main_Menu" unique_id=1310467865]
 layout_mode = 2
 text = "Settings"
 
-[node name="Main_Menu2" type="VBoxContainer" parent="CanvasLayer" unique_id=622992453]
+[node name="Settings_Menu" type="VBoxContainer" parent="Main_Menu_Canvas" unique_id=1520992473]
+visible = false
 anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
@@ -78,6 +79,13 @@ offset_right = 146.0
 offset_bottom = 33.0
 grow_vertical = 2
 
-[connection signal="pressed" from="CanvasLayer/Main_Menu/New Game" to="." method="_on_new_game_pressed"]
-[connection signal="pressed" from="CanvasLayer/Main_Menu/Load Game" to="." method="_on_load_game_pressed"]
-[connection signal="pressed" from="CanvasLayer/Main_Menu/Settings" to="." method="_on_settings_pressed"]
+[node name="Load_Game_Menu" type="VBoxContainer" parent="Main_Menu_Canvas" unique_id=622992453]
+visible = false
+offset_top = 412.5
+offset_right = 146.0
+offset_bottom = 412.5
+grow_vertical = 2
+
+[connection signal="pressed" from="Main_Menu_Canvas/Main_Menu/New Game" to="." method="_on_new_game_pressed"]
+[connection signal="pressed" from="Main_Menu_Canvas/Main_Menu/Load Game" to="." method="_on_load_game_pressed"]
+[connection signal="pressed" from="Main_Menu_Canvas/Main_Menu/Settings" to="." method="_on_settings_pressed"]
