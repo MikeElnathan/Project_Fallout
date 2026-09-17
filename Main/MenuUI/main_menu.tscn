@@ -69,6 +69,10 @@ text = "Load Game"
 layout_mode = 2
 text = "Settings"
 
+[node name="Quit" type="Button" parent="Main_Menu_Canvas/Main_Menu" unique_id=1903198933]
+layout_mode = 2
+text = "Quit"
+
 [node name="Settings_Menu" type="VBoxContainer" parent="Main_Menu_Canvas" unique_id=1520992473]
 visible = false
 anchors_preset = 4
@@ -89,3 +93,4 @@ grow_vertical = 2
 [connection signal="pressed" from="Main_Menu_Canvas/Main_Menu/New Game" to="." method="_on_new_game_pressed"]
 [connection signal="pressed" from="Main_Menu_Canvas/Main_Menu/Load Game" to="." method="_on_load_game_pressed"]
 [connection signal="pressed" from="Main_Menu_Canvas/Main_Menu/Settings" to="." method="_on_settings_pressed"]
+[connection signal="pressed" from="Main_Menu_Canvas/Main_Menu/Quit" to="." method="_on_quit_pressed"]

@@ -42,7 +42,11 @@ public partial class MainMenu : Control
 	{
 		GD.Print("settings button pressed");
 	}
-
+	private void _on_quit_pressed()
+	{
+		GD.Print("Quit is pressed");
+		Utilities.QuitApplication(this);
+	}
 	//For prototyping----------------------------
 	private void getTrialLevelturnToButtons()
 	{
@@ -60,14 +64,14 @@ public partial class MainMenu : Control
 
 		foreach(string prototype in prototypes)
 		{
-			Button button = Utilities.createButton(_nodeLoadGameMenu, prototype, theme);
+			Button button = Utilities.createSceneButton(_nodeLoadGameMenu, prototype, theme);
 			button.Connect(Button.SignalName.Pressed, Callable.From(()=>loadingScene(prototype)));
 		}
 	}
 	private void loadingScene(string pathName)
 	{
 		if(_mainMenuCanvas.Visible == true){_mainMenuCanvas.Visible = false;}
-		Utilities.LoadScene(this, pathName);
+		Utilities.LoadScene(this, pathName, true);
 		GD.Print("Loading tigerred");
 	}
 }

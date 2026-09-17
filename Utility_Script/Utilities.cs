@@ -64,7 +64,7 @@ public static class Utilities
 	/// <returns>
 	/// The newly created Button.
 	/// </returns>
-	public static Button createButton(Node parentNode, string filePath, Theme theme)
+	public static Button createSceneButton(Node parentNode, string filePath, Theme theme)
 	{
 		//create button, customize it with selected theme, load that scene when pressed
 
@@ -113,21 +113,50 @@ public static class Utilities
 
 		return null;
 	}
-	/// <summary>
-	/// Loads a PackedScene from the specified resource path, instantiate it, and add it to chosen parent node.
-	/// </summary>
-	/// <param name="pathName">
-	/// The Godot resource path of the PackedScene.
-	/// Example: "res://Scenes/Player.tscn"
-	/// </param>
-	/// <param name="sceneName">
-	/// Reference to the PackedScene variable that will receive the loaded scene.
-	/// </param>
-	public static void LoadScene(Node parentNode, string pathName)
+/// <summary>
+/// Loads and instantiates a scene from the specified path, then adds the
+/// instantiated scene as a child of the specified parent node.
+/// </summary>
+/// <param name="parentNode">
+/// The node that will become the parent of the instantiated scene.
+/// </param>
+/// <param name="pathName">
+/// The resource path to the <c>.tscn</c> scene to load.
+/// </param>
+/// <param name="duplicate">
+/// Determines whether an additional instance of the scene is allowed.
+/// If <c>false</c>, the method searches the parent hierarchy for an existing
+/// node with the same name as the scene and prevents another instance from
+/// being added if one is found. If <c>true</c>, the scene is added regardless
+/// of whether an instance already exists.
+/// </param>
+/// <remarks>
+/// The scene name is derived from the file name without its extension.
+/// For example, <c>res://Trial/Trial_Level/Trial_Level_1.tscn</c>
+/// produces the node name <c>Trial_Level_1</c>.
+/// </remarks>
+	public static void LoadScene(Node parentNode, string pathName, bool duplicate)
 	{
 		PackedScene scene = GD.Load<PackedScene>(pathName);
 		Node instance = scene.Instantiate();
-		parentNode.AddChild(instance);
+
+		string name = System.IO.Path.GetFileNameWithoutExtension(pathName);
+
+		if (!duplicate)//mind if there's duplicate
+		{
+			Node parent = recursiveChildFinder<Node>(parentNode, name);
+			if(parent == null)
+			{
+				parentNode.AddChild(instance);
+			}
+			else GD.PrintErr($"Already have {name} as a child of {parentNode}");
+
+		}
+		else
+		{
+			parentNode.AddChild(instance);
+		} 
+
 	}
 	/// <summary>
 	/// Creates an asynchronous timer and waits until the specified
@@ -180,6 +209,11 @@ public static class Utilities
 		}
 
 		return jsonData.As<Dictionary>();
+	}
+	public static void QuitApplication(Node node)
+	{
+		//TODO: future, to prompt user on unsaved progress if the game is IN_GAME mode
+		node.GetTree().Quit();
 	}
 	//TODO function that writes to error log, save in a text file
 }
