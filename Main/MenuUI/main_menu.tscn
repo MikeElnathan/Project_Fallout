@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://d0l0gn4f000gy"]
 
 [ext_resource type="Shader" uid="uid://g1ujksntrtxv" path="res://Main/MenuUI/main_menu.gdshader" id="1_en6ie"]
+[ext_resource type="Script" uid="uid://bsnv32isx14c5" path="res://Main/MenuUI/MainMenu.cs" id="1_i6c6d"]
 [ext_resource type="Shader" uid="uid://bau6w04b5ce23" path="res://Main/MenuUI/main_menu_2.gdshader" id="2_h8g0q"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_bjqgx"]
@@ -23,7 +24,10 @@ shader_parameter/color_a = Color(0.1, 0.5, 1, 1)
 shader_parameter/color_b = Color(0.1, 1, 0.8, 1)
 shader_parameter/background_color = Color(0.01, 0.05, 0.08, 1)
 
-[node name="Main_Menu" type="Node2D" unique_id=1115559384]
+[node name="Main_Menu" type="Control" unique_id=1218701406]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_i6c6d")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=888666625]
 
@@ -43,3 +47,37 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="Main_Menu" type="VBoxContainer" parent="CanvasLayer" unique_id=91738173]
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -33.0
+offset_right = 146.0
+offset_bottom = 33.0
+grow_vertical = 2
+
+[node name="New Game" type="Button" parent="CanvasLayer/Main_Menu" unique_id=1362221769]
+layout_mode = 2
+text = "New Game"
+
+[node name="Load Game" type="Button" parent="CanvasLayer/Main_Menu" unique_id=1735161321]
+layout_mode = 2
+text = "Load Game"
+
+[node name="Settings" type="Button" parent="CanvasLayer/Main_Menu" unique_id=1310467865]
+layout_mode = 2
+text = "Settings"
+
+[node name="Main_Menu2" type="VBoxContainer" parent="CanvasLayer" unique_id=622992453]
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -33.0
+offset_right = 146.0
+offset_bottom = 33.0
+grow_vertical = 2
+
+[connection signal="pressed" from="CanvasLayer/Main_Menu/New Game" to="." method="_on_new_game_pressed"]
+[connection signal="pressed" from="CanvasLayer/Main_Menu/Load Game" to="." method="_on_load_game_pressed"]
+[connection signal="pressed" from="CanvasLayer/Main_Menu/Settings" to="." method="_on_settings_pressed"]
