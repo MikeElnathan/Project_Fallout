@@ -4,6 +4,9 @@ using System;
 public partial class SceneManager : Node
 {
 	private Node _nodeMainMenu;
+	public GameState gameState {get; private set;}
+	[Signal]public delegate void gameStateChangedEventHandler();
+
 	private VBoxContainer _mainMenu;
 	private VBoxContainer _loadGameMenu;
 	private CanvasLayer _mainMenuCanvas;
@@ -11,7 +14,7 @@ public partial class SceneManager : Node
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		GD.Print($"SceneManager: {GetPath()}");
+		AddToGroup("SceneManager");
 		init();
 	}
 
@@ -19,20 +22,68 @@ public partial class SceneManager : Node
 	public override void _Process(double delta)
 	{
 	}
+    public override void _UnhandledInput(InputEvent @event)
+    {
+		if (@event.IsActionPressed("ui_cancel"))
+		{
+			switch (gameState)
+			{
+				case GameState.IN_GAME:
+					gameStateSet(GameState.MAIN_MENU);
+					break;
+				case GameState.SHOW_SAVES:
+					gameStateSet(GameState.MAIN_MENU);
+					break;
+			}
+		}
+    }
 	private void init()
 	{
 		_nodeMainMenu = GetChild(0);
-		_mainMenu = Utilities.recursiveChildFinder<VBoxContainer>(_nodeMainMenu, "Main_Menu");
-		_mainMenuCanvas = GetChild(0).GetChild(0) as CanvasLayer;
-
-		_loadGameMenu = Utilities.recursiveChildFinder<VBoxContainer>(_nodeMainMenu, "Load_Game_Menu");
 		_nodeLoadGameMenu = Utilities.recursiveChildFinder<Node>(_nodeMainMenu, "Load_Game_Menu");
+
+		_mainMenuCanvas = GetChild(0).GetChild(0) as CanvasLayer;
+		_mainMenu = Utilities.recursiveChildFinder<VBoxContainer>(_nodeMainMenu, "Main_Menu");
+		_loadGameMenu = Utilities.recursiveChildFinder<VBoxContainer>(_nodeMainMenu, "Load_Game_Menu");
 	}
+	private void gameStateSet(GameState state)
+	{
+		switch (state){
+			case GameState.MAIN_MENU:
+				gameState = state;
+				EmitSignal(SignalName.gameStateChanged);
+				_mainMenuCanvas.Visible = true;
+				_mainMenu.Visible = true;
+				_loadGameMenu.Visible = !_mainMenu.Visible;
+				break;
+			case GameState.SHOW_SAVES:
+				gameState = state;
+				EmitSignal(SignalName.gameStateChanged);
+				_loadGameMenu.Visible = true;
+				_mainMenu.Visible = !_loadGameMenu.Visible;
+				break;
+			case GameState.NEW_GAME:
+				gameState = state;
+				EmitSignal(SignalName.gameStateChanged);
+				break;
+			case GameState.IN_GAME:
+				gameState = state;
+				EmitSignal(SignalName.gameStateChanged);
+				_mainMenuCanvas.Visible = false;
+				break;
+		}
+	}
+	//Prototype
 	public void displayTrialLevels()
 	{
 		getTrialLevelturnToButtons();
-		_mainMenu.Visible = false;
-		_loadGameMenu.Visible = true;
+		gameStateSet(GameState.SHOW_SAVES);
+
+	}
+	private void loadingScene(string pathName)
+	{
+		Utilities.LoadScene(this, pathName, true);
+		gameStateSet(GameState.IN_GAME);
 	}
 	private void getTrialLevelturnToButtons()
 	{
@@ -51,12 +102,9 @@ public partial class SceneManager : Node
 		foreach(string prototype in prototypes)
 		{
 			Button button = Utilities.createSceneButton(_nodeLoadGameMenu, prototype, theme);
+			if(button == null){continue;}
+
 			button.Connect(Button.SignalName.Pressed, Callable.From(()=>loadingScene(prototype)));
 		}
-	}
-	private void loadingScene(string pathName)
-	{
-		Utilities.LoadScene(this, pathName, true);
-		_mainMenuCanvas.Visible = false;
 	}
 }

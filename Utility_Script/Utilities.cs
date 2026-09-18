@@ -70,8 +70,15 @@ public static class Utilities
 
 		string fileName = System.IO.Path.GetFileNameWithoutExtension(filePath);
 
+		Button existingButton = parentNode.FindChild(fileName, false, false) as Button;
+		if(existingButton != null)
+		{
+			return null;
+		}
+
 		Button button = new Button();
 		button.Text = fileName;
+		button.Name = fileName;
 		if (theme !=null)
 		{
 			button.Theme = theme;

@@ -91,7 +91,6 @@ public partial class Noel : CharacterBody3D
 
 	private void readFromBlackboard()
 	{
-		GD.Print("Im reading from blackboard");
 		_walkSpeed = BlackBoard_Follower.WalkSpeed;
 		_runSpeed = BlackBoard_Follower.RunSpeed;
 		_reactionTime = BlackBoard_Follower.reactionTime;

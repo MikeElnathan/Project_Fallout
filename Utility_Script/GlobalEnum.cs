@@ -13,8 +13,11 @@ public enum NPCState
 
 public enum GameState
 {
-    MAIN_MENU,
     NEW_GAME,
-    SAVED_GAME,
+    MAIN_MENU,
+    SHOW_SAVES,
+    IN_GAME,
+    SETTINGS,
+    IN_GAME_MENU,
     QUIT // Be sure to wait until save function is fully executed before totally closing the game.
 }

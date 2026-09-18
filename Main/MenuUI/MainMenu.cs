@@ -18,22 +18,21 @@ public partial class MainMenu : Control
 	//Listen to button pressed-----------------------------------------------------
 	private void _on_new_game_pressed()
 	{
-		GD.Print("new game button pressed");
+		
 	}
 	private void _on_load_game_pressed()
 	{
 		//For now, return all prototype level
-		GD.Print("load game pressed");
+		
 		_sceneManager.displayTrialLevels();
 	}
 	private void _on_settings_pressed()
 	{
-		GD.Print("settings button pressed");
+		
 
 	}
 	private void _on_quit_pressed()
 	{
-		GD.Print("Quit is pressed");
 		Utilities.QuitApplication(this);
 	}
 	
