@@ -57,6 +57,6 @@ public partial class SceneManager : Node
 	private void loadingScene(string pathName)
 	{
 		Utilities.LoadScene(this, pathName, true);
-		GD.Print("Loading tigerred");
+		_mainMenuCanvas.Visible = false;
 	}
 }
