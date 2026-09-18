@@ -32,6 +32,7 @@ public partial class SceneManager : Node
 	{
 		getTrialLevelturnToButtons();
 		_mainMenu.Visible = false;
+		_loadGameMenu.Visible = true;
 	}
 	private void getTrialLevelturnToButtons()
 	{
@@ -55,11 +56,6 @@ public partial class SceneManager : Node
 	}
 	private void loadingScene(string pathName)
 	{
-		if(_mainMenuCanvas.Visible == true)
-		{
-			_loadGameMenu.Visible = true;
-			_mainMenuCanvas.Visible = false; 
-		}
 		Utilities.LoadScene(this, pathName, true);
 		GD.Print("Loading tigerred");
 	}
