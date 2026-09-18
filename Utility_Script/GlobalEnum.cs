@@ -1,5 +1,4 @@
 
-
 public enum NPCFollowTarget //Expand your choice here
 {
     PLAYER,

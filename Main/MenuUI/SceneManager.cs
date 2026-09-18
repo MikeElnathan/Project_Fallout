@@ -1,8 +1,9 @@
 using Godot;
 using System;
 
-public partial class LoadManager : Node
+public partial class SceneManager : Node
 {
+	private Node _nodeMainMenu;
 	private VBoxContainer _mainMenu;
 	private VBoxContainer _loadGameMenu;
 	private CanvasLayer _mainMenuCanvas;
@@ -10,6 +11,8 @@ public partial class LoadManager : Node
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
+		GD.Print($"SceneManager: {GetPath()}");
+		init();
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -18,10 +21,17 @@ public partial class LoadManager : Node
 	}
 	private void init()
 	{
-		_loadGameMenu = Utilities.recursiveChildFinder<VBoxContainer>(this, "Load_Game_Menu");
-		_nodeLoadGameMenu = Utilities.recursiveChildFinder<Node>(this, "Load_Game_Menu");
-		_mainMenu = Utilities.recursiveChildFinder<VBoxContainer>(this, "Main_Menu");
-		_mainMenuCanvas = Utilities.recursiveChildFinder<CanvasLayer>(this, "Main_Menu_Canvas");
+		_nodeMainMenu = GetChild(0);
+		_mainMenu = Utilities.recursiveChildFinder<VBoxContainer>(_nodeMainMenu, "Main_Menu");
+		_mainMenuCanvas = GetChild(0).GetChild(0) as CanvasLayer;
+
+		_loadGameMenu = Utilities.recursiveChildFinder<VBoxContainer>(_nodeMainMenu, "Load_Game_Menu");
+		_nodeLoadGameMenu = Utilities.recursiveChildFinder<Node>(_nodeMainMenu, "Load_Game_Menu");
+	}
+	public void displayTrialLevels()
+	{
+		getTrialLevelturnToButtons();
+		_mainMenu.Visible = false;
 	}
 	private void getTrialLevelturnToButtons()
 	{
@@ -45,7 +55,11 @@ public partial class LoadManager : Node
 	}
 	private void loadingScene(string pathName)
 	{
-		if(_mainMenuCanvas.Visible == true){_mainMenuCanvas.Visible = false;}
+		if(_mainMenuCanvas.Visible == true)
+		{
+			_loadGameMenu.Visible = true;
+			_mainMenuCanvas.Visible = false; 
+		}
 		Utilities.LoadScene(this, pathName, true);
 		GD.Print("Loading tigerred");
 	}
