@@ -49,7 +49,7 @@ public partial class Level : Node
                 $"Im freeing this node | " +
                 $"Instance: {GetInstanceId()}"
             		);
-				this.Free();
+				this.QueueFree();
 				break;
 		}
 	}
