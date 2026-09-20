@@ -11,7 +11,7 @@ public partial class PlayerStateMachine : BaseStateMachine
     }
     protected override void GetAnimation()
     {
-        animationPlayer = PlayerAnimation.Anim_Instance;
+        animationPlayer = Utilities.recursiveChildFinder<AnimationPlayer>(GetParent(), "PlayerAnimation");
     }
     protected override void ReadSignal()
     {

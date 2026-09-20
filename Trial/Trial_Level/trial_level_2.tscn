@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://brv4qveyctn7n"]
 
 [ext_resource type="Texture2D" uid="uid://dd4gcahpjik7s" path="res://Trial/Prototyping Texture/Dark/texture_05.png" id="1_3yhwi"]
+[ext_resource type="Script" uid="uid://budeb22whwd7i" path="res://Trial/Trial_Level/TrialLevel2.cs" id="1_ieitj"]
 [ext_resource type="Environment" uid="uid://dn6jawis36v75" path="res://Resource/EnvironmentPreset_1.tres" id="1_l6e3g"]
 [ext_resource type="Material" uid="uid://b7k2etgswjyxh" path="res://Trial/Materials/Prototype_2.tres" id="3_6dmvn"]
 [ext_resource type="PackedScene" uid="uid://c281hy8xkfmy8" path="res://Player/Player.tscn" id="3_ibjk8"]
@@ -37,6 +38,7 @@ data = PackedVector3Array(-4.2237473, -6.7708464, 0, -4.2237473, -6.7708464, -4,
 data = PackedVector3Array(-15.217589, -6.903762, 0, -15.217589, -6.903762, -4, -2.9433527, 1.2826271, -4, -15.217589, -6.903762, -4, -15.217589, -6.903762, 0, 0.94965625, -6.901534, 0, 0.94965625, -6.901534, 0, 0.94965625, -6.901534, -4, -15.217589, -6.903762, -4, -2.9433527, 1.2826271, -4, -15.217589, -6.903762, -4, 0.94965625, -6.901534, -4, 0.94965625, -6.901534, 0, -15.217589, -6.903762, 0, -2.9433527, 1.2826271, 0, 0.94965625, -6.901534, -4, 0.94965625, -6.901534, 0, 1.0727787, 1.2309046, 0, 0.94965625, -6.901534, -4, 1.0727787, 1.2309046, -4, -2.9433527, 1.2826271, -4, 1.0727787, 1.2309046, 0, 1.0727787, 1.2309046, -4, 0.94965625, -6.901534, -4, -2.9433527, 1.2826271, 0, -2.9433527, 1.2826271, -4, 1.0727787, 1.2309046, -4, -2.9433527, 1.2826271, -4, -2.9433527, 1.2826271, 0, -15.217589, -6.903762, 0, -2.9433527, 1.2826271, 0, 1.0727787, 1.2309046, 0, 0.94965625, -6.901534, 0, 1.0727787, 1.2309046, -4, 1.0727787, 1.2309046, 0, -2.9433527, 1.2826271, 0)
 
 [node name="trial_level_2" type="Node3D" unique_id=1169166975]
+script = ExtResource("1_ieitj")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1418552358]
 environment = ExtResource("1_l6e3g")
