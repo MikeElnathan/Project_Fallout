@@ -6,23 +6,13 @@ public partial class SignalBus : Node3D
     {
         Idle, Walk, Run, Jump, Sleep, Sneak
     }
-    //Sigleton instance
-    private static SignalBus _instance;
-    public static SignalBus Instance => _instance;
     private PlayerStateMachine playerStateMachine;
     private BlackBoard_Player playerBlackboard;
 
     public override void _Ready()
     {
-        //return a single instance of this class unless it's not null
-        if (_instance != null && _instance != this)
-        {
-            QueueFree();
-            return;
-        }
-        _instance = this;
-
-        playerBlackboard = BlackBoard_Player.Instance;
+        playerBlackboard = GetParent().GetChild(1) as BlackBoard_Player;
+        GD.Print($"playerBlackboard: {playerBlackboard}");  
     }
     //Basic Player Movement
     [Signal] public delegate void WalkEventHandler();
@@ -41,6 +31,7 @@ public partial class SignalBus : Node3D
             case ActionType.Idle:
                 EmitSignal(SignalName.Idle);
                 playerBlackboard.SetStateInPlayerBlackboard(ActionType.Idle);
+                
                 break;
             case ActionType.Walk:
                 EmitSignal(SignalName.Walk);

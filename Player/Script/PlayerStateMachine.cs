@@ -6,7 +6,7 @@ public partial class PlayerStateMachine : BaseStateMachine
 
     public override void _Ready()
     {
-        signalBus = SignalBus.Instance;
+        signalBus = GetParent().GetChild(0) as SignalBus;
         base._Ready();
     }
     protected override void GetAnimation()

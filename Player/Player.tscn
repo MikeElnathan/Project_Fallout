@@ -1,8 +1,8 @@
 [gd_scene format=4 uid="uid://c281hy8xkfmy8"]
 
 [ext_resource type="Script" uid="uid://bcf5blxba8qs3" path="res://Player/Script/Player.cs" id="1_3qydi"]
-[ext_resource type="Script" uid="uid://bistrqv3c75t5" path="res://Player/Script/SignalBus.cs" id="2_8g4oa"]
 [ext_resource type="Script" uid="uid://dab71drloq38v" path="res://Player/Script/CameraArm.cs" id="2_q3lat"]
+[ext_resource type="Script" uid="uid://bistrqv3c75t5" path="res://Player/Script/SignalBus.cs" id="3_3mea3"]
 [ext_resource type="Script" uid="uid://bqaacs25iuwfm" path="res://Player/Script/PlayerAnimation.cs" id="3_j23h2"]
 [ext_resource type="Script" uid="uid://5k0ng6op03i8" path="res://Player/Script/PlayerStateMachine.cs" id="3_tok1r"]
 [ext_resource type="Script" uid="uid://ckbnynh0iy76o" path="res://Player/Script/Walk.cs" id="4_ddoul"]
@@ -14737,6 +14737,9 @@ height = 2.55061
 transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, 0)
 script = ExtResource("1_3qydi")
 
+[node name="SignalBus" type="Node3D" parent="." unique_id=871309967]
+script = ExtResource("3_3mea3")
+
 [node name="Blackboard" type="Node" parent="." unique_id=321473150 groups=["Player_Blackboard"]]
 script = ExtResource("13_p7tob")
 
@@ -14745,9 +14748,6 @@ script = ExtResource("13_p7tob")
 [node name="Inventory" type="Node3D" parent="Player_Data" unique_id=1264778835]
 
 [node name="Stat" type="Node3D" parent="Player_Data" unique_id=1300195997]
-
-[node name="SignalBus" type="Node3D" parent="." unique_id=944191154]
-script = ExtResource("2_8g4oa")
 
 [node name="CameraAndMesh" type="Node3D" parent="." unique_id=2082195656]
 

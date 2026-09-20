@@ -39,7 +39,8 @@ public partial class Player : CharacterBody3D
 
         speed = walk_speed;
 
-        signalBus = SignalBus.Instance;
+        signalBus = GetChild(0) as SignalBus;
+        GD.Print($"signalBus: {signalBus}");
         signalBus.EmitPlayerSignal(SignalBus.ActionType.Idle);
 
         Jump_Physics();
