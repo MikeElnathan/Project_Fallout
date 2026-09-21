@@ -142,23 +142,23 @@ At the centre of the project is a state-driven character architecture.
 The general relationship is:
 
 ```text
-                    Game Manager
-                         │
-                         ▼
-                    Trial Level
-                    ┌────┴────┐
-                    ▼         ▼
-                 Player     Noel
-                    │         │
-                    ▼         ▼
-              State Machine  State Machine
-                    │         │
-                    ▼         ▼
-                  States     States
-                    │         │
-                    └────┬────┘
-                         │
-                  Signal / Blackboard
+					Game Manager
+						 │
+						 ▼
+					Trial Level
+					┌────┴────┐
+					▼         ▼
+				 Player     Noel
+					│         │
+					▼         ▼
+			  State Machine  State Machine
+					│         │
+					▼         ▼
+				  States     States
+					│         │
+					└────┬────┘
+						 │
+				  Signal / Blackboard
 ```
 
 The project contains a reusable base state-machine implementation in `Utility_Script/BaseStateMachine.cs`, with character-specific state machines built on top of it.

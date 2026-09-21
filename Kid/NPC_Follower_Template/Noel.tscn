@@ -8,7 +8,7 @@
 [ext_resource type="Script" uid="uid://cfm4csgwfxplc" path="res://Kid/NPC_Follower_Template/NoelWalk.cs" id="6_xf2kt"]
 [ext_resource type="Script" uid="uid://cmwrhjescubhu" path="res://Kid/NPC_Follower_Template/NoelRun.cs" id="7_m1fyo"]
 
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_bjqgx"]
+[sub_resource type="PrismMesh" id="PrismMesh_1rt77"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_bjqgx"]
 
@@ -27,7 +27,7 @@ avoidance_enabled = true
 debug_enabled = true
 
 [node name="MeshBody" type="MeshInstance3D" parent="." unique_id=1046267963]
-mesh = SubResource("CapsuleMesh_bjqgx")
+mesh = SubResource("PrismMesh_1rt77")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1914783863]
 shape = SubResource("CapsuleShape3D_bjqgx")

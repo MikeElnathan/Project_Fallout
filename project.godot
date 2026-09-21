@@ -17,13 +17,13 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 config/name="Project_Fallout"
 run/main_scene="uid://osrdiegg4l4k"
 config/features=PackedStringArray("4.7", "C#", "Forward Plus")
+run/max_fps=144
 config/icon="res://icon.svg"
 
 [display]
 
-window/size/viewport_width=1600
-window/size/viewport_height=900
-window/vsync/vsync_mode=0
+window/size/viewport_width=1920
+window/size/viewport_height=1080
 
 [dotnet]
 

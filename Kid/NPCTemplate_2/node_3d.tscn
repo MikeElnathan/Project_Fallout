@@ -1,0 +1,34 @@
+[gd_scene format=3 uid="uid://38pdil18jxna"]
+
+[ext_resource type="Material" uid="uid://sojwivs3xy72" path="res://Trial/Materials/Prototype_5.tres" id="1_71wvl"]
+[ext_resource type="Material" uid="uid://b7k2etgswjyxh" path="res://Trial/Materials/Prototype_2.tres" id="2_ikxli"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_wrr4q"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_bjqgx"]
+
+[sub_resource type="PrismMesh" id="PrismMesh_bjqgx"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_bjqgx"]
+
+[node name="Node3D" type="CharacterBody3D" unique_id=2021946694]
+
+[node name="MainBody" type="MeshInstance3D" parent="." unique_id=1849473941]
+transform = Transform3D(0.7, 0, 0, 0, 0.6, 0, 0, 0, 0.7, 0, 0, 0)
+mesh = SubResource("CapsuleMesh_wrr4q")
+surface_material_override/0 = ExtResource("1_71wvl")
+
+[node name="SpringArm3D" type="SpringArm3D" parent="MainBody" unique_id=689086534]
+
+[node name="Head" type="MeshInstance3D" parent="MainBody/SpringArm3D" unique_id=1893460826]
+transform = Transform3D(0.7350001, 0, 0, 0, 0.735, 0, 0, 0, 0.7350001, 0, 1.3656683, 0)
+mesh = SubResource("SphereMesh_bjqgx")
+skeleton = NodePath("../..")
+surface_material_override/0 = ExtResource("2_ikxli")
+
+[node name="Nose" type="MeshInstance3D" parent="MainBody/SpringArm3D/Head" unique_id=680280113]
+transform = Transform3D(-1.6391768e-08, 0.37499997, 0, -0.375, -1.639177e-08, 0, 0, 0, 0.37499997, 0.60180235, 0, 0)
+mesh = SubResource("PrismMesh_bjqgx")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=672532938]
+shape = SubResource("CapsuleShape3D_bjqgx")
