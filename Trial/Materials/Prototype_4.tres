@@ -1,14 +1,14 @@
 [gd_resource type="StandardMaterial3D" format=3 uid="uid://fmbw5lh3hnd2"]
 
-[ext_resource type="Texture2D" uid="uid://doyx15g3qdj70" path="res://Trial/Prototyping Texture/Red/texture_09.png" id="1_roiqf"]
+[ext_resource type="Texture2D" uid="uid://bhj64d31nivft" path="res://Trial/Prototyping Texture/Purple/texture_05.png" id="1_roiqf"]
 
 [resource]
 albedo_texture = ExtResource("1_roiqf")
 emission_enabled = true
 emission = Color(0.24275702, 0.7759213, 0.39329162, 1)
 emission_energy_multiplier = 9.0
-ao_enabled = true
 uv1_scale = Vector3(1.5, 1, 1)
+uv1_triplanar = true
 stencil_flags = 2
 stencil_reference = 2
 stencil_outline_thickness = 0.026

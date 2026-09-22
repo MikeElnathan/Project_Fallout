@@ -4,5 +4,5 @@
 
 [resource]
 albedo_texture = ExtResource("1_j3lsg")
-uv1_scale = Vector3(12, 1, 1)
+uv1_triplanar = true
 stencil_flags = 2

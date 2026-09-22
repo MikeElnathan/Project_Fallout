@@ -30,13 +30,13 @@ uniform float shadow_tint_strength
 uniform float highlight_tint_strength
 	: hint_range(0.0, 1.0, 0.01) = 0.08;
 
-uniform vec3 shadow_tint = vec3(
+uniform vec3 shadow_tint: source_color = vec3(
 	0.82,
 	0.90,
 	1.00
 );
 
-uniform vec3 highlight_tint = vec3(
+uniform vec3 highlight_tint: source_color = vec3(
 	1.00,
 	0.94,
 	0.82

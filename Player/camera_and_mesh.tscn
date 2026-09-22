@@ -19,13 +19,13 @@ shader_parameter/saturation = 0.15
 shader_parameter/exposure = 0.0
 shader_parameter/shadow_tint_strength = 0.12
 shader_parameter/highlight_tint_strength = 0.08
-shader_parameter/shadow_tint = Vector3(0.82, 0.9, 1)
-shader_parameter/highlight_tint = Vector3(1, 0.94, 0.82)
+shader_parameter/shadow_tint = Color(0.3268741, 0.64640677, 0.9999984, 1)
+shader_parameter/highlight_tint = Color(1, 0.94, 0.82, 1)
 shader_parameter/chromatic_aberration = 0.0015
 shader_parameter/vignette_strength = 0.999999977648
-shader_parameter/vignette_roundness = 1.5399999693032402
+shader_parameter/vignette_roundness = 0.909999983385
 shader_parameter/sharpen_strength = 0.0
-shader_parameter/dirt_strength = 0.025
+shader_parameter/dirt_strength = 0.0
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_8sa4y"]
 frequency = 0.8838
