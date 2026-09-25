@@ -1,0 +1,19 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://cstqtx2tc80bu"]
+
+[ext_resource type="Texture2D" uid="uid://b7y8xo5is5o87" path="res://PrototypeAssets/Red_Brick_Polygon_1K/Poliigon_BrickWallReclaimed_8320_BaseColor.jpg" id="1_drsfc"]
+[ext_resource type="Texture2D" uid="uid://cmfrac7k1hc35" path="res://PrototypeAssets/Red_Brick_Polygon_1K/Poliigon_BrickWallReclaimed_8320_AmbientOcclusion.jpg" id="2_ct1wf"]
+[ext_resource type="Texture2D" uid="uid://dcxe5kh2ve0c3" path="res://PrototypeAssets/Red_Brick_Polygon_1K/Poliigon_BrickWallReclaimed_8320_Metallic.jpg" id="3_3wbcb"]
+[ext_resource type="Texture2D" uid="uid://dsau3rqa27lcu" path="res://PrototypeAssets/Red_Brick_Polygon_1K/Poliigon_BrickWallReclaimed_8320_Normal.png" id="4_kn2jp"]
+[ext_resource type="Texture2D" uid="uid://byj27wt55rqb" path="res://PrototypeAssets/Red_Brick_Polygon_1K/Poliigon_BrickWallReclaimed_8320_Roughness.jpg" id="5_wk2cc"]
+
+[resource]
+albedo_texture = ExtResource("1_drsfc")
+metallic = 1.0
+metallic_texture = ExtResource("3_3wbcb")
+roughness_texture = ExtResource("5_wk2cc")
+normal_enabled = true
+normal_texture = ExtResource("4_kn2jp")
+ao_enabled = true
+ao_texture = ExtResource("2_ct1wf")
+uv1_scale = Vector3(0.55, 0.55, 0.55)
+uv1_triplanar = true

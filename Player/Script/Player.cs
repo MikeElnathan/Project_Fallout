@@ -1,9 +1,9 @@
 using Godot;
 using System;
+using System.Threading.Tasks;
 
 public partial class Player : CharacterBody3D
 {
-    private SignalBus signalBus;
     private float speed;
     private float run_speed = 8.0f;
     private float walk_speed = 2.0f;
@@ -23,24 +23,27 @@ public partial class Player : CharacterBody3D
     private float time_to_peak = 0.6f;
     private float time_to_fall = 0.4f;
 
+    [Export]
+    private SignalBus signalBus;
+    [Export]
     private Node3D visual_mesh;
+    [Export]
     private Camera3D camera;
 
     private SignalBus.ActionType current_action;
     private SignalBus.ActionType new_action;
 
+    //hacky stuff
+    private float wait_to_jump = 2f;
+
     public override void _Ready()
     {
         MotionMode = CharacterBody3D.MotionModeEnum.Grounded;
 
-        camera = GetNode<Camera3D>("CameraAndMesh/Camera_Arm/Camera3D");
-
-        visual_mesh = GetNode<Node3D>("CameraAndMesh/Mesh");
-
         speed = walk_speed;
 
-        signalBus = GetChild(0) as SignalBus;
-        GD.Print($"signalBus: {signalBus}");
+        //signalBus = GetChild(0) as SignalBus;
+        //GD.Print($"signalBus: {signalBus}");
         signalBus.EmitPlayerSignal(SignalBus.ActionType.Idle);
 
         Jump_Physics();

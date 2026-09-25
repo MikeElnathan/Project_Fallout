@@ -1,0 +1,19 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://chcbt7ooqatx7"]
+
+[ext_resource type="Texture2D" uid="uid://dapowl1tw4okj" path="res://PrototypeAssets/Metal_Corroded_Heavy_Polygon/MetalCorrodedHeavy001_COL_1K_METALNESS.jpg" id="1_34at6"]
+[ext_resource type="Texture2D" uid="uid://fbhly85s4eun" path="res://PrototypeAssets/Metal_Corroded_Heavy_Polygon/MetalCorrodedHeavy001_DISP_1K_METALNESS.jpg" id="2_f18yy"]
+[ext_resource type="Texture2D" uid="uid://b0uxlsq8fx7yu" path="res://PrototypeAssets/Metal_Corroded_Heavy_Polygon/MetalCorrodedHeavy001_METALNESS_1K_METALNESS.jpg" id="3_2wc77"]
+[ext_resource type="Texture2D" uid="uid://rk6cf1ofj18p" path="res://PrototypeAssets/Metal_Corroded_Heavy_Polygon/MetalCorrodedHeavy001_NRM_1K_METALNESS.jpg" id="4_4eu85"]
+[ext_resource type="Texture2D" uid="uid://0kxddmc7pgpc" path="res://PrototypeAssets/Metal_Corroded_Heavy_Polygon/MetalCorrodedHeavy001_ROUGHNESS_1K_METALNESS.jpg" id="5_h118d"]
+
+[resource]
+albedo_texture = ExtResource("1_34at6")
+metallic = 1.0
+metallic_texture = ExtResource("3_2wc77")
+roughness_texture = ExtResource("5_h118d")
+normal_enabled = true
+normal_texture = ExtResource("4_4eu85")
+heightmap_enabled = true
+heightmap_texture = ExtResource("2_f18yy")
+uv1_triplanar = true
+uv1_world_triplanar = true

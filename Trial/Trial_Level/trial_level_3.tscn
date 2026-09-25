@@ -2,9 +2,8 @@
 
 [ext_resource type="Material" uid="uid://bbxkd1owaeb0d" path="res://Trial/Materials/Prototype_1.tres" id="1_fcd3k"]
 [ext_resource type="Script" uid="uid://brabuv48oyihg" path="res://Trial/Trial_Level/TrialLevel3.cs" id="1_wksoo"]
-[ext_resource type="Material" uid="uid://fmbw5lh3hnd2" path="res://Trial/Materials/Prototype_4.tres" id="2_ws4t7"]
+[ext_resource type="Material" uid="uid://fmbw5lh3hnd2" path="res://Trial/Materials/Concrete_Wall_Cladding_Polygon.tres" id="2_ws4t7"]
 [ext_resource type="PackedScene" uid="uid://c281hy8xkfmy8" path="res://Player/Player.tscn" id="2_xh778"]
-[ext_resource type="Environment" uid="uid://dn6jawis36v75" path="res://Resource/EnvironmentPreset_1.tres" id="4_3eggn"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_bjqgx"]
 size = Vector2(100, 100)
@@ -51,6 +50,3 @@ shape = SubResource("ConcavePolygonShape3D_3eggn")
 
 [node name="Player" parent="." unique_id=1358758029 instance=ExtResource("2_xh778")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1237761308]
-environment = ExtResource("4_3eggn")

@@ -1,0 +1,16 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://8kh0tue44ti8"]
+
+[ext_resource type="Texture2D" uid="uid://c2k55kgrcm878" path="res://PrototypeAssets/Ground_Sand_Polygon/GroundSand005_COL_1K.jpg" id="1_qysay"]
+[ext_resource type="Texture2D" uid="uid://c8qd3kwttj1d8" path="res://PrototypeAssets/Ground_Sand_Polygon/GroundSand005_AO_1K.jpg" id="2_mcxul"]
+[ext_resource type="Texture2D" uid="uid://dbr08yitlf8lj" path="res://PrototypeAssets/Ground_Sand_Polygon/GroundSand005_DISP_1K.jpg" id="3_t40uw"]
+[ext_resource type="Texture2D" uid="uid://bi7hlcgm7qc8t" path="res://PrototypeAssets/Ground_Sand_Polygon/GroundSand005_NRM_1K.jpg" id="4_1o5it"]
+
+[resource]
+albedo_texture = ExtResource("1_qysay")
+normal_enabled = true
+normal_texture = ExtResource("4_1o5it")
+ao_enabled = true
+ao_texture = ExtResource("2_mcxul")
+heightmap_enabled = true
+heightmap_texture = ExtResource("3_t40uw")
+uv1_triplanar = true

@@ -1,0 +1,24 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://fmbw5lh3hnd2"]
+
+[ext_resource type="Texture2D" uid="uid://ccbfgu3g7u5rw" path="res://PrototypeAssets/Conrete_Wall_Cladding_Polygon/1K/Poliigon_ConcreteWallCladding_7856_BaseColor.jpg" id="1_0mu2g"]
+[ext_resource type="Texture2D" uid="uid://def3ct5h8sggp" path="res://PrototypeAssets/Conrete_Wall_Cladding_Polygon/1K/Poliigon_ConcreteWallCladding_7856_AmbientOcclusion.jpg" id="2_f6dml"]
+[ext_resource type="Texture2D" uid="uid://dj5yhnt6n4mk4" path="res://PrototypeAssets/Conrete_Wall_Cladding_Polygon/1K/Poliigon_ConcreteWallCladding_7856_Metallic.jpg" id="3_0r3w7"]
+[ext_resource type="Texture2D" uid="uid://bfjp4oe5cmrpl" path="res://PrototypeAssets/Conrete_Wall_Cladding_Polygon/1K/Poliigon_ConcreteWallCladding_7856_Normal.png" id="4_ndkc8"]
+[ext_resource type="Texture2D" uid="uid://crx7e5qvkk8sn" path="res://PrototypeAssets/Conrete_Wall_Cladding_Polygon/1K/Poliigon_ConcreteWallCladding_7856_Roughness.jpg" id="5_uleib"]
+
+[resource]
+albedo_texture = ExtResource("1_0mu2g")
+metallic = 1.0
+metallic_texture = ExtResource("3_0r3w7")
+roughness_texture = ExtResource("5_uleib")
+emission = Color(0.24275702, 0.7759213, 0.39329162, 1)
+emission_energy_multiplier = 9.0
+normal_enabled = true
+normal_texture = ExtResource("4_ndkc8")
+ao_enabled = true
+ao_texture = ExtResource("2_f6dml")
+uv1_scale = Vector3(1.5, 1, 1)
+uv1_triplanar = true
+stencil_flags = 2
+stencil_reference = 2
+stencil_outline_thickness = 0.026

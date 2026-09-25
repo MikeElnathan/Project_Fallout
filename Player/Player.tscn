@@ -17,9 +17,12 @@
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_xhfnw"]
 height = 2.55061
 
-[node name="Player" type="CharacterBody3D" unique_id=1358758029 groups=["Player"]]
+[node name="Player" type="CharacterBody3D" unique_id=1358758029 node_paths=PackedStringArray("signalBus", "visual_mesh", "camera") groups=["Player"]]
 transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, 0)
 script = ExtResource("1_3qydi")
+signalBus = NodePath("SignalBus")
+visual_mesh = NodePath("CameraAndMesh/MaximoMesh")
+camera = NodePath("CameraAndMesh/Camera_Arm/Camera3D")
 
 [node name="SignalBus" type="Node3D" parent="." unique_id=871309967]
 script = ExtResource("3_3mea3")
@@ -67,3 +70,5 @@ offset_top = 85.0
 offset_right = 236.0
 offset_bottom = 123.0
 script = ExtResource("15_7v5gs")
+
+[editable path="CameraAndMesh"]
