@@ -20,6 +20,10 @@ config/features=PackedStringArray("4.7", "C#", "Forward Plus")
 run/max_fps=144
 config/icon="res://icon.svg"
 
+[autoload]
+
+PhantomCameraManager="*uid://duq6jhf6unyis"
+
 [display]
 
 window/size/viewport_width=1920
@@ -28,6 +32,10 @@ window/size/viewport_height=1080
 [dotnet]
 
 project/assembly_name="Project_Fallout"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/phantom_camera/plugin.cfg", "res://addons/sky_3d/plugin.cfg")
 
 [global_group]
 

@@ -3,9 +3,10 @@
 [ext_resource type="Texture2D" uid="uid://dd4gcahpjik7s" path="res://Trial/Prototyping Texture/Dark/texture_05.png" id="1_3yhwi"]
 [ext_resource type="Script" uid="uid://budeb22whwd7i" path="res://Trial/Trial_Level/TrialLevel2.cs" id="1_ieitj"]
 [ext_resource type="Environment" uid="uid://dn6jawis36v75" path="res://Resource/EnvironmentPreset_1.tres" id="1_l6e3g"]
-[ext_resource type="Material" uid="uid://b7k2etgswjyxh" path="res://Trial/Materials/Prototype_2.tres" id="3_6dmvn"]
 [ext_resource type="PackedScene" uid="uid://c281hy8xkfmy8" path="res://Player/Player.tscn" id="3_ibjk8"]
+[ext_resource type="Material" uid="uid://fmbw5lh3hnd2" path="res://Trial/Materials/Concrete_Wall_Cladding_Polygon.tres" id="4_nj4y5"]
 [ext_resource type="Material" uid="uid://d2p3ynx2ct3gm" path="res://Trial/Materials/Prototype_3.tres" id="5_l6e3g"]
+[ext_resource type="Material" uid="uid://cstqtx2tc80bu" path="res://Trial/Materials/Red_Brick_Polygon.tres" id="7_7x7cd"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_bjqgx"]
 size = Vector2(50, 50)
@@ -54,6 +55,7 @@ shape = SubResource("ConcavePolygonShape3D_ibjk8")
 
 [node name="Top_Floor" type="MeshInstance3D" parent="." unique_id=1365039579]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.2575684, 10.788216, -7.542176)
+material_override = ExtResource("4_nj4y5")
 mesh = SubResource("BoxMesh_bjqgx")
 skeleton = NodePath("../Base")
 surface_material_override/0 = SubResource("StandardMaterial3D_1xlpn")
@@ -65,18 +67,18 @@ shape = SubResource("ConcavePolygonShape3D_6dmvn")
 
 [node name="Walls_1" type="MeshInstance3D" parent="Top_Floor" unique_id=1410059933]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.023031235, 2.7887764, -17.111563)
-material_override = ExtResource("3_6dmvn")
+material_override = ExtResource("4_nj4y5")
 mesh = SubResource("BoxMesh_8jovo")
 
 [node name="Walls_2" type="MeshInstance3D" parent="Top_Floor" unique_id=2113935563]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.04606247, 3.0241146, 16.738176)
-material_override = ExtResource("3_6dmvn")
+material_override = ExtResource("4_nj4y5")
 mesh = SubResource("BoxMesh_8jovo")
 skeleton = NodePath("../Walls_1")
 
 [node name="Walls_3" type="MeshInstance3D" parent="Top_Floor" unique_id=1586134250]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 17.195139, 2.9744053, -0.02564001)
-material_override = ExtResource("3_6dmvn")
+material_override = ExtResource("4_nj4y5")
 mesh = SubResource("BoxMesh_8jovo")
 skeleton = NodePath("../Walls_1")
 
@@ -107,6 +109,7 @@ shape = SubResource("ConcavePolygonShape3D_nj4y5")
 
 [node name="Top_Floor2" type="MeshInstance3D" parent="." unique_id=665168738]
 transform = Transform3D(1, 0, 0, 0, -1, 8.742278e-08, 0, -8.742278e-08, -1, 7.3206787, 25.535603, -8.030272)
+material_override = ExtResource("7_7x7cd")
 mesh = SubResource("BoxMesh_bjqgx")
 skeleton = NodePath("../Base")
 surface_material_override/0 = SubResource("StandardMaterial3D_1xlpn")
@@ -118,18 +121,18 @@ shape = SubResource("ConcavePolygonShape3D_6dmvn")
 
 [node name="Walls_1" type="MeshInstance3D" parent="Top_Floor2" unique_id=718898809]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.023031235, 2.7887764, -17.111563)
-material_override = ExtResource("3_6dmvn")
+material_override = ExtResource("4_nj4y5")
 mesh = SubResource("BoxMesh_8jovo")
 skeleton = NodePath("../../Top_Floor2")
 
 [node name="Walls_2" type="MeshInstance3D" parent="Top_Floor2" unique_id=459385643]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.04606247, 3.0241146, 16.738176)
-material_override = ExtResource("3_6dmvn")
+material_override = ExtResource("4_nj4y5")
 mesh = SubResource("BoxMesh_8jovo")
 skeleton = NodePath("../Walls_1")
 
 [node name="Walls_3" type="MeshInstance3D" parent="Top_Floor2" unique_id=541108746]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 17.195139, 2.9744053, -0.02564001)
-material_override = ExtResource("3_6dmvn")
+material_override = ExtResource("4_nj4y5")
 mesh = SubResource("BoxMesh_8jovo")
 skeleton = NodePath("../Walls_1")

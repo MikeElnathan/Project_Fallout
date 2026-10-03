@@ -1,0 +1,31 @@
+[gd_scene format=3 uid="uid://dll84ujhyqqkv"]
+
+[ext_resource type="Material" uid="uid://dcd2xifrlghog" path="res://Trial/Materials/Ground_068_AmbientCG.tres" id="1_w2g2r"]
+[ext_resource type="Script" uid="uid://j64w6gi4ka36" path="res://Utility_Script/Level.cs" id="1_yu34u"]
+[ext_resource type="PackedScene" uid="uid://c281hy8xkfmy8" path="res://Player/Player.tscn" id="2_poyec"]
+[ext_resource type="Environment" uid="uid://dn6jawis36v75" path="res://Resource/EnvironmentPreset_1.tres" id="3_fqwlt"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_bjqgx"]
+size = Vector2(100, 100)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_yu34u"]
+size = Vector3(50, 0.001, 50)
+
+[node name="trial_level_4" type="Node3D" unique_id=1434526729]
+script = ExtResource("1_yu34u")
+
+[node name="Ground" type="MeshInstance3D" parent="." unique_id=112065905]
+material_override = ExtResource("1_w2g2r")
+gi_mode = 2
+mesh = SubResource("PlaneMesh_bjqgx")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Ground" unique_id=1730765561]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground/StaticBody3D" unique_id=789326415]
+shape = SubResource("BoxShape3D_yu34u")
+
+[node name="Player" parent="." unique_id=1358758029 instance=ExtResource("2_poyec")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=2023640217]
+environment = ExtResource("3_fqwlt")
