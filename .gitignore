@@ -2,6 +2,7 @@
 .godot/
 /android/
 /PrototypeAssets/
+/addons/
 
 #ignore asset files
 *.glb

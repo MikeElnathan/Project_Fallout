@@ -18,7 +18,7 @@ public partial class MainMenu : Control
 	//Listen to button pressed-----------------------------------------------------
 	private void _on_new_game_pressed()
 	{
-		
+		//put in new level here
 	}
 	private void _on_load_game_pressed()
 	{

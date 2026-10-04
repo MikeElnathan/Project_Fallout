@@ -39,10 +39,10 @@ public partial class SceneManager : Node
     }
 	private void init()
 	{
-		_nodeMainMenu = GetChild(0);
+		_nodeMainMenu = GetChild(0);//this can break
 		_nodeLoadGameMenu = Utilities.recursiveChildFinder<Node>(_nodeMainMenu, "Load_Game_Menu");
 
-		_mainMenuCanvas = GetChild(0).GetChild(0) as CanvasLayer;
+		_mainMenuCanvas = GetChild(0).GetChild(0) as CanvasLayer; //this can break
 		_mainMenu = Utilities.recursiveChildFinder<VBoxContainer>(_nodeMainMenu, "Main_Menu");
 		_loadGameMenu = Utilities.recursiveChildFinder<VBoxContainer>(_nodeMainMenu, "Load_Game_Menu");
 	}
