@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://dwdptfc7m6mx4" path="res://Player_2/player_2.gd" id="1_j3k15"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_8jovo"]
+height = 1.7
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_c5u55"]
 
