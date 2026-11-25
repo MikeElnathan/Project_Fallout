@@ -1,27 +1,17 @@
 [gd_resource type="Environment" format=3 uid="uid://dn6jawis36v75"]
 
-[ext_resource type="Texture2D" uid="uid://dipdv4dt7y04f" path="res://Trial/HDRI/citrus_orchard_road_puresky_1k.exr" id="1_an7lq"]
-
-[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_xxo5k"]
-panorama = ExtResource("1_an7lq")
-
-[sub_resource type="Sky" id="Sky_8jovo"]
-sky_material = SubResource("PanoramaSkyMaterial_xxo5k")
-
 [resource]
 background_mode = 2
 background_energy_multiplier = 0.54
-sky = SubResource("Sky_8jovo")
 tonemap_mode = 4
-tonemap_agx_contrast = 1.3
-ssr_enabled = true
 ssao_enabled = true
+ssao_radius = 0.54
+ssao_sharpness = 1.0
 sdfgi_enabled = true
 sdfgi_use_occlusion = true
 glow_enabled = true
 glow_normalized = true
 glow_intensity = 0.5
-glow_bloom = 0.15
-volumetric_fog_enabled = true
-volumetric_fog_density = 0.02
-volumetric_fog_albedo = Color(0.08797342, 0.31171674, 0.37386504, 1)
+glow_bloom = 0.06
+volumetric_fog_density = 0.0
+adjustment_enabled = true

@@ -13,7 +13,7 @@ size = Vector2(2, 2)
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8sa4y"]
 render_priority = 0
 shader = ExtResource("3_v6y6w")
-shader_parameter/intensity = 0.999999977648
+shader_parameter/intensity = 0.0
 shader_parameter/contrast = 0.25
 shader_parameter/saturation = 0.15
 shader_parameter/exposure = 0.0
@@ -21,7 +21,7 @@ shader_parameter/shadow_tint_strength = 0.12
 shader_parameter/highlight_tint_strength = 0.08
 shader_parameter/shadow_tint = Color(0.016391696, 0, 0.51702386, 1)
 shader_parameter/highlight_tint = Color(1, 1, 1, 1)
-shader_parameter/chromatic_aberration = 0.00689999982543
+shader_parameter/chromatic_aberration = 0.0029999999241
 shader_parameter/vignette_strength = 0.76999998278896
 shader_parameter/vignette_roundness = 1.34999997355012
 shader_parameter/sharpen_strength = 0.0
