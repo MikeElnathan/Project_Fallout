@@ -3,6 +3,8 @@
 /android/
 /PrototypeAssets/
 /addons/
+/AssetsLibrary/
+/Trial/
 
 #ignore asset files
 *.glb
