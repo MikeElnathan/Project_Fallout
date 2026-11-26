@@ -28,6 +28,8 @@ public partial class CameraArm : Node3D
 
     private Camera3D camera;
 
+    private bool _cameraYawEnable = false;
+
     public override void _Ready()
     {
         current_yaw = RotationDegrees.Y;
@@ -47,7 +49,10 @@ public partial class CameraArm : Node3D
                 }
                 if (Math.Abs(mouseMotion.Relative.Y) > deadzone)
                 {
-                    vertical_velocity -= mouseMotion.Relative.Y * orbit_sensitivity;
+                    if (_cameraYawEnable)
+                    {
+                        vertical_velocity -= mouseMotion.Relative.Y * orbit_sensitivity;
+                    }
                 }
             }
         }
