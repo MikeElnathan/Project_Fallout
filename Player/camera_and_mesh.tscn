@@ -13,7 +13,7 @@ size = Vector2(2, 2)
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8sa4y"]
 render_priority = 0
 shader = ExtResource("3_v6y6w")
-shader_parameter/intensity = 0.0
+shader_parameter/intensity = 0.499999988824
 shader_parameter/contrast = 0.25
 shader_parameter/saturation = 0.15
 shader_parameter/exposure = 0.0
